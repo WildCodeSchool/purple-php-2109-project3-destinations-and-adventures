@@ -1,7 +1,7 @@
-@import 'variables.scss';
+@import "variables.scss";
 
-body {
-    margin:0;
-    background-color: $wild-color;
-    color: $light;
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+    background-color: #edf1ec;
 }
