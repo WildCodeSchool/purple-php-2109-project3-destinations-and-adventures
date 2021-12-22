@@ -1,0 +1,13 @@
+@import 'variables.scss';
+
+// Header is the nav container
+header {
+    background: $green;
+    width: 200px;
+    padding: 1em;
+    color: white;
+
+    a {
+        color: white;
+    }
+}

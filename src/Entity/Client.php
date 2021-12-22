@@ -26,7 +26,7 @@ class Client
     private string $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Booking::class, mappedBy="lead_customer")
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="lead_customer")
      */
     private Collection $bookings;
 
@@ -58,34 +58,6 @@ class Client
         return $this;
     }
 
-
-    /**
-     * @return Collection|Booking[]
-     */
-    public function getBookings(): Collection
-    {
-        return $this->bookings;
-    }
-
-    public function addBooking(Booking $booking): self
-    {
-        if (!$this->bookings->contains($booking)) {
-            $this->bookings[] = $booking;
-            $booking->addLeadCustomer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBooking(Booking $booking): self
-    {
-        if ($this->bookings->removeElement($booking)) {
-            $booking->removeLeadCustomer($this);
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|ClientPayment[]
      */
@@ -110,6 +82,36 @@ class Client
             // set the owning side to null (unless already changed)
             if ($clientPayment->getClient() === $this) {
                 $clientPayment->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Booking[]
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): self
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings[] = $booking;
+            $booking->setLeadCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getLeadCustomer() === $this) {
+                $booking->setLeadCustomer(null);
             }
         }
 

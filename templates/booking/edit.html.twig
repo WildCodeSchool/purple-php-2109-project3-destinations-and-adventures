@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Booking{% endblock %}
+{% block header %}
+    {% include "_navbar.html.twig" %}
+{% endblock header %}
+
+{% block main %}
+<div class="generalInfo">
+  {% embed "_accordion.html.twig" %}
+
+  {% block formTitle %}Edit booking # {{ booking.reference }} {% endblock formTitle %}
+
+  {% block generalInfo %}
+  {{ include('general/_form.html.twig', {'button_label': 'Update'}) }}
+  {% endblock generalInfo %}
+
+  {% endembed %}
+</div>
+{% endblock main %}

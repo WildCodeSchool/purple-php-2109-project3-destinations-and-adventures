@@ -1,7 +1,18 @@
 @import 'variables.scss';
+@import "~bootstrap/scss/bootstrap";
+
+* {
+    border: 0;
+    margin: 0;
+}
 
 body {
-    margin:0;
-    background-color: $wild-color;
-    color: $light;
+    display: flex;
+    height: 100vh;
+    color: #3D5224;
+}
+
+main {
+    width: 100%;
+    background-color: #EDF1EC;
 }

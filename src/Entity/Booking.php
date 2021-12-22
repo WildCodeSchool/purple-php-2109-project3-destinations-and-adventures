@@ -7,104 +7,109 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\ClientPayment;
+use App\Entity\SupplierPayment;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
+ * @UniqueEntity("reference")
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Booking
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+/**
+ * @ORM\Id
+ * @ORM\GeneratedValue
+ * @ORM\Column(type="integer")
+ */
     private int $id;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+/**
+ * @ORM\Column(type="integer", nullable=true)
+ */
     private ?int $reference;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+/**
+ * @ORM\Column(type="string", length=255)
+ */
     private ?string $name;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Client::class, inversedBy="bookings")
-     */
-    private Collection $leadCustomer;
+/**
+ * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="bookings", cascade={"persist"})
+ */
+    private ?Client $leadCustomer;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+/**
+ * @ORM\Column(type="integer")
+ */
     private ?int $travelersCount;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+/**
+ * @ORM\Column(type="string", length=255)
+ */
     private ?string $destination;
 
-    /**
-     * @ORM\Column(type="date")
-     */
+/**
+ * @ORM\Column(type="date")
+ */
     private DateTimeInterface $confirmationDate;
 
-    /**
-     * @ORM\Column(type="date")
-     */
+/**
+ * @ORM\Column(type="date")
+ */
     private DateTimeInterface $departure;
 
-    /**
-     * @ORM\Column(type="date")
-     */
+/**
+ * @ORM\Column(type="date")
+ */
     private DateTimeInterface $returnDate;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
+/**
+ * @ORM\Column(type="float", nullable=true)
+ */
     private ?float $total;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
+/**
+ * @ORM\Column(type="float", nullable=true)
+ */
     private ?float $perPerson;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
+/**
+ * @ORM\Column(type="float", nullable=true)
+ */
     private ?float $depositAmount;
 
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
+/**
+ * @ORM\Column(type="date", nullable=true)
+ */
     private ?DateTimeInterface $dueDepositDate;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+/**
+ * @ORM\Column(type="text", nullable=true)
+ */
     private ?string $note;
 
-    /**
-     * @ORM\OneToMany(targetEntity=ClientPayment::class, mappedBy="booking", orphanRemoval=true)
-     */
-    private Collection $clientPayment;
+/**
+ * @ORM\OneToMany(targetEntity=ClientPayment::class, mappedBy="booking", orphanRemoval=true)
+ */
+    private Collection $clientPayments;
 
-    /**
-     * @ORM\OneToMany(targetEntity=SupplierPayment::class, mappedBy="booking", orphanRemoval=true)
-     */
-    private Collection $supplierPayment;
+/**
+ * @ORM\OneToMany(targetEntity=SupplierPayment::class, mappedBy="booking", orphanRemoval=true)
+ */
+    private Collection $supplierPayments;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="bookings")
-     */
+/**
+ * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="bookings", cascade={"persist"})
+ */
     private ?Agent $agent;
 
     public function __construct()
     {
-        $this->leadCustomer = new ArrayCollection();
-        $this->clientPayment = new ArrayCollection();
-        $this->supplierPayment = new ArrayCollection();
+        $this->clientPayments = new ArrayCollection();
+        $this->supplierPayments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,36 +141,12 @@ class Booking
         return $this;
     }
 
-    /**
-     * @return Collection|Client[]
-     */
-    public function getLeadCustomer(): Collection
-    {
-        return $this->leadCustomer;
-    }
-
-    public function addLeadCustomer(Client $leadCustomer): self
-    {
-        if (!$this->leadCustomer->contains($leadCustomer)) {
-            $this->leadCustomer[] = $leadCustomer;
-        }
-
-        return $this;
-    }
-
-    public function removeLeadCustomer(Client $leadCustomer): self
-    {
-        $this->leadCustomer->removeElement($leadCustomer);
-
-        return $this;
-    }
-
     public function getTravelersCount(): ?int
     {
         return $this->travelersCount;
     }
 
-    public function setTravelersCount(int $travelersCount): self
+    public function setTravelersCount(?int $travelersCount): self
     {
         $this->travelersCount = $travelersCount;
 
@@ -280,60 +261,60 @@ class Booking
         return $this;
     }
 
-    /**
-     * @return Collection|ClientPayment[]
-     */
-    public function getClientPayment(): Collection
+/**
+ * @return Collection|ClientPayment[]
+ */
+    public function getClientPayments(): Collection
     {
-        return $this->clientPayment;
+        return $this->clientPayments;
     }
 
-    public function addClientPayment(ClientPayment $clientPayment): self
+    public function addClientPayments(ClientPayment $clientPayments): self
     {
-        if (!$this->clientPayment->contains($clientPayment)) {
-            $this->clientPayment[] = $clientPayment;
-            $clientPayment->setBooking($this);
+        if (!$this->clientPayments->contains($clientPayments)) {
+            $this->clientPayments[] = $clientPayments;
+            $clientPayments->setBooking($this);
         }
 
         return $this;
     }
 
-    public function removeClientPayment(ClientPayment $clientPayment): self
+    public function removeClientPayments(ClientPayment $clientPayments): self
     {
-        if ($this->clientPayment->removeElement($clientPayment)) {
+        if ($this->clientPayments->removeElement($clientPayments)) {
             // set the owning side to null (unless already changed)
-            if ($clientPayment->getBooking() === $this) {
-                $clientPayment->setBooking(null);
+            if ($clientPayments->getBooking() === $this) {
+                $clientPayments->setBooking(null);
             }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|SupplierPayment[]
-     */
-    public function getSupplierPayment(): Collection
+/**
+ * @return Collection|SupplierPayment[]
+ */
+    public function getSupplierPayments(): Collection
     {
-        return $this->supplierPayment;
+        return $this->supplierPayments;
     }
 
-    public function addSupplierPayment(SupplierPayment $supplierPayment): self
+    public function addSupplierPayments(SupplierPayment $supplierPayments): self
     {
-        if (!$this->supplierPayment->contains($supplierPayment)) {
-            $this->supplierPayment[] = $supplierPayment;
-            $supplierPayment->setBooking($this);
+        if (!$this->supplierPayments->contains($supplierPayments)) {
+            $this->supplierPayments[] = $supplierPayments;
+            $supplierPayments->setBooking($this);
         }
 
         return $this;
     }
 
-    public function removeSupplierPayment(SupplierPayment $supplierPayment): self
+    public function removeSupplierPayments(SupplierPayment $supplierPayments): self
     {
-        if ($this->supplierPayment->removeElement($supplierPayment)) {
+        if ($this->supplierPayments->removeElement($supplierPayments)) {
             // set the owning side to null (unless already changed)
-            if ($supplierPayment->getBooking() === $this) {
-                $supplierPayment->setBooking(null);
+            if ($supplierPayments->getBooking() === $this) {
+                $supplierPayments->setBooking(null);
             }
         }
 
@@ -348,6 +329,63 @@ class Booking
     public function setAgent(?Agent $agent): self
     {
         $this->agent = $agent;
+
+        return $this;
+    }
+
+
+    public function addClientPayment(ClientPayment $clientPayment): self
+    {
+        if (!$this->clientPayments->contains($clientPayment)) {
+            $this->clientPayments[] = $clientPayment;
+            $clientPayment->setBooking($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClientPayment(ClientPayment $clientPayment): self
+    {
+        if ($this->clientPayments->removeElement($clientPayment)) {
+            // set the owning side to null (unless already changed)
+            if ($clientPayment->getBooking() === $this) {
+                $clientPayment->setBooking(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addSupplierPayment(SupplierPayment $supplierPayment): self
+    {
+        if (!$this->supplierPayments->contains($supplierPayment)) {
+            $this->supplierPayments[] = $supplierPayment;
+            $supplierPayment->setBooking($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSupplierPayment(SupplierPayment $supplierPayment): self
+    {
+        if ($this->supplierPayments->removeElement($supplierPayment)) {
+            // set the owning side to null (unless already changed)
+            if ($supplierPayment->getBooking() === $this) {
+                $supplierPayment->setBooking(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLeadCustomer(): ?Client
+    {
+        return $this->leadCustomer;
+    }
+
+    public function setLeadCustomer(?Client $leadCustomer): self
+    {
+        $this->leadCustomer = $leadCustomer;
 
         return $this;
     }

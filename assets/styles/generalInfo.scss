@@ -1,0 +1,124 @@
+@import 'variables.scss';
+@import "~bootstrap/scss/bootstrap";
+
+.generalInfo {
+
+    .form-container {
+        border: 1px solid rgba(0, 0, 0, 0.300);
+        background: #F4FAF4;
+        margin: 5rem auto;
+        width: 90vmin;
+        padding: 50px 75px;
+
+        .accordion-body{
+            padding: 3rem 3rem 1rem 3rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        h3 {
+            font-size: 1rem;
+        }
+
+        .flex-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+            margin: 1rem;
+        }
+
+        input {
+            margin-bottom: 0.5rem;
+            width: 100%;
+        }
+
+        .travelers-agent {
+            display: flex;
+            margin-top: 2rem;
+            justify-content: space-between;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+    }
+
+    // Bootstrap Form variables
+    .accordion-button:not(.collapsed) {
+        color: white;
+        background-color: $green!important;
+        font-weight: bold;
+    }
+
+    .accordion-button {
+        color: white;
+        background-color: $lightgreen;
+        font-weight: bold;
+    }
+
+    .accordion-button::after {
+        color: white!important;
+    }
+
+    .accordion-body {
+        background: $form-bg;
+    }
+
+    .general-info {
+        section {
+            margin-bottom: 2rem;
+        }
+
+    }
+
+    .badge {
+        color: #dc3545!important;
+    }
+
+    label.required:before {
+        content: "* ";
+        color: #dc3545;
+    }
+
+    input {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn {
+        background: $lightgreen;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn::before {
+        content: "";
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        background-color: $green;
+        z-index: -1;
+        transition: transform 150ms ease-in-out;
+        transform: scalex(0);
+        transform-origin: left;
+    }
+
+    .btn:hover::before {
+        transform: scalex(1);
+    }
+
+    .btn:hover {
+        color: #fff;
+    }
+}
