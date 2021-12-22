@@ -11,22 +11,12 @@ use App\Form\GeneralInfoType;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @Route("/general", name="general_")
+ * @Route("/booking/general-informations/", name="general_")
  */
 class GeneralInfoController extends AbstractController
 {
     /**
-     * @Route("/info", name="info")
-     */
-    public function index(): Response
-    {
-        return $this->render('general_info/index.html.twig', [
-            'controller_name' => 'GeneralInfoController',
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="new")
+     * @Route("new", name="new")
      */
     public function new(Request $request): Response
     {
