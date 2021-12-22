@@ -1,0 +1,30 @@
+{# templates/login/index.html.twig #}
+{% extends 'base.html.twig' %}
+{% block title %}Login{% endblock %}
+{% block body %}
+<div class="login_page">
+<div class="background"></div>
+<div class="login">
+    <div class="destination_adventures">
+        <h1>
+            <span class="trajan_maj">D</span><span class="trajan_min">ESTINATIONS</span> <span class=" trajan_maj">&</span>
+            <span class="trajan_maj">A</span><span class="trajan_min">DVENTURES</span></h1>
+        </div>
+        <div class="international">
+            <h2>INTERNATIONAL</h2>
+        </div>
+        <h3>Sign into your account</h3>
+        <form action="{{ path('login') }}" method="post">
+            <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Username" />
+            <input type="password" id="password" name="_password" placeholder="Password" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <button type="submit">LOGIN</button>
+            {% if error %}
+                <div>
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
