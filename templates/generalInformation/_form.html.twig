@@ -1,38 +1,60 @@
 {{ form_start(form) }}
-    <div class="booking">
-        <h3>BOOKING</h3>
-        <div class="flex-group">
-            <div class="flex-column">
-            {{ form_label(form.reference) }}
-            {{ form_widget(form.reference) }}
-            {{ form_label(form.name, 'Booking name') }}
-            {{ form_widget(form.name) }}
-            {{ form_label(form.travelersCount, 'Travelers count') }}
-            {{ form_widget(form.travelersCount) }}
-            </div>
-            <div class="flex-column">
-            {{ form_widget(form.leadCustomer) }}
-            {{ form_label(form.destination) }}
-            {{ form_widget(form.destination) }}
-            {{ form_label(form.confirmationDate, 'Confirmation date') }}
-            {{ form_widget(form.confirmationDate) }}
-            </div>
+<div class="form-section row g-3">
+    <h3>BOOKING</h3>
+    <div class="col-md-6">
+        {{ form_label(form.reference) }}
+        {{ form_widget(form.reference) }}
     </div>
+    <div class="col-md-6">
+        {{ form_label(form.name, 'Booking name') }}
+        {{ form_widget(form.name) }}
     </div>
-    <div class="travelers-agent">
-        <div class="flex-column">
-        <h3>TRAVELING DATES</h3>
-            {{ form_label(form.departure, 'Departure date') }}
-            {{ form_widget(form.departure) }}
-            {{ form_label(form.returnDate, 'Return date') }}
-            {{ form_widget(form.returnDate) }}
-        </div>
-        <div class="flex-column">
-        <h3>AGENT</h3>
-            {{ form_widget(form.agent) }}
-        </div>
+    <div class="col-md-6">
+        {{ form_label(form.travelersCount, 'Travelers count') }}
+        {{ form_widget(form.travelersCount) }}
     </div>
-    <div class="btn-container">
+    <div class="col-md-6">
+        {{ form_widget(form.leadCustomer) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(form.destination) }}
+        {{ form_widget(form.destination) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(form.confirmationDate, 'Confirmation date') }}
+        {{ form_widget(form.confirmationDate) }}
+    </div>
+</div>
+<div class="form-section row g-3">
+    <h3>TRAVELING DATES</h3>
+    <div class="col-md-6">
+        {{ form_label(form.departure, 'Departure date') }}
+        {{ form_widget(form.departure) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(form.returnDate, 'Return date') }}
+        {{ form_widget(form.returnDate) }}
+    </div>
+</div>
+<div class="form-section row g-3">
+    <h3>AGENCY</h3>
+    <div class="col-md-6">
+        {{ form_label(form.agent.name, 'Agency name') }}
+        {{ form_widget(form.agent.name) }}
+    </div>
+    <div class="col-md-4">
+        {{ form_label(form.agent.commission, 'Commission') }}
+        {{ form_widget(form.agent.commission) }}
+    </div>
+    <div class="col-md-2">
+        <label for=""></label>
+        <select id="" class="form-select">
+            <option selected>$</option>
+            <option>%</option>
+        </select>
+    </div>
+</div>
+<div class="text-center">
     <button class="btn">{{ button_label|default('SAVE') }}</button>
 </div>
 {{ form_end(form) }}
