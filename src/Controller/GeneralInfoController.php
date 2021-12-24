@@ -32,7 +32,7 @@ class GeneralInfoController extends AbstractController
             return $this->redirectToRoute('booking_index');
         }
 
-        return $this->render('general/new.html.twig', [
+        return $this->render('generalInformation/new.html.twig', [
             "form" => $form->createView(),
         ]);
     }

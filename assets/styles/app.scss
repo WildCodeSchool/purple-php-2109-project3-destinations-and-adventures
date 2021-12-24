@@ -4,10 +4,12 @@
 * {
     box-sizing: border-box;
     margin: 0 auto;
-    background-color: #edf1ec;
 }
 
-body {
+main {
+    background: $mainBg;
+}
+/* .body {
     display: flex;
     height: 100vh;
     color: #3D5224;
@@ -16,4 +18,4 @@ body {
 main {
     width: 100%;
     background-color: #EDF1EC;
-}
+} */

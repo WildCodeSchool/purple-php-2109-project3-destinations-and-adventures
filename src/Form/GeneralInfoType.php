@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Booking;
-use App\Entity\Client;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -55,7 +54,9 @@ class GeneralInfoType extends AbstractType
                     'placeholder' => 'return date',
                 ]
             ])
-            ->add('agent', AgentType::class)
+            ->add('agent', AgentType::class, [
+                'required' => false,
+            ])
         ;
     }
 

@@ -1,61 +1,42 @@
-@import 'variables.scss';
+@import "variables.scss";
 @import "~bootstrap/scss/bootstrap";
 
 .generalInfo {
+    padding-top: 8rem;
+    padding-bottom: 2rem;
+    margin: 0 2rem;
 
-    .form-container {
-        border: 1px solid rgba(0, 0, 0, 0.300);
-        background: #F4FAF4;
-        margin: 5rem auto;
-        width: 90vmin;
-        padding: 50px 75px;
+    a {
+        text-decoration: none;
+    }
 
-        .accordion-body{
-            padding: 3rem 3rem 1rem 3rem;
-        }
+    h1 {
+        text-align: center;
+        margin-bottom: 35px;
+        color: $darkgreen;
+    }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 35px;
-        }
+    h3 {
+        font-size: 1rem;
+    }
 
-        h3 {
-            font-size: 1rem;
-        }
+    input {
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
 
-        .flex-group {
-            display: flex;
-            justify-content: space-between;
-        }
+    .accordion-body {
+        padding: 2rem;
+    }
 
-        .flex-column {
-            display: flex;
-            flex-direction: column;
-            margin: 1rem;
-        }
-
-        input {
-            margin-bottom: 0.5rem;
-            width: 100%;
-        }
-
-        .travelers-agent {
-            display: flex;
-            margin-top: 2rem;
-            justify-content: space-between;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 1rem;
-        }
+    .form-section {
+        margin-bottom: 2rem;
     }
 
     // Bootstrap Form variables
     .accordion-button:not(.collapsed) {
         color: white;
-        background-color: $green!important;
+        background-color: $green !important;
         font-weight: bold;
     }
 
@@ -66,7 +47,13 @@
     }
 
     .accordion-button::after {
-        color: white!important;
+        filter: invert(99%) sepia(8%) saturate(4%) hue-rotate(70deg)
+            brightness(103%) contrast(100%);
+    }
+
+    .accordion-button:not(.collapsed)::after {
+        filter: invert(99%) sepia(8%) saturate(4%) hue-rotate(70deg)
+            brightness(103%) contrast(100%);
     }
 
     .accordion-body {
@@ -77,11 +64,10 @@
         section {
             margin-bottom: 2rem;
         }
-
     }
 
     .badge {
-        color: #dc3545!important;
+        color: #dc3545 !important;
     }
 
     label.required:before {
@@ -93,7 +79,9 @@
         border: 1px solid rgba(0, 0, 0, 0.2);
     }
 
+    // JS btn animation
     .btn {
+        width: 6rem;
         background: $lightgreen;
         color: #fff;
         position: relative;
@@ -120,5 +108,19 @@
 
     .btn:hover {
         color: #fff;
+    }
+    // End of JS btn animation
+
+    @media screen and (min-width: 768px) {
+        margin: 0 5rem;
+
+        .accordion-body {
+            padding: 3rem;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        margin: 0 16rem;
+        padding-top: 10rem;
     }
 }
