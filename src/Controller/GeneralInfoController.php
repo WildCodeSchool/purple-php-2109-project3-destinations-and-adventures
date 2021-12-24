@@ -56,6 +56,4 @@ class GeneralInfoController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
 }
