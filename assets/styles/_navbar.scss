@@ -1,13 +1,111 @@
-@import 'variables.scss';
+@import "variables.scss";
 
 // Header is the nav container
-header {
-    background: $green;
-    width: 200px;
-    padding: 1em;
-    color: white;
 
-    a {
+.navbar {
+    background-color: $green;
+    height: 5rem !important;
+
+    .pe-3 {
+        padding-right: 0rem !important;
+    }
+
+    h5 {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .container-fluid {
+        padding: 0 !important;
+        width: 100% !important;
+        margin: 0 1rem;
+
+        .navbar-brand {
+            margin: 0 !important;
+            padding-top: 0.8rem !important;
+            font-family: $TrajanPro;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: bold;
+            text-align: center;
+
+
+            #times {
+                font-family: $Times;
+                font-weight: normal;
+                letter-spacing: .35rem;
+                font-size: 0.5rem;
+            }
+        }
+
+        .navbar-toggler {
+            background: $darkgreen;
+
+            .navbar-toggler-icon {
+                filter: invert(100%) sepia(44%) saturate(284%)
+                    hue-rotate(352deg) brightness(100%) contrast(75%);
+            }
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-nav .nav-link:focus {
+            color: red;
+        }
+
+        .offcanvas {
+            background-color: $green;
+
+            .offcanvas-header {
+                margin-right: 0;
+
+                .btn-close {
+                    filter: invert(100%) sepia(44%) saturate(284%)
+                        hue-rotate(352deg) brightness(100%) contrast(75%);
+                }
+            }
+
+            .offcanvas-body {
+                margin: 0 !important;
+
+                hr {
+                    color: $light;
+                }
+            }
+
+            .nav-link,
+            h2 {
+                color: rgba(255, 255, 255, 0.5);
+                .title {
+                    font-weight: bold;
+                    font-size: 1.5rem !important;
+                }
+            }
+
+            .nav-item {
+                color: $lightgreen;
+                .title {
+                    color: white;
+                }
+            }
+        }
+
+        .offcanvas-end {
+            width: 11rem !important;
+        }
+    }
+
+    .logout {
+        background:$darkgreen;
         color: white;
+    }
+
+    @media screen and (min-width: 768px) {
+        .navbar-brand {
+            font-size: 0.95rem !important;
+
+            #times {
+                font-size: 0.75rem !important;
+            }
+        }
     }
 }
