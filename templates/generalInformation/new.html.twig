@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add a new booking{% endblock %}
+
+{% block main %}
+<div class="generalInfo">
+{% embed "components/_accordion.html.twig" %}
+
+{% block formTitle %}Add a new booking{% endblock formTitle %}
+
+{% block generalInfo %}
+
+{% include "generalInformation/_form.html.twig" %}
+
+{% endblock generalInfo %}
+{% endembed %}
+
+</div>
+{% endblock main %} 
