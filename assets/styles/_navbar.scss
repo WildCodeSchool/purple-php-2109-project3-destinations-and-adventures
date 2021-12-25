@@ -43,7 +43,7 @@
 
             .navbar-toggler-icon {
                 filter: invert(100%) sepia(44%) saturate(284%)
-                    hue-rotate(352deg) brightness(100%) contrast(75%);
+                hue-rotate(352deg) brightness(100%) contrast(75%);
             }
         }
 
@@ -60,7 +60,7 @@
 
                 .btn-close {
                     filter: invert(100%) sepia(44%) saturate(284%)
-                        hue-rotate(352deg) brightness(100%) contrast(75%);
+                    hue-rotate(352deg) brightness(100%) contrast(75%);
                 }
             }
 
@@ -75,6 +75,7 @@
             .nav-link,
             h2 {
                 color: rgba(255, 255, 255, 0.5);
+
                 .title {
                     font-weight: bold;
                     font-size: 1.5rem !important;
@@ -83,6 +84,7 @@
 
             .nav-item {
                 color: $lightgreen;
+
                 .title {
                     color: white;
                 }

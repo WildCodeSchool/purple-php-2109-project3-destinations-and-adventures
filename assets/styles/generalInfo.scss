@@ -48,12 +48,12 @@
 
     .accordion-button::after {
         filter: invert(99%) sepia(8%) saturate(4%) hue-rotate(70deg)
-            brightness(103%) contrast(100%);
+        brightness(103%) contrast(100%);
     }
 
     .accordion-button:not(.collapsed)::after {
         filter: invert(99%) sepia(8%) saturate(4%) hue-rotate(70deg)
-            brightness(103%) contrast(100%);
+        brightness(103%) contrast(100%);
     }
 
     .accordion-body {
