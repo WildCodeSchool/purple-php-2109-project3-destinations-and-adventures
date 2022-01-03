@@ -27,8 +27,8 @@ class Booking
     private int $id;
 
     /**
+     * @ORM\Column(name="reference", type="integer", nullable=true, unique=true)
      * @Assert\Positive
-     * @ORM\Column(type="integer", nullable=true)
      */
     private ?int $reference;
 
@@ -36,7 +36,7 @@ class Booking
      * @Assert\NotBlank
      * @Assert\Length(
      *         max = 255,
-     *         maxMessage = "Le nom du booking ne peut pas comporter plus de {{ limit }} caractères.")
+     *         maxMessage = "The booking name cannot be longer than {{ limit }} characters")
      * @ORM\Column(type="string", length=255)
      */
     private ?string $name;

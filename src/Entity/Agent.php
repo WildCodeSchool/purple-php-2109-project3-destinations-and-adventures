@@ -23,7 +23,7 @@ class Agent
     /**
      * @Assert\Length(
      *      max = 255,
-     *      maxMessage = "Le nom de l'agent ne peut pas comporter plus de {{ limit }} caractères.")
+     *      maxMessage = "The agent name cannot be longer than {{ limit }} characters")
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $name;
