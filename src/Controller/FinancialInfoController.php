@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/booking/financial-informations/", name="financial_")
+ * @Route("/booking/", name="financial_")
  */
 class FinancialInfoController extends AbstractController
 {
     /**
-     * @Route("{id}/edit", name="edit")
+     * @Route("{id}/financial-informations/edit", name="edit")
      */
     public function edit(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
     {

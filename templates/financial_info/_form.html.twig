@@ -1,21 +1,4 @@
 {{ form_start(form) }}
-<div class="booking">
-    <h3>BOOKING</h3>
-    <div class="flex-group">
-        <div class="flex-column">
-        {{ form_label(form.total) }}
-        {{ form_widget(form.total) }}
-        {{ form_label(form.perPerson) }}
-        {{ form_widget(form.perPerson) }}
-        {{ form_label(form.depositAmount) }}
-        {{ form_widget(form.depositAmount) }}
-        {{ form_label(form.dueDepositDate) }}
-        {{ form_widget(form.dueDepositDate) }}
-        {{ form_label(form.note) }}
-        {{ form_widget(form.note) }}
-        </div>
-</div>
-    <div class="btn-container">
+    {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('SAVE') }}</button>
-</div>
 {{ form_end(form) }}
