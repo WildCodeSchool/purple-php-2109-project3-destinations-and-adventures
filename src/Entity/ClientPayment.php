@@ -5,12 +5,18 @@ namespace App\Entity;
 use App\Repository\ClientPaymentRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ClientPaymentRepository::class)
  */
 class ClientPayment
 {
+
+    public const TYPES = ['deposit', 'final_payment', 'fulll_payment'];
+    public const MODES = ['credit_card', 'wire_transfert', 'check', 'credit', 'refund'];
+    public const STATUS = ['due', 'paid',];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -25,6 +31,7 @@ class ClientPayment
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $amount;
 
@@ -34,9 +41,10 @@ class ClientPayment
     private ?string $note;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=ClientPayment::STATUS, message="Choose a valid status.")
      */
-    private ?bool $status;
+    private ?string $status;
 
     /**
      * @ORM\ManyToOne(targetEntity=Booking::class, inversedBy="client_payment")
@@ -49,6 +57,18 @@ class ClientPayment
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Client $client;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=ClientPayment::TYPES, message="Choose a valid payment type.")
+     */
+    private ?string $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=ClientPayment::MODES, message="Choose a valid payment mode.")
+     */
+    private ?string $mode;
 
     public function getId(): ?int
     {
@@ -91,12 +111,12 @@ class ClientPayment
         return $this;
     }
 
-    public function getStatus(): ?bool
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(?bool $status): self
+    public function setStatus(?string $status): self
     {
         $this->status = $status;
 
@@ -123,6 +143,30 @@ class ClientPayment
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getMode(): ?string
+    {
+        return $this->mode;
+    }
+
+    public function setMode(?string $mode): self
+    {
+        $this->mode = $mode;
 
         return $this;
     }
