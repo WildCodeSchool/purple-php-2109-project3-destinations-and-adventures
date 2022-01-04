@@ -31,7 +31,7 @@ class Client
     private string $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="lead_customer")
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="leadCustomer")
      */
     private Collection $bookings;
 
