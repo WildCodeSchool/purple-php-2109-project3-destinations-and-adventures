@@ -40,7 +40,7 @@ class ClientController extends AbstractController
     {
         $delete = new Client();
         $form = $this->createForm(AddClientType::class, $delete);
-        $form->handleRequest($delete);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine() ->getManager();
             $entityManager->persist($delete);
