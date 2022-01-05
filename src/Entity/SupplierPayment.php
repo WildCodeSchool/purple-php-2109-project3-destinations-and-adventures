@@ -11,6 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SupplierPayment
 {
+    public const CURRENCY = [
+                    'EUR', 'GBP', 'BGN', 'HRK', 'DKK', 'HUF', 'PLN', 'SEK', 'CZK', 'RON', 'ALL',
+                    'BYN', 'BAM', 'ISK', 'CHF', 'MKD', 'MDL', 'NOK', 'RSD', 'UAH', 'GIP',
+                ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,6 +25,7 @@ class SupplierPayment
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $dueAmount;
 
@@ -30,11 +36,13 @@ class SupplierPayment
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $exchangeRate;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $dueDollarsAmount;
 
@@ -77,6 +85,7 @@ class SupplierPayment
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=SupplierPayment::CURRENCY, message="Choose a valid currency.")
      */
     private ?string $currency;
 
