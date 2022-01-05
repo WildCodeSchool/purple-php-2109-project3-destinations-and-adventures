@@ -70,10 +70,13 @@ class SupplierPaymentController extends AbstractController
         EntityManagerInterface $entityManager,
         Booking $booking
     ): Response {
-        if ($this->isCsrfTokenValid('delete' . $supplierPayment->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($supplierPayment);
-            $entityManager->flush();
+        if (is_string($request->request->get('_token')) || is_null($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $supplierPayment->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($supplierPayment);
+                $entityManager->flush();
+            }
         }
+
         return $this->redirectToRoute(
             'supplier_payment_index',
             ['booking_id' => $booking->getId()],
