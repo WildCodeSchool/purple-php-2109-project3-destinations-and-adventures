@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ClientPaymentRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Booking;
 
 /**
  * @ORM\Entity(repositoryClass=ClientPaymentRepository::class)
@@ -39,7 +40,7 @@ class ClientPayment
     private ?bool $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Booking::class, inversedBy="client_payment")
+     * @ORM\ManyToOne(targetEntity=Booking::class, inversedBy="clientPayments")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Booking $booking;
