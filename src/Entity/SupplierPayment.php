@@ -11,6 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SupplierPayment
 {
+    public const CURRENCY = [
+        'EUR', 'GBP', 'BGN', 'HRK', 'DKK', 'HUF', 'PLN', 'SEK', 'CZK', 'RON', 'ALL',
+        'BYN', 'BAM', 'ISK', 'CHF', 'MKD', 'MDL', 'NOK', 'RSD', 'UAH', 'GIP',
+    ];
+    public const TYPES = ['deposit', 'final_payment', 'fulll_payment'];
+    public const MODES = ['credit_card', 'wire_transfert', 'check', 'credit', 'refund'];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,6 +27,7 @@ class SupplierPayment
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $dueAmount;
 
@@ -30,11 +38,13 @@ class SupplierPayment
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $exchangeRate;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $dueDollarsAmount;
 
@@ -50,11 +60,13 @@ class SupplierPayment
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $paidAmount;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $dueCommission;
 
@@ -77,16 +89,19 @@ class SupplierPayment
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=SupplierPayment::CURRENCY, message="Choose a valid currency.")
      */
     private ?string $currency;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=ClientPayment::TYPES, message="Choose a valid payment type.")
      */
     private ?string $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=ClientPayment::MODES, message="Choose a valid payment mode.")
      */
     private ?string $mode;
 
