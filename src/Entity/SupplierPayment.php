@@ -70,7 +70,7 @@ class SupplierPayment
     private ?Supplier $supplier;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Booking::class, inversedBy="supplier_payment")
+     * @ORM\ManyToOne(targetEntity=Booking::class, inversedBy="supplierPayments")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Booking $booking;
