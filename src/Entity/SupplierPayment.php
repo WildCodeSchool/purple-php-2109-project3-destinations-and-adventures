@@ -19,31 +19,6 @@ class SupplierPayment
     private int $id;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private ?float $dueAmount;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private ?DateTimeInterface $dueDate;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private ?float $exchangeRate;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private ?float $dueDollarsAmount;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private ?string $note;
-
-    /**
      * @ORM\Column(type="date", nullable=true)
      */
     private ?DateTimeInterface $date;
@@ -78,66 +53,6 @@ class SupplierPayment
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDueAmount(): ?float
-    {
-        return $this->dueAmount;
-    }
-
-    public function setDueAmount(?float $dueAmount): self
-    {
-        $this->dueAmount = $dueAmount;
-
-        return $this;
-    }
-
-    public function getDueDate(): ?\DateTimeInterface
-    {
-        return $this->dueDate;
-    }
-
-    public function setDueDate(?\DateTimeInterface $dueDate): self
-    {
-        $this->dueDate = $dueDate;
-
-        return $this;
-    }
-
-    public function getExchangeRate(): ?float
-    {
-        return $this->exchangeRate;
-    }
-
-    public function setExchangeRate(?float $exchangeRate): self
-    {
-        $this->exchangeRate = $exchangeRate;
-
-        return $this;
-    }
-
-    public function getDueDollarsAmount(): ?float
-    {
-        return $this->dueDollarsAmount;
-    }
-
-    public function setDueDollarsAmount(?float $dueDollarsAmount): self
-    {
-        $this->dueDollarsAmount = $dueDollarsAmount;
-
-        return $this;
-    }
-
-    public function getNote(): ?string
-    {
-        return $this->note;
-    }
-
-    public function setNote(?string $note): self
-    {
-        $this->note = $note;
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
