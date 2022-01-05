@@ -5,12 +5,16 @@ namespace App\Entity;
 use App\Repository\SupplierPaymentRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SupplierPaymentRepository::class)
  */
 class SupplierPayment
 {
+    public const STATUS = ['due', 'paid'];
+    public const TYPES = ['deposit', 'final_payment', 'fulll_payment'];
+    public const MODES = ['credit_card', 'wire_transfert', 'check', 'credit', 'refund'];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -19,42 +23,19 @@ class SupplierPayment
     private int $id;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private ?float $dueAmount;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private ?DateTimeInterface $dueDate;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private ?float $exchangeRate;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private ?float $dueDollarsAmount;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private ?string $note;
-
-    /**
      * @ORM\Column(type="date", nullable=true)
      */
     private ?DateTimeInterface $date;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $paidAmount;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $dueCommission;
 
@@ -75,57 +56,32 @@ class SupplierPayment
      */
     private ?Booking $booking;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=SupplierPayment::STATUS, message="Choose a valid payment status.")
+     */
+    private ?string $status;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=SupplierPayment::TYPES, message="Choose a valid payment type.")
+     */
+    private ?string $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=SupplierPayment::MODES, message="Choose a valid payment mode.")
+     */
+    private ?string $mode;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $note;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDueAmount(): ?float
-    {
-        return $this->dueAmount;
-    }
-
-    public function setDueAmount(?float $dueAmount): self
-    {
-        $this->dueAmount = $dueAmount;
-
-        return $this;
-    }
-
-    public function getDueDate(): ?\DateTimeInterface
-    {
-        return $this->dueDate;
-    }
-
-    public function setDueDate(?\DateTimeInterface $dueDate): self
-    {
-        $this->dueDate = $dueDate;
-
-        return $this;
-    }
-
-    public function getExchangeRate(): ?float
-    {
-        return $this->exchangeRate;
-    }
-
-    public function setExchangeRate(?float $exchangeRate): self
-    {
-        $this->exchangeRate = $exchangeRate;
-
-        return $this;
-    }
-
-    public function getDueDollarsAmount(): ?float
-    {
-        return $this->dueDollarsAmount;
-    }
-
-    public function setDueDollarsAmount(?float $dueDollarsAmount): self
-    {
-        $this->dueDollarsAmount = $dueDollarsAmount;
-
-        return $this;
     }
 
     public function getNote(): ?string
@@ -208,6 +164,42 @@ class SupplierPayment
     public function setBooking(?Booking $booking): self
     {
         $this->booking = $booking;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getMode(): ?string
+    {
+        return $this->mode;
+    }
+
+    public function setMode(?string $mode): self
+    {
+        $this->mode = $mode;
 
         return $this;
     }
