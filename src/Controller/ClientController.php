@@ -8,21 +8,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\FormType;
-use App\Form\AddClientType;
+use App\Form\ClientType;
 
 /**
- * @Route("/form", name="form_")
+ * @Route("/client", name="client_")
  */
 
 class ClientController extends AbstractController
 {
    /**
-    * @Route("/addClient", name="addClient")
+    * @Route("/new", name="new")
     */
     public function new(Request $request): Response
     {
         $client = new Client();
-        $form = $this->createForm(AddClientType::class, $client);
+        $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -30,7 +30,7 @@ class ClientController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('clientPayment_edit');
         }
-        return $this->render('form/addClient.html.twig', ["form" => $form->createView()]);
+        return $this->render('client/new.html.twig', ["client" => $form->createView()]);
     }
 
     /**
@@ -39,14 +39,14 @@ class ClientController extends AbstractController
     public function delete(Request $request): Response
     {
         $delete = new Client();
-        $form = $this->createForm(AddClientType::class, $delete);
+        $form = $this->createForm(ClientType::class, $delete);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine() ->getManager();
             $entityManager->persist($delete);
             $entityManager->flush();
-            return $this->redirectToRoute('addClient');
+            return $this->redirectToRoute('new');
         }
-        return $this->render('form/deleteClient.html.twig', ["form" => $form->createView()]);
+        return $this->render('client/deleteClient.html.twig', ["client" => $form->createView()]);
     }
 }
