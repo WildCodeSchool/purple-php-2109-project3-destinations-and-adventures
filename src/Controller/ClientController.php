@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\FormType;
 use App\Form\AddClientType;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @Route("/form", name="form_")
@@ -48,5 +49,21 @@ class ClientController extends AbstractController
             return $this->redirectToRoute('addClient');
         }
         return $this->render('form/deleteClient.html.twig', ["form" => $form->createView()]);
+    }
+     /**
+     * @Route("/modifyClient", name="modifyClient")
+     */
+    public function edit(Request $request): Response
+    {
+        $modify = new Client();
+        $form = $this->createForm(AddClientType::class, $modify);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine() ->getManager();
+            $entityManager->persist($modify);
+            $entityManager->flush();
+            return $this->redirectToRoute('addClient');
+        }
+        return $this->render('form/modifyClient.html.twig', ["form" => $form->createView()]);
     }
 }
