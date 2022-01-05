@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SupplierPayment{% endblock %}
+
+{% block body %}
+    <h1>Edit SupplierPayment</h1>
+
+    {{ include('supplier_information/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a
+        href="{{ path('supplier_information_new', {'booking_id': supplier_payment.booking.id}) }}">back
+        to list</a>
+
+{% endblock %}

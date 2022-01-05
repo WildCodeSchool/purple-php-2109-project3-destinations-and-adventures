@@ -75,6 +75,21 @@ class SupplierPayment
      */
     private ?Booking $booking;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $currency;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $mode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -208,6 +223,42 @@ class SupplierPayment
     public function setBooking(?Booking $booking): self
     {
         $this->booking = $booking;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): self
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getMode(): ?string
+    {
+        return $this->mode;
+    }
+
+    public function setMode(?string $mode): self
+    {
+        $this->mode = $mode;
 
         return $this;
     }

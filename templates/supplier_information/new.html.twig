@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Supplier Information{% endblock %}
+
+{% block body %}
+
+<h1>Supplier Information</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>DueAmount</th>
+            <th>DueDate</th>
+            <th>ExchangeRate</th>
+            <th>DueDollarsAmount</th>
+
+            <th>Currency</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for supplier_payment in supplier_payments %}
+        <tr>
+            <td>{{ supplier_payment.dueAmount }}</td>
+            <td>{{ supplier_payment.dueDate ? supplier_payment.dueDate|date('Y-m-d') : '' }}</td>
+            <td>{{ supplier_payment.exchangeRate }}</td>
+            <td>{{ supplier_payment.dueDollarsAmount }}</td>
+
+            <td>{{ supplier_payment.currency }}</td>
+            <td>
+                <a
+                    href="{{ path('supplier_information_edit', {'supplier_information_id': supplier_payment.id, 'booking_id': supplier_payment.booking.id}) }}">edit</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="12">no records found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h1>Create new Supplier Information</h1>
+
+{{ include('supplier_information/_form.html.twig') }}
+
+<a href="{{ path('supplier_payment_index', {'booking_id': booking.id}) }}">Supplier Payment</a>
+{% endblock %}

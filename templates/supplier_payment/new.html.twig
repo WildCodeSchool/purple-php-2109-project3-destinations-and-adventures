@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SupplierPayment{% endblock %}
+
+{% block body %}
+    <h1>Create new SupplierPayment</h1>
+
+    {{ include('supplier_payment/_form.html.twig') }}
+
+    <a href="{{ path('supplier_payment_index') }}">back to list</a>
+{% endblock %}
