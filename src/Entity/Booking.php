@@ -7,11 +7,15 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\ClientPayment;
+use App\Entity\SupplierPayment;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
+ * @UniqueEntity("reference")
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Booking
 {
@@ -23,26 +27,36 @@ class Booking
     private int $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(name="reference", type="integer", nullable=true, unique=true)
+     * @Assert\Positive
      */
     private ?int $reference;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *         max = 255,
+     *         maxMessage = "The booking name cannot be longer than {{ limit }} characters")
      * @ORM\Column(type="string", length=255)
      */
     private ?string $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Client::class, inversedBy="bookings")
+     * @Assert\NotBlank
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="bookings", cascade={"persist"})
      */
-    private Collection $leadCustomer;
+    private ?Client $leadCustomer;
 
     /**
+     * @Assert\Positive
      * @ORM\Column(type="integer")
      */
     private ?int $travelersCount;
 
     /**
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le nom du booking ne peut pas comporter plus de {{ limit }} caractères.")
      * @ORM\Column(type="string", length=255)
      */
     private ?string $destination;
@@ -93,23 +107,22 @@ class Booking
     /**
      * @ORM\OneToMany(targetEntity=ClientPayment::class, mappedBy="booking", orphanRemoval=true)
      */
-    private Collection $clientPayment;
+    private Collection $clientPayments;
 
     /**
      * @ORM\OneToMany(targetEntity=SupplierPayment::class, mappedBy="booking", orphanRemoval=true)
      */
-    private Collection $supplierPayment;
+    private Collection $supplierPayments;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="bookings")
+     * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="bookings", cascade={"persist"})
      */
     private ?Agent $agent;
 
     public function __construct()
     {
-        $this->leadCustomer = new ArrayCollection();
-        $this->clientPayment = new ArrayCollection();
-        $this->supplierPayment = new ArrayCollection();
+        $this->clientPayments = new ArrayCollection();
+        $this->supplierPayments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,30 +150,6 @@ class Booking
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Client[]
-     */
-    public function getLeadCustomer(): Collection
-    {
-        return $this->leadCustomer;
-    }
-
-    public function addLeadCustomer(Client $leadCustomer): self
-    {
-        if (!$this->leadCustomer->contains($leadCustomer)) {
-            $this->leadCustomer[] = $leadCustomer;
-        }
-
-        return $this;
-    }
-
-    public function removeLeadCustomer(Client $leadCustomer): self
-    {
-        $this->leadCustomer->removeElement($leadCustomer);
 
         return $this;
     }
@@ -285,18 +274,30 @@ class Booking
         return $this;
     }
 
+    public function getLeadCustomer(): ?Client
+    {
+        return $this->leadCustomer;
+    }
+
+    public function setLeadCustomer(?Client $leadCustomer): self
+    {
+        $this->leadCustomer = $leadCustomer;
+
+        return $this;
+    }
+
     /**
      * @return Collection|ClientPayment[]
      */
-    public function getClientPayment(): Collection
+    public function getClientPayments(): Collection
     {
-        return $this->clientPayment;
+        return $this->clientPayments;
     }
 
     public function addClientPayment(ClientPayment $clientPayment): self
     {
-        if (!$this->clientPayment->contains($clientPayment)) {
-            $this->clientPayment[] = $clientPayment;
+        if (!$this->clientPayments->contains($clientPayment)) {
+            $this->clientPayments[] = $clientPayment;
             $clientPayment->setBooking($this);
         }
 
@@ -305,7 +306,7 @@ class Booking
 
     public function removeClientPayment(ClientPayment $clientPayment): self
     {
-        if ($this->clientPayment->removeElement($clientPayment)) {
+        if ($this->clientPayments->removeElement($clientPayment)) {
             // set the owning side to null (unless already changed)
             if ($clientPayment->getBooking() === $this) {
                 $clientPayment->setBooking(null);
@@ -318,15 +319,15 @@ class Booking
     /**
      * @return Collection|SupplierPayment[]
      */
-    public function getSupplierPayment(): Collection
+    public function getSupplierPayments(): Collection
     {
-        return $this->supplierPayment;
+        return $this->supplierPayments;
     }
 
     public function addSupplierPayment(SupplierPayment $supplierPayment): self
     {
-        if (!$this->supplierPayment->contains($supplierPayment)) {
-            $this->supplierPayment[] = $supplierPayment;
+        if (!$this->supplierPayments->contains($supplierPayment)) {
+            $this->supplierPayments[] = $supplierPayment;
             $supplierPayment->setBooking($this);
         }
 
@@ -335,7 +336,7 @@ class Booking
 
     public function removeSupplierPayment(SupplierPayment $supplierPayment): self
     {
-        if ($this->supplierPayment->removeElement($supplierPayment)) {
+        if ($this->supplierPayments->removeElement($supplierPayment)) {
             // set the owning side to null (unless already changed)
             if ($supplierPayment->getBooking() === $this) {
                 $supplierPayment->setBooking(null);
