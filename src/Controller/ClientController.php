@@ -23,6 +23,7 @@ class ClientController extends AbstractController
     {
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -30,6 +31,7 @@ class ClientController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('clientPayment_edit');
         }
+
         return $this->render('client/new.html.twig', ["client" => $form->createView()]);
     }
 }
