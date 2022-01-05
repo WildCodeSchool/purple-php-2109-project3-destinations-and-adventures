@@ -18,7 +18,7 @@ class GeneralInfoController extends AbstractController
     /**
      * @Route("new", name="new")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $booking = new Booking();
 
@@ -26,7 +26,6 @@ class GeneralInfoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($booking);
             $entityManager->flush();
             return $this->redirectToRoute('booking_index');
