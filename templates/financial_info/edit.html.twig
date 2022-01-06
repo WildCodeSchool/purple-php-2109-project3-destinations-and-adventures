@@ -4,7 +4,7 @@ block main %}
     <h2>Edit booking # {{ booking.id }}</h2>
     {% embed "/components/_accordion.html.twig" %}
 {% block financialInfo %}
-{{ include("financial_info/_form.html.twig", {button_label: "Update"}) }}
+{{ include("financial_info/_form.html.twig", {button_label: "SAVE"}) }}
 {% endblock financialInfo %}
     {% endembed %}
 </div>
