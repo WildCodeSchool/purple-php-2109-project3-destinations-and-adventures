@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ClientPaymentRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Booking;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -47,7 +48,7 @@ class ClientPayment
     private ?string $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Booking::class, inversedBy="client_payment")
+     * @ORM\ManyToOne(targetEntity=Booking::class, inversedBy="clientPayments")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Booking $booking;

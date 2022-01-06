@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use PhpParser\ErrorHandler\Collecting;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
@@ -21,12 +22,16 @@ class Client
     private int $id;
 
     /**
-     * @ORM\Column(type="string", length=255,)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *         max = 255,
+     *         maxMessage = "The client name cannot be longer than {{ limit }} characters")
+     * @ORM\Column(type="string", length=255)
      */
     private string $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Booking::class, mappedBy="lead_customer")
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="leadCustomer")
      */
     private Collection $bookings;
 
@@ -37,8 +42,8 @@ class Client
 
     public function __construct()
     {
-        $this->clientPayments = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->clientPayments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,7 +63,6 @@ class Client
         return $this;
     }
 
-
     /**
      * @return Collection|Booking[]
      */
@@ -71,7 +75,7 @@ class Client
     {
         if (!$this->bookings->contains($booking)) {
             $this->bookings[] = $booking;
-            $booking->addLeadCustomer($this);
+            $booking->setLeadCustomer($this);
         }
 
         return $this;
@@ -80,7 +84,10 @@ class Client
     public function removeBooking(Booking $booking): self
     {
         if ($this->bookings->removeElement($booking)) {
-            $booking->removeLeadCustomer($this);
+            // set the owning side to null (unless already changed)
+            if ($booking->getLeadCustomer() === $this) {
+                $booking->setLeadCustomer(null);
+            }
         }
 
         return $this;
