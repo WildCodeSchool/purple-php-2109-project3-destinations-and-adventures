@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SupplierPayment{% endblock %}
+
+{% block body %}
+
+    <h1>SupplierPayment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>PaidAmount</th>
+                <th>DueCommission</th>
+                <th>DueDateCommission</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier_payment in supplier_payments %}
+            <tr>
+                <td>{{ supplier_payment.id }}</td>
+                <td>{{ supplier_payment.date ? supplier_payment.date|date('Y-m-d') : '' }}</td>
+                <td>{{ supplier_payment.paidAmount }}</td>
+                <td>{{ supplier_payment.dueCommission }}</td>
+                <td>{{ supplier_payment.dueDateCommission ? supplier_payment.dueDateCommission|date('Y-m-d') : '' }}
+                </td>
+                <td>
+                    <!-- link to action -->
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Create new SupplierPayment</h1>
+
+    {{ include('supplier_payment/_form.html.twig') }}
+
+{% endblock %}
