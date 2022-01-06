@@ -29,7 +29,8 @@ class FinancialInfoType extends AbstractType
                 'label' => 'Balance due date'
             ])
             ->add('note', TextType::class, [
-                'label' => 'Notes'
+                'label' => 'Notes',
+                'required' => false,
             ])
         ;
     }

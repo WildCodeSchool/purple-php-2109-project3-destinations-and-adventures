@@ -11,6 +11,8 @@ import './styles/login.scss';
 import './styles/fonts.scss';
 import './styles/generalInfo.scss';
 import './styles/_navbar.scss';
+import './styles/_accordion.scss';
+import './styles/clientPayment.scss';
 
 // start the Stimulus application
 import './bootstrap';
