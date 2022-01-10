@@ -1,10 +1,10 @@
 @import "variables.scss";
 
 .supplierPayment {
-    .payments{
+    .payments {
         background-color: $secondBackground;
         padding-bottom: 0.75rem;
-    
+
         table {
             text-align: center;
             width: 90%;
@@ -23,7 +23,7 @@
                 background-color: $thirdBackground;
                 border: none;
                 font-size: 0.813rem;
-                td{
+                td {
                     height: 2.5rem;
                     border-spacing: 0.25rem;
                 }
@@ -33,7 +33,6 @@
                 td:last-child {
                     border-radius: 0 5px 5px 0;
                 }
-                
             }
         }
     }
@@ -62,8 +61,6 @@
             text-align: center;
             background-color: $green;
             color: $light;
-
         }
     }
-
 }
