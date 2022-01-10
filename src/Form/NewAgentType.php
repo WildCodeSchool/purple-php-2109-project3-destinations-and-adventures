@@ -14,12 +14,11 @@ class NewAgentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name',  TextType::class, [
+            ->add('name', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Enter a new agency name here',
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

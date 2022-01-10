@@ -47,5 +47,4 @@ class AgentController extends AbstractController
             'form' => $form,
         ]);
     }
-
 }
