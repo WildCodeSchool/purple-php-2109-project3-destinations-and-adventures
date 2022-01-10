@@ -29,8 +29,8 @@ class GeneralInfoController extends AbstractController
             $entityManager->persist($booking);
             $entityManager->flush();
             return $this->redirectToRoute(
-                'general_new',
-                [],
+                'financial_edit',
+                ['booking_id' => $booking->getId()],
                 Response::HTTP_SEE_OTHER
             );
         }

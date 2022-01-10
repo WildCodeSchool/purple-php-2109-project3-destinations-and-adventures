@@ -7,8 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class FinancialInfoType extends AbstractType
 {
@@ -28,7 +28,7 @@ class FinancialInfoType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Balance due date'
             ])
-            ->add('note', TextType::class, [
+            ->add('note', TextareaType::class, [
                 'label' => 'Notes',
                 'required' => false,
             ])
