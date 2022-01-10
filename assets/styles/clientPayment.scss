@@ -4,6 +4,7 @@
     form {
         width: 85%;
         max-width: 22rem;
+
         label {
             font-family: $Helvetica;
             font-size: 1rem;
@@ -11,12 +12,15 @@
             margin-top: 1.25rem;
             margin-bottom: 0.375rem;
         }
+
         input {
             height: 2.25rem;
         }
+
         textarea {
             height: 6.25rem;
         }
+
         .btn {
             display: block;
             margin: 1rem auto;
