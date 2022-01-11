@@ -28,7 +28,8 @@
 
                 </td>
                 <td>
-                    <!-- link to action -->
+                    <a
+                        href="{{ path('supplier_payment_edit', {booking_id: supplier_payment.booking.id, supplierPayment_id: supplier_payment.id}) }}">Edit</a>
                 </td>
             </tr>
             {% else %}

@@ -15,6 +15,7 @@ import './styles/_accordion.scss';
 import './styles/clientPayment.scss';
 import './styles/financialInfo.scss';
 import './styles/supplierPayment.scss';
+import './styles/supplierInformation.scss';
 
 // start the Stimulus application
 import './bootstrap';
