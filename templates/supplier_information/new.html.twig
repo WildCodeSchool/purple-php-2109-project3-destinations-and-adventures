@@ -30,6 +30,8 @@
                 <td>{{ supplier_information.note }}</td>
                 <td>{{ supplier_information.currency }}</td>
                 <td>
+                    <a
+                        href="{{ path('supplier_information_edit', {'booking_id': supplier_information.booking.id, 'supplier_information_id': supplier_information.id}) }}">edit</a>
                     <!-- use to insert edit and delete buttons -->
                 </td>
             </tr>

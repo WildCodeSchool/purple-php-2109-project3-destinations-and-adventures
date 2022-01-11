@@ -51,4 +51,34 @@ class SupplierInformationController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    /**
+     * @Route("{booking_id}/supplier_information/{supplier_information_id}/edit", name="edit", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     * @ParamConverter("supplier_information", options={"mapping": {"supplier_information_id": "id"}})
+     */
+    public function edit(
+        Request $request,
+        Booking $booking,
+        SupplierInformation $supplierInformation,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $form = $this->createForm(SupplierInformationType::class, $supplierInformation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute(
+                'supplier_information_new',
+                ['booking_id' => $booking->getId()],
+                Response::HTTP_SEE_OTHER
+            );
+        }
+
+        return $this->renderForm('supplier_information/edit.html.twig', [
+            'supplier_information' => $supplierInformation,
+            'form' => $form,
+        ]);
+    }
 }
