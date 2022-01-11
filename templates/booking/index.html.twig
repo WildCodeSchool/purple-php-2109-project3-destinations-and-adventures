@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All bookings{% endblock %}
+
+{% block main %}
+    <h1>Booking index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reference</th>
+                <th>Name</th>
+                <th>TravelersCount</th>
+                <th>Destination</th>
+                <th>ConfirmationDate</th>
+                <th>Departure</th>
+                <th>ReturnDate</th>
+                <th>Total</th>
+                <th>PerPerson</th>
+                <th>DepositAmount</th>
+                <th>DueDepositDate</th>
+                <th>Note</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for booking in bookings %}
+            {# {% for client_payment in client_payments %} #}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.reference }}</td>
+                <td>{{ booking.name }}</td>
+                <td>{{ booking.travelersCount }}</td>
+                <td>{{ booking.destination }}</td>
+                <td>{{ booking.confirmationDate ? booking.confirmationDate|date('Y-m-d') : '' }}</td>
+                <td>{{ booking.departure ? booking.departure|date('Y-m-d') : '' }}</td>
+                <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d') : '' }}</td>
+                <td>{{ booking.total }}</td>
+                <td>{{ booking.perPerson }}</td>
+                <td>{{ booking.depositAmount }}</td>
+                <td>{{ booking.dueDepositDate ? booking.dueDepositDate|date('Y-m-d') : '' }}</td>
+                <td>{{ booking.note }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
