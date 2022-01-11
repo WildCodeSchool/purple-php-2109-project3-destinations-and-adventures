@@ -12,12 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/agent")
+ * @Route("/agent", name="name_")
  */
 class AgentController extends AbstractController
 {
     /**
-     * @Route("/new", name="agent_new", methods={"GET", "POST"})
+     * @Route("/new", name="new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -29,11 +29,10 @@ class AgentController extends AbstractController
             $entityManager->persist($agent);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('general_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('agent/new.html.twig', [
-            'agent' => $agent,
             'form' => $form,
         ]);
     }
