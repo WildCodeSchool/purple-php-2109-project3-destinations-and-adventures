@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/agent", name="name_")
+ * @Route("/agent", name="agent_")
  */
 class AgentController extends AbstractController
 {
