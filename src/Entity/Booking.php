@@ -78,16 +78,19 @@ class Booking
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $total;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $perPerson;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $depositAmount;
 

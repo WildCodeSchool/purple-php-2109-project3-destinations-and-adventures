@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Booking{% endblock %}
+
+{% block main %}
+  <div class="financialInfo">
+
+    <h2>Edit booking # {{ booking.id }}</h2>
+
+    {{ include('financial_info/_form.html.twig', {'button_label': 'Update'}) }}
+
+  </div>
+{% endblock main %}
