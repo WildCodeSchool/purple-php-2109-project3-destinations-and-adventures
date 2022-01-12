@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SupplierInformation{% endblock %}
+
+{% block main %}
+
+    <h1>SupplierInformation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DueAmount</th>
+                <th>DueDate</th>
+                <th>ExchangeRate</th>
+                <th>DueDollarsAmount</th>
+                <th>Note</th>
+                <th>Currency</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier_information in supplier_informations %}
+            <tr>
+                <td>{{ supplier_information.id }}</td>
+                <td>{{ supplier_information.dueAmount }}</td>
+                <td>{{ supplier_information.dueDate ? supplier_information.dueDate|date('Y-m-d') : '' }}</td>
+                <td>{{ supplier_information.exchangeRate }}</td>
+                <td>{{ supplier_information.dueDollarsAmount }}</td>
+                <td>{{ supplier_information.note }}</td>
+                <td>{{ supplier_information.currency }}</td>
+                <td>
+                    <!-- use to insert edit and delete buttons -->
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Create new SupplierInformation</h1>
+
+    {{ include('supplier_information/_form.html.twig') }}
+
+{% endblock %}
