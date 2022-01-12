@@ -35,4 +35,21 @@ class GeneralInfoController extends AbstractController
             "form" => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("{id}/delete", name="delete", methods={"GET", "POST"})
+     */
+    public function delete(
+        Request $request,
+        Booking $booking,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if (is_string($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $booking->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($booking);
+                $entityManager->flush();
+            }
+        }
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+    }
 }
