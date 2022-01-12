@@ -2,7 +2,7 @@
 
 {% block title %}New SupplierPayment{% endblock %}
 
-{% block body %}
+{% block main %}
 
     <h1>SupplierPayment index</h1>
 
@@ -27,7 +27,8 @@
                 <td>{{ supplier_payment.dueDateCommission ? supplier_payment.dueDateCommission|date('Y-m-d') : '' }}
                 </td>
                 <td>
-                    <!-- link to action -->
+                    <a
+                        href="{{ path('supplier_payment_edit', {booking_id: supplier_payment.booking.id, supplierPayment_id: supplier_payment.id}) }}">Edit</a>
                 </td>
             </tr>
             {% else %}
