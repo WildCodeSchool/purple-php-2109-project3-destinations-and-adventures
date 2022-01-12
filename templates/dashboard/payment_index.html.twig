@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Payment{% endblock %}
+
+{% block main %}
+<div class="dashboardPayment">
+    <div class="bashboardTile">
+        <h1>Dashboard</h1>
+        <p>></p>
+        <h2>Payments</h2>
+    </div>
+    <div class="incomingClientPayment">
+        <h3>Incoming Clients Payment</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Trip Name</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for booking in bookings %}
+                    {% for client_payment in booking.clientPayments %}
+                        {% if client_payment.status == "due" %}
+                        {% set total = total + client_payment.amount %}
+                        <tr>
+                            <td>{{ client_payment.client.name }}</td>
+                            <td>{{ booking.name }}</td>
+                            <td>{{ client_payment.amount }}</td>
+                            <td>{{ client_payment.date ? client_payment.date|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="8">no records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="totalClientPayment">
+            <h3>Total: {{ total }}$</h3>
+        </div>
+    </div>
+</div>
+{% endblock %}
