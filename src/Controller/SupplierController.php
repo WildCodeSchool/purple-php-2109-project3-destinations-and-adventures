@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Booking;
 use App\Entity\Supplier;
 use App\Form\SupplierType;
 use App\Repository\SupplierRepository;
@@ -12,14 +13,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/supplier")
+ * @Route("/booking/", name="supplier_")
  */
 class SupplierController extends AbstractController
 {
     /**
-     * @Route("/new", name="supplier_new", methods={"GET", "POST"})
+     * @Route("{id}/supplier/new", name="new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Booking $booking, Request $request, EntityManagerInterface $entityManager): Response
     {
         $supplier = new Supplier();
         $form = $this->createForm(SupplierType::class, $supplier);
@@ -29,11 +30,10 @@ class SupplierController extends AbstractController
             $entityManager->persist($supplier);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('supplier_payment_new', ['booking_id' => $booking->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('supplier/new.html.twig', [
-            'supplier' => $supplier,
             'form' => $form,
         ]);
     }
