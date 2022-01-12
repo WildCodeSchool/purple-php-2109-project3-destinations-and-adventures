@@ -49,7 +49,6 @@ class GeneralInfoController extends AbstractController
 
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('generalInformation/edit.html.twig', [
             'booking' => $booking,
             'form' => $form,
