@@ -15,6 +15,27 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class GeneralInfoController extends AbstractController
 {
+    /**
+     * @Route("new", name="new")
+     */
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $booking = new Booking();
+
+        $form = $this->createForm(GeneralInfoType::class, $booking);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($booking);
+            $entityManager->flush();
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('generalInformation/new.html.twig', [
+            "form" => $form->createView(),
+        ]);
+    }
+
      /**
      * @Route("{id}/edit", name="edit")
      */
