@@ -28,6 +28,9 @@ final class Version20220105153449 extends AbstractMigration
         $this->addSql('CREATE TABLE supplier_payment (id INT AUTO_INCREMENT NOT NULL, supplier_id INT NOT NULL, booking_id INT NOT NULL, due_amount DOUBLE PRECISION DEFAULT NULL, due_date DATE DEFAULT NULL, exchange_rate DOUBLE PRECISION DEFAULT NULL, due_dollars_amount DOUBLE PRECISION DEFAULT NULL, note LONGTEXT DEFAULT NULL, date DATE DEFAULT NULL, paid_amount DOUBLE PRECISION DEFAULT NULL, due_commission DOUBLE PRECISION DEFAULT NULL, due_date_commission DATE DEFAULT NULL, INDEX IDX_EC4DF0122ADD6D8C (supplier_id), INDEX IDX_EC4DF0123301C60 (booking_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE booking ADD CONSTRAINT FK_E00CEDDE6A048787 FOREIGN KEY (lead_customer_id) REFERENCES client (id)');
+        $this->addSql('CREATE TABLE supplier_information (id INT AUTO_INCREMENT NOT NULL, supplier_id INT NOT NULL, booking_id INT NOT NULL, due_amount DOUBLE PRECISION DEFAULT NULL, due_date DATE DEFAULT NULL, exchange_rate DOUBLE PRECISION DEFAULT NULL, due_dollars_amount DOUBLE PRECISION DEFAULT NULL, note LONGTEXT DEFAULT NULL, currency VARCHAR(255) DEFAULT NULL, INDEX IDX_F0CEB3922ADD6D8C (supplier_id), INDEX IDX_F0CEB3923301C60 (booking_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE supplier_information ADD CONSTRAINT FK_F0CEB3922ADD6D8C FOREIGN KEY (supplier_id) REFERENCES supplier (id)');
+        $this->addSql('ALTER TABLE supplier_information ADD CONSTRAINT FK_F0CEB3923301C60 FOREIGN KEY (booking_id) REFERENCES booking (id)');
         $this->addSql('ALTER TABLE booking ADD CONSTRAINT FK_E00CEDDE3414710B FOREIGN KEY (agent_id) REFERENCES agent (id)');
         $this->addSql('ALTER TABLE client_payment ADD CONSTRAINT FK_3F15C0703301C60 FOREIGN KEY (booking_id) REFERENCES booking (id)');
         $this->addSql('ALTER TABLE client_payment ADD CONSTRAINT FK_3F15C07019EB6921 FOREIGN KEY (client_id) REFERENCES client (id)');
@@ -51,5 +54,6 @@ final class Version20220105153449 extends AbstractMigration
         $this->addSql('DROP TABLE supplier');
         $this->addSql('DROP TABLE supplier_payment');
         $this->addSql('DROP TABLE user');
+        $this->addSql('DROP TABLE supplier_information');
     }
 }

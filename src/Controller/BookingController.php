@@ -21,13 +21,13 @@ class BookingController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(BookingRepository $bookingRepository, ClientPaymentRepository $clientPaymentRepo,
-     SupplierPaymentRepository $supplierPaymentRepo): Response
-    {
+    public function index(
+        BookingRepository $bookingRepository,
+        ClientPaymentRepository $clientPaymentRepo,
+        SupplierPaymentRepository $supplierPaymentRepo
+    ): Response {
         return $this->render('booking/index.html.twig', [
             'bookings' => $bookingRepository->findAll(),
-            'client_payments' => $clientPaymentRepo->findAll(),
-            'supplier_payments' => $supplierPaymentRepo->findAll(),
         ]);
     }
 }
