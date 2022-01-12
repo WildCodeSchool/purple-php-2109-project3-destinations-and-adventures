@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Agent index{% endblock %}
+
+{% block body %}
+    <h1>Agent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Commission</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for agent in agents %}
+            <tr>
+                <td>{{ agent.id }}</td>
+                <td>{{ agent.name }}</td>
+                <td>{{ agent.commission }}</td>
+                <td>
+                    <!-- action to edit and delete -->
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('agent_new') }}">Create new</a>
+{% endblock %}
