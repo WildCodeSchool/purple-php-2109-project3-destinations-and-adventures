@@ -51,6 +51,37 @@ class SupplierPaymentController extends AbstractController
     }
 
     /**
+     * @Route("{booking_id}/supplier_payment/{supplierPayment_id}/edit", name="edit", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     * @ParamConverter("supplierPayment", options={"mapping": {"supplierPayment_id": "id"}})
+     */
+    public function edit(
+        Request $request,
+        Booking $booking,
+        EntityManagerInterface $entityManager,
+        SupplierPayment $supplierPayment,
+        SupplierPaymentRepository $suppPayRepo
+    ): Response {
+        $form = $this->createForm(SupplierPaymentType::class, $supplierPayment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute(
+                'supplier_payment_new',
+                ['booking_id' => $booking->getId()],
+                Response::HTTP_SEE_OTHER
+            );
+        }
+
+        return $this->renderForm('supplier_payment/edit.html.twig', [
+            'supplier_payment' => $supplierPayment,
+            'form' => $form,
+        ]);
+    }
+
+    /**
      * @Route("{booking_id}/supplier_payment/{supplier_payment_id}", name="delete", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      * @ParamConverter("supplierPayment", options={"mapping": {"supplier_payment_id": "id"}})
