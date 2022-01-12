@@ -30,7 +30,9 @@ class SupplierController extends AbstractController
             $entityManager->persist($supplier);
             $entityManager->flush();
 
-            return $this->redirectToRoute('supplier_payment_new', ['booking_id' => $booking->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('supplier_payment_new', [
+                'booking_id' => $booking->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('supplier/new.html.twig', [
