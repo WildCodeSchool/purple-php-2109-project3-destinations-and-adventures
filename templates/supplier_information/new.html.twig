@@ -5,7 +5,7 @@
 {% block main %}
 <div class="supplierInformation">
     {% embed "/components/_accordion.html.twig" %}
-    {% block supplierPayments %}
+    {% block supplierInfo %}
     <div class="informations">
     <table class="table">
     <thead>
@@ -39,7 +39,7 @@
     </div>
 
     {{ include('supplier_information/_form.html.twig') }}
-{% endblock supplierPayments %}
+{% endblock supplierInfo %}
 {% endembed %}
 </div>
 
