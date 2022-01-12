@@ -48,6 +48,7 @@ class SupplierInformationController extends AbstractController
 
         return $this->renderForm('supplier_information/new.html.twig', [
             'supplier_informations' => $suppInfoRepo->findBy(['booking' => $booking->getId()]),
+            'booking' => $booking,
             'form' => $form,
         ]);
     }

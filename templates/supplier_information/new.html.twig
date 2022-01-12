@@ -44,5 +44,5 @@
     <h1>Create new SupplierInformation</h1>
 
     {{ include('supplier_information/_form.html.twig') }}
-
+    <a href="{{ path('supplier_new', {booking_id: booking.id}) }}">Add client</a>
 {% endblock %}
