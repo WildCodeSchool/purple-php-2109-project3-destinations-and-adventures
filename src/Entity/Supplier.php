@@ -21,6 +21,7 @@ class Supplier
     private int $id;
 
     /**
+     * @Assert\NotBlank
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "The supplier name cannot be longer than {{ limit }} characters")
