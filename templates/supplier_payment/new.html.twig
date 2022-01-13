@@ -3,44 +3,47 @@
 {% block title %}New SupplierPayment{% endblock %}
 
 {% block main %}
+<div class="supplierPayment">
+{% embed "/components/_accordion.html.twig" %}
+{% block supplierPayments %}
 
 <h1>SupplierPayment index</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Date</th>
-            <th>PaidAmount</th>
-            <th>DueCommission</th>
-            <th>DueDateCommission</th>
-            <th>actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for supplier_payment in supplier_payments %}
-        <tr>
-            <td>{{ supplier_payment.id }}</td>
-            <td>{{ supplier_payment.date ? supplier_payment.date|date('Y-m-d') : '' }}</td>
-            <td>{{ supplier_payment.paidAmount }}</td>
-            <td>{{ supplier_payment.dueCommission }}</td>
-            <td>{{ supplier_payment.dueDateCommission ? supplier_payment.dueDateCommission|date('Y-m-d') : '' }}
-            </td>
-            <td>
-               {{ include('supplier_payment/_delete_form.html.twig') }}
-                <!-- link to action -->
-            </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="6">no records found</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="payments">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Payment Date</th>
+                <th>Amount in $</th>
+                <th>Commission Due</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier_payment in supplier_payments %}
+            <tr>
+                <td>{{ supplier_payment.supplier.name }}</td>
+                <td>{{ supplier_payment.date ? supplier_payment.date|date('Y-m-d') : '' }}</td>
+                <td>{{ supplier_payment.paidAmount }}</td>
+                <td>{{ supplier_payment.dueCommission }}</td>
 
-<h1>Create new SupplierPayment</h1>
-
-{{ include('supplier_payment/_form.html.twig') }}
-
+                </td>
+                <td>
+                    <a href="{{ path('supplier_payment_edit', {booking_id: supplier_payment.booking.id, supplierPayment_id: supplier_payment.id}) }}">Edit</a>
+                        {{ include('supplier_payment/_delete_form.html.twig') }}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    {{ include('supplier_payment/_form.html.twig') }}
+    {% endblock supplierPayments %}
+    {% endembed %}
+</div>
 {% endblock %}
