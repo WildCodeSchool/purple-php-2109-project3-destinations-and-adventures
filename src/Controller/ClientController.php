@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Booking;
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 class ClientController extends AbstractController
 {
+    /**
+     * @Route("client/", name="index", methods={"GET"})
+     */
+    public function index(ClientRepository $clientRepository): Response
+    {
+        return $this->render('client/index.html.twig', [
+            'clients' => $clientRepository->findAll(),
+        ]);
+    }
+
     /**
      * @Route("{booking_id}/client/new", name="new", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
