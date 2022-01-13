@@ -22,11 +22,11 @@ class BookingController extends AbstractController
      */
     public function index(
         BookingRepository $bookingRepository,
-        SupplierInformationRepository $supplierInformationRepo
+        SupplierInformationRepository $supplierInfoRepo
     ): Response {
         return $this->render('booking/index.html.twig', [
             'bookings' => $bookingRepository->findAll(),
-            'supplier_informations' => $supplierInformationRepo->findAll(),
+            'supplier_informations' => $supplierInfoRepo->findAll(),
         ]);
     }
 }
