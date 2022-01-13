@@ -24,7 +24,9 @@ class Client
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
-     * @Assert\Length(max="255", maxMessage="The name {{ value }} is too long, write almost {{ limit }} characters"))
+     * @Assert\Length(
+     *          max="255",
+     *          maxMessage="The client name cannot be longer than {{ limit }} characters")
      */
     private string $name;
 
