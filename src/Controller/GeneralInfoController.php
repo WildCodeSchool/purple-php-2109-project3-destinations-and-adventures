@@ -28,7 +28,11 @@ class GeneralInfoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($booking);
             $entityManager->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute(
+                'financial_edit',
+                ['booking_id' => $booking->getId()],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('generalInformation/new.html.twig', [

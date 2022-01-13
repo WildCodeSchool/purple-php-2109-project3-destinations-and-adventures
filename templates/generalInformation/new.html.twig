@@ -4,16 +4,12 @@
 
 {% block main %}
 <div class="generalInfo">
-{% embed "components/_accordion.html.twig" %}
 
-{% block formTitle %}Add a new booking{% endblock formTitle %}
 
+{% embed "/components/_accordion.html.twig" %}
 {% block generalInfo %}
-
-{% include "generalInformation/_form.html.twig" %}
-
+    {% include "generalInformation/_form.html.twig" %}
 {% endblock generalInfo %}
 {% endembed %}
-
 </div>
 {% endblock main %} 
