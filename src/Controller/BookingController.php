@@ -5,8 +5,7 @@ namespace App\Controller;
 use App\Entity\Booking;
 use App\Form\BookingType;
 use App\Repository\BookingRepository;
-use App\Repository\ClientPaymentRepository;
-use App\Repository\SupplierPaymentRepository;
+use App\Repository\SupplierInformationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,11 +22,11 @@ class BookingController extends AbstractController
      */
     public function index(
         BookingRepository $bookingRepository,
-        ClientPaymentRepository $clientPaymentRepo,
-        SupplierPaymentRepository $supplierPaymentRepo
+        SupplierInformationRepository $supplierInformationRepo
     ): Response {
         return $this->render('booking/index.html.twig', [
             'bookings' => $bookingRepository->findAll(),
+            'supplier_informations' => $supplierInformationRepo->findAll(),
         ]);
     }
 }

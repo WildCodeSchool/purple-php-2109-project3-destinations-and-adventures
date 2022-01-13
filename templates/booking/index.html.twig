@@ -4,7 +4,11 @@
 
 {% block main %}
 <h1>Booking index</h1>
-{{ bookings|length }}
+{% if bookings|length <= 1 %}
+    <p><strong>{{ bookings|length }}</strong> booking registered</p>
+{% else %}
+    <p><strong>{{ bookings|length }}</strong> bookings registered</p>
+{% endif %}
 
 <section>
     <table>
@@ -50,26 +54,28 @@
                     </strong> due
                 </td>
                 <td>
-                    {# A FINIR 
-
                     {% if booking.supplierPayments|length <= 1 %}
-                        <strong>{{ booking.supplierPayments|length }}</strong> payment<br>
+                    <strong>{{ booking.supplierPayments|length }}</strong> payment<br>
                     {% else %}
-                        <strong>{{ booking.supplierPayments|length }}</strong> payments<br>
+                    <strong>{{ booking.supplierPayments|length }}</strong> payments<br>
                     {% endif %}
                     <strong>
+                        {% set paid_amount = 0 %}
+                        {% set due_amount = 0 %}
                         {% set total = 0 %}
-                        {% set amount = 0 %}
-                        {% set total_commission = 0 %}
                         {% for supplier_payment in booking.supplierPayments %}
-                            {% set amount = amount + booking.supplier.dueAmount %}
-                            {% set total_commission = total_commission + supplier_payment.dueCommission %}
-                            {% set total = amount + total_commission %}
+                        {% if supplier_payment.status is same as('paid') %}
+                        {% set paid_amount = paid_amount + supplier_payment.paidAmount %}
+                        {% endif %}
+                        {% if supplier_payment.status is same as('due') %}
+                        {% for supplier_information in supplier_informations %}
+                        {% set due_amount = due_amount + supplier_information.dueDollarsAmount %}
                         {% endfor %}
-                        {{ total - amount - total_commission }}$
-                    </strong> due 
+                        {% endif %}
 
-                    #}
+                        {% endfor %}
+                        {{ due_amount - paid_amount }}$
+                    </strong> due
                 </td>
                 <td>
                     <a href="{# METTRE LIEN VERS EDIT BOOKING #}"><svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -85,7 +91,7 @@
                 </td>
             </tr>
         </table>
-        {# <div class="panel">
+        <div class="panel">
             <div class="client-payments-section">
                 <div>
                     <h2>CLIENT PAYMENTS</h2>
@@ -107,45 +113,49 @@
                         </div>
                     </div>
                 </div>
-                {% for client_payment in booking.clientPayments %}
                 <table>
                     <thead>
                         <tr>
-
+                            <td><strong>Status</strong></td>
+                            <td><strong>Type</strong></td>
+                            <td><strong>Amount</strong></td>
+                            <td><strong>Mode</strong></td>
+                            <td><strong>Date</strong></td>
+                            <td><strong>By</strong></td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for client_payment in booking.clientPayments %}
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ client_payment.status }}</td>
+                            <td>{{ client_payment.type }}</td>
+                            <td>{{ client_payment.amount }}</td>
+                            <td>{{ client_payment.mode }}</td>
+                            <td>{{ client_payment.date|date('m-d-Y') }}</td>
+                            <td>{{ client_payment.client.name }}</td>
                             <td>
-                                <img src="">
-                                <img src="">
+                                <a href="{{ path('client_payment_edit', {booking_id: booking.id, client_payment_id: client_payment.id}) }}"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16" fill="currentColor" class="bi bi-pencil-fill"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                    </svg></a>&nbsp;&nbsp;&nbsp;
+                                <a href="{# METTRE LIEN VERS DELETE CLIENT PAYMENT #}"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16" fill="currentColor" class="bi bi-trash-fill"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                    </svg></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <img src="">
-                                <img src="">
-                            </td>
-                        </tr>
+                        {% else %}
+                        <td colspan="8">
+                            <p>No client payments found!</p>
+                        </td>
+                        {% endfor %}
                     </tbody>
                 </table>
-                {% else %}
-                <div>
-                    <p>No client payments found!</p>
-                </div>
-                {% endfor %}
             </div>
             <div class="supplier-payments-section">
                 <div>
@@ -159,47 +169,53 @@
                         </div>
                     </div>
                 </div>
-                {% for supplier_payment in booking.supplierPayments %}
                 <table>
                     <thead>
                         <tr>
-
+                            <td><strong>Status</strong></td>
+                            <td><strong>Name</strong></td>
+                            <td><strong>Amount</strong></td>
+                            <td><strong>Date</strong></td>
+                            <td><strong>Mode</strong></td>
+                            <td><strong>Commission</strong></td>
+                            <td><strong>Due Date</strong></td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for supplier_payment in booking.supplierPayments %}
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ supplier_payment.status }}</td>
+                            <td>{{ supplier_payment.supplier.name }}</td>
+                            <td>{{ supplier_payment.paidAmount }}</td>
+                            <td>{{ supplier_payment.date|date('m-d-Y') }}</td>
+                            <td>{{ supplier_payment.mode }}</td>
+                            <td>{{ supplier_payment.dueCommission }}</td>
+                            <td>{{ supplier_payment.dueDateCommission|date('m-d-Y') }}</td>
                             <td>
-                                <img src="">
-                                <img src="">
+                                <a href="{{ path('supplier_payment_edit', {booking_id: booking.id, supplierPayment_id: supplier_payment.id}) }}"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16" fill="currentColor" class="bi bi-pencil-fill"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                    </svg></a>&nbsp;&nbsp;&nbsp;
+                                <a href="{# METTRE LIEN VERS DELETE SUPPLIER PAYMENT #}"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16" fill="currentColor" class="bi bi-trash-fill"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                    </svg></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <img src="">
-                                <img src="">
-                            </td>
-                        </tr>
+                        {% else %}
+                        <td colspan="8">
+                            <p>No supplier payments found!</p>
+                        </td>
+                        {% endfor %}
                     </tbody>
                 </table>
-                {% else %}
-                <div>
-                    <p>No supplier payments found!</p>
-                </div>
-                {% endfor %}
             </div>
-        </div> #}
+        </div>
     </section>
     {% else %}
     <div>
