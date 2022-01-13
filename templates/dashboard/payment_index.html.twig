@@ -114,9 +114,73 @@
                 {% endfor %}
             </tbody>
         </table>
-        <div class="totalSupplierPayment">
+        <div class="totalSupplierCommision">
             <h3>Total: {{ total }}$</h3>
         </div>
+    </div>
+    <div class="outcomingAgentCommissions">
+        <h3>Outcoming payment - Agent Commissions</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Trip Name</th>
+                    <th>Agent</th>
+                    <th>Date</th>
+                    <th>Grand Total</th>
+                    <th>Commission</th>
+                    <th>%</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.name }}</td>
+                    <td>{{ booking.agent }}</td>
+                    <td>{{ booking.departure ? booking.departure|date('Y-m-d') : '' }}</td>
+                    <td>{{ booking.total }}</td>
+                    <td>??</td>
+                    <td>??</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="totalAgentCommission">
+            <h3>Total: {{ total }}$</h3>
+        </div>
+    </div>
+    <div class="daiCommission">
+        <h3>DAI Commissions - Clients returning</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Trip Name</th>
+                    <th>Return Date</th>
+                    <th>Gross Profit</th>
+                    <th>Commission</th>
+                    <th>%</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.name }}</td>
+                    <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d') : '' }}</td>
+                    <td>??</td>
+                    <td>??</td>
+                    <td>??</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}
