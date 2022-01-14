@@ -66,9 +66,26 @@ class ClientPaymentController extends AbstractController
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('client_payment/edit.html.twig', [
+        return $this->render('client_payment/edit.html.twig', [
             'client_payment' => $clientPayment,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("client_payment/{id}/delete", name="delete", methods={"GET", "POST"})
+     */
+    public function delete(
+        Request $request,
+        ClientPayment $clientPayment,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if (is_string($request->request->get('_token')) && is_null($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $clientPayment->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($clientPayment);
+                $entityManager->flush();
+            }
+        }
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 }
