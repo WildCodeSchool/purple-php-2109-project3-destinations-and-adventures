@@ -39,6 +39,9 @@
     </div>
 
     {{ include('supplier_information/_form.html.twig') }}
+
+    <a href="{{ path('supplier_new', {booking_id: booking.id}) }}">Add client</a>
+
 {% endblock supplierInfo %}
 {% endembed %}
 </div>
