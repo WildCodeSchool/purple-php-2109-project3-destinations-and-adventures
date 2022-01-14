@@ -1,8 +1,9 @@
-{# templates/client/new.html.twig #}
 {% extends 'base.html.twig' %}
-{% block body %}
-	 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Add client</button>
-    {{ form_end(form) }}
+
+{% block title %}New Client{% endblock %}
+
+{% block main %}
+<h1>Create new Client</h1>
+{{ include('client/_form.html.twig') }}
+<a href="{{ path('client_payment_new', {booking_id: booking.id}) }}">back to list</a>
 {% endblock %}
