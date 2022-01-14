@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Booking;
-use App\Form\FinancialInfoType;
+use App\Entity\Client;
+use App\Form\ClientType;
+use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,20 +14,32 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
- * @Route("/booking/", name="financial_")
+ * @Route("/booking/", name="client_")
  */
-class FinancialInfoController extends AbstractController
+class ClientController extends AbstractController
 {
     /**
-     * @Route("{booking_id}/financial-informations/edit", name="edit")
+     * @Route("client/", name="index", methods={"GET"})
+     */
+    public function index(ClientRepository $clientRepository): Response
+    {
+        return $this->render('client/index.html.twig', [
+            'clients' => $clientRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("{booking_id}/client/new", name="new", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      */
-    public function edit(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(FinancialInfoType::class, $booking);
+        $client = new Client();
+        $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($client);
             $entityManager->flush();
 
             return $this->redirectToRoute(
@@ -35,8 +49,9 @@ class FinancialInfoController extends AbstractController
             );
         }
 
-        return $this->renderForm('financial_info/edit.html.twig', [
+        return $this->renderForm('client/new.html.twig', [
             'booking' => $booking,
+            'client' => $client,
             'form' => $form,
         ]);
     }

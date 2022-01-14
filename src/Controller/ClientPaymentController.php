@@ -33,10 +33,15 @@ class ClientPaymentController extends AbstractController
             $entityManager->persist($clientPayment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'client_payment_new',
+                ['booking_id' => $booking->getId()],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->renderForm('client_payment/new.html.twig', [
+            'booking' => $booking,
             'client_payment' => $clientPayment,
             'form' => $form,
         ]);
