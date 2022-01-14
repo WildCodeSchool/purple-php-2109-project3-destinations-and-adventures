@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Client{% endblock %}
+
+{% block main %}
+    <h1>Edit Client</h1>
+
+    {{ include('client/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ClientPayment{% endblock %}
+
+{% block main %}
+<div class="clientPayment">
+    <h1>Edit ClientPayment</h1>
+    
+    {% embed "/components/_accordion.html.twig" %}
+      {% block clientPayments %}
+        {{ include('client_payment/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('client_payment/_delete_form.html.twig') }}
+      {% endblock clientPayments %}
+    {% endembed %}
+</div>
+{% endblock %}
