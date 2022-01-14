@@ -25,7 +25,7 @@ class AgentController extends AbstractController
             'agents' => $agentRepository->findAll(),
         ]);
     }
-  
+
     /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      */
