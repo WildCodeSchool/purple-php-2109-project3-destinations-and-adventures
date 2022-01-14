@@ -55,24 +55,25 @@ class GeneralInfoController extends AbstractController
             }
         }
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-      }
+    }
 
      /**
       * @Route("{id}/edit", name="edit")
       */
-     public function edit(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
-     {
-         $form = $this->createForm(GeneralInfoType::class, $booking);
-         $form->handleRequest($request);
+    public function edit(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(GeneralInfoType::class, $booking);
+        $form->handleRequest($request);
 
-         if ($form->isSubmitted() && $form->isValid()) {
-             $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
 
-             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-         }
-         return $this->renderForm('generalInformation/edit.html.twig', [
-             'booking' => $booking,
-             'form' => $form,
-         ]);
-     }
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        }
+        
+        return $this->renderForm('generalInformation/edit.html.twig', [
+            'booking' => $booking,
+            'form' => $form,
+        ]);
+    }
 }
