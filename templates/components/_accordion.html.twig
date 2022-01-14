@@ -1,78 +1,22 @@
-<h1>{% block formTitle %}{% endblock formTitle %}</h1>
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-            <a href="#">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    GENERAL INFORMATIONS
-                </button>
-            </a>
-        </h2>
-        <div class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                {% block generalInfo %}{% endblock generalInfo %}
-            </div>
-        </div>
+<div class="accordion">
+    <div class="accordionTitle accordionTop">
+        <h2>GENERAL INFORMATION</h2>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-            <a href="#">
-                <button class="accordion-button collapsed" type="button" data-bs-target="#collapseTwo"
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    FINANCIAL INFORMATIONS
-                </button>
-            </a>
-        </h2>
-        <div class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                {% block financialInfo %}{% endblock financialInfo %}
-            </div>
-        </div>
+    {% block generalInfo %}{% endblock generalInfo %}
+    <div class="accordionTitle">
+        <h2>FINANCIAL INFORMATION</h2>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-            <a href="#">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    CLIENT PAYMENTS
-                </button>
-            </a>
-        </h2>
-        <div class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                {% block clientPayments %}{% endblock clientPayments %}
-            </div>
-        </div>
+    {% block financialInfo %}{% endblock financialInfo %}
+    <div class="accordionTitle">
+        <h2>CLIENT PAYMENTS</h2>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFour">
-            <a href="#">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                    SUPPLIER INFORMATIONS
-                </button>
-            </a>
-        </h2>
-        <div class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                {% block supplierInfo %}{% endblock supplierInfo %}
-            </div>
-        </div>
+    {% block clientPayments %}{% endblock clientPayments %}
+    <div class="accordionTitle">
+        <h2>SUPPLIER INFORMATION</h2>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFive">
-            <a href="#">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                    SUPPLIER PAYMENTS
-                </button>
-            </a>
-        </h2>
-        <div class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                {% block supplierPayments %}{% endblock supplierPayments %}
-            </div>
-        </div>
+    {% block supplierInfo %}{% endblock supplierInfo %}
+    <div class="accordionTitle accordionBottom">
+        <h2>SUPPLIER PAYMENTS</h2>
     </div>
-</div> 
+    {% block supplierPayments %}{% endblock supplierPayments %}
+</div>
