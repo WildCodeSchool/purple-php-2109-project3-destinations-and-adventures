@@ -1,11 +1,12 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}New ClientPayment{% endblock %}
 
-{% block body %}
-    <h1>Create new ClientPayment</h1>
-
-    {{ include('client_payment/_form.html.twig') }}
-
-
+{% block main %}
+<div class="clientPayment">
+    {% embed "/components/_accordion.html.twig" %} {% block clientPayments %}
+    {{ include("client_payment/_form.html.twig") }}
+    {% endblock clientPayments %} {% endembed %}
+</div>
 {% endblock %}

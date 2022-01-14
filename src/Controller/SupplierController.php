@@ -19,6 +19,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class SupplierController extends AbstractController
 {
     /**
+     * @Route("supplier/", name="index", methods={"GET"})
+     */
+    public function index(SupplierRepository $supplierRepository): Response
+    {
+        return $this->render('supplier/index.html.twig', [
+            'suppliers' => $supplierRepository->findAll(),
+        ]);
+    }
+  
+    /**
      * @Route("{booking_id}/supplier/new", name="new", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      */

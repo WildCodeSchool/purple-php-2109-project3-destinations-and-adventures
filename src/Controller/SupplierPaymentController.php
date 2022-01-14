@@ -80,4 +80,29 @@ class SupplierPaymentController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    /**
+     * @Route("{booking_id}/supplier_payment/{supplier_payment_id}", name="delete", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     * @ParamConverter("supplierPayment", options={"mapping": {"supplier_payment_id": "id"}})
+     */
+    public function delete(
+        Request $request,
+        SupplierPayment $supplierPayment,
+        EntityManagerInterface $entityManager,
+        Booking $booking
+    ): Response {
+        if (is_string($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $supplierPayment->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($supplierPayment);
+                $entityManager->flush();
+            }
+        }
+
+        return $this->redirectToRoute(
+            'supplier_payment_new',
+            ['booking_id' => $booking->getId()],
+            Response::HTTP_SEE_OTHER
+        );
+    }
 }
