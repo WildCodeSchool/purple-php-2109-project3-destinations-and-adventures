@@ -55,4 +55,23 @@ class ClientController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    /**
+     * @Route("client/{id}/edit", name="edit", methods={"GET", "POST"})
+     */
+    public function edit(Request $request, Client $client, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ClientType::class, $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('client/edit.html.twig', [
+            'form' => $form,
+        ]);
+    }
 }
