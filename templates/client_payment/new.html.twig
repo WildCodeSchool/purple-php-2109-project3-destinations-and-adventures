@@ -3,6 +3,7 @@
 <div class="clientPayment">
     {% embed "/components/_accordion.html.twig" %} {% block clientPayments %}
     {{ include("client_payment/_form.html.twig") }}
+    <a href="{{ path('client_new', {booking_id: booking.id}) }}">Add client</a>
     {% endblock clientPayments %} {% endembed %}
 </div>
 {% endblock %}

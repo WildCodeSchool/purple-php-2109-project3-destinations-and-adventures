@@ -7,6 +7,8 @@
 {% embed "/components/_accordion.html.twig" %}
 {% block supplierPayments %}
 
+<h1>SupplierPayment index</h1>
+
 <div class="payments">
     <table>
         <thead>
@@ -28,8 +30,8 @@
 
                 </td>
                 <td>
-                    <a
-                        href="{{ path('supplier_payment_edit', {booking_id: supplier_payment.booking.id, supplierPayment_id: supplier_payment.id}) }}">Edit</a>
+                    <a href="{{ path('supplier_payment_edit', {booking_id: supplier_payment.booking.id, supplierPayment_id: supplier_payment.id}) }}">Edit</a>
+                        {{ include('supplier_payment/_delete_form.html.twig') }}
                 </td>
             </tr>
             {% else %}
@@ -40,7 +42,6 @@
         </tbody>
     </table>
 </div>
-
     {{ include('supplier_payment/_form.html.twig') }}
     {% endblock supplierPayments %}
     {% endembed %}

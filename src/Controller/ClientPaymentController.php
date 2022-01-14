@@ -41,6 +41,7 @@ class ClientPaymentController extends AbstractController
         }
 
         return $this->renderForm('client_payment/new.html.twig', [
+            'booking' => $booking,
             'client_payment' => $clientPayment,
             'form' => $form,
         ]);
