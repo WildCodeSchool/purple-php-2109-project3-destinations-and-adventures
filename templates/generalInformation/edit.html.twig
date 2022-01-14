@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit "{{ booking.name }}" booking{% endblock %}
+
+{% block main %}
+<div class="generalInfo">
+{% embed "components/_accordion.html.twig" %}
+
+{% block formTitle %}Edit "{{ booking.name }}" booking{% endblock formTitle %}
+
+{% block generalInfo %}
+
+{{ include('generalInformation/_form.html.twig', {'button_label': 'UPDATE'}) }}
+
+{% endblock generalInfo %}
+{% endembed %}
+
+</div>
+{% endblock main %} 
