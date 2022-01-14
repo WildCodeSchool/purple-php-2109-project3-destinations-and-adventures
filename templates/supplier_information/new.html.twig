@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SupplierInformation{% endblock %}
+
+{% block main %}
+<div class="supplierInformation">
+    {% embed "/components/_accordion.html.twig" %}
+    {% block supplierInfo %}
+    <div class="informations">
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount Due</th>
+            <th>Amount in $</th>
+            <th>Due Date</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for supplier_information in supplier_informations %}
+        <tr>
+            <td>{{ supplier_information.supplier.name }}</td>
+            <td>{{ supplier_information.dueAmount }}</td>
+            <td>{{ supplier_information.dueDollarsAmount }}</td>
+            <td>{{ supplier_information.dueDate ? supplier_information.dueDate|date('Y-m-d') : '' }}</td>
+            <td>
+                <!-- use to insert edit and delete buttons -->
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="8">no records found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    </div>
+
+    {{ include('supplier_information/_form.html.twig') }}
+{% endblock supplierInfo %}
+{% endembed %}
+</div>
+
+{% endblock %}
+
+ 

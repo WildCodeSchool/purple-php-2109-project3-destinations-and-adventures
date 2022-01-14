@@ -17,6 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgentController extends AbstractController
 {
     /**
+     * @Route("/", name="index", methods={"GET"})
+     */
+    public function index(AgentRepository $agentRepository): Response
+    {
+        return $this->render('agent/index.html.twig', [
+            'agents' => $agentRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
