@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agent;
-use App\Form\NewAgentType;
+use App\Form\AgentType;
 use App\Repository\AgentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +22,7 @@ class AgentController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $agent = new Agent();
-        $form = $this->createForm(NewAgentType::class, $agent);
+        $form = $this->createForm(AgentType::class, $agent);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

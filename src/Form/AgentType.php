@@ -15,11 +15,13 @@ class AgentType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
+                    'label' => 'Agency name',
                     'placeholder' => 'Enter the agency name here',
                 ]
             ])
             ->add('commission', TextType::class, [
                 'attr' => [
+                    'label' => 'Commission',
                     'placeholder' => 'Amount',
                 ]
             ])
