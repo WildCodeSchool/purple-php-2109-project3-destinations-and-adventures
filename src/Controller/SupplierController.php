@@ -27,7 +27,7 @@ class SupplierController extends AbstractController
             'suppliers' => $supplierRepository->findAll(),
         ]);
     }
-  
+
     /**
      * @Route("{booking_id}/supplier/new", name="new", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
