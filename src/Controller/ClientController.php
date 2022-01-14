@@ -41,7 +41,6 @@ class ClientController extends AbstractController
         }
 
         return $this->renderForm('client/edit.html.twig', [
-            'client' => $client,
             'form' => $form,
         ]);
     }
