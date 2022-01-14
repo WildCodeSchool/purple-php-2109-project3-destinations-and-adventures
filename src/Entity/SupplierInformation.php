@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=SupplierInformationRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\SupplierInformationRepository::class)
  */
 class SupplierInformation
 {
@@ -59,16 +59,16 @@ class SupplierInformation
     private ?Supplier $supplier;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Booking::class, inversedBy="supplier_payment")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?Booking $booking;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Choice(choices=SupplierInformation::CURRENCY, message="Choose a valid currency.")
      */
     private ?string $currency;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Booking::class, inversedBy="supplierInformation")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?Booking $booking;
 
 
     public function getId(): ?int
@@ -148,18 +148,6 @@ class SupplierInformation
         return $this;
     }
 
-    public function getBooking(): ?Booking
-    {
-        return $this->booking;
-    }
-
-    public function setBooking(?Booking $booking): self
-    {
-        $this->booking = $booking;
-
-        return $this;
-    }
-
     public function getCurrency(): ?string
     {
         return $this->currency;
@@ -168,6 +156,18 @@ class SupplierInformation
     public function setCurrency(?string $currency): self
     {
         $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function getBooking(): ?Booking
+    {
+        return $this->booking;
+    }
+
+    public function setBooking(?Booking $booking): self
+    {
+        $this->booking = $booking;
 
         return $this;
     }
