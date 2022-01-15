@@ -19,37 +19,54 @@
               <h6><span class="title">Logged in as</span></h6>
             </li>
             <li class="nav-item">
-              <h5>Username</h5>
+              <h5>
+                {{ app.user.username }}
+              </h5>
             </li>
             <hr>
             <li class="nav-item">
               <h2><span class="title">Dashboard</span></h2>
             </li>
-            <div class="links-aligned">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Payments</a>
-              </li>
-              <li class="nav-item">
+            <li class="links-aligned">
+              <span class="nav-item">
+                <a class="nav-link" href="{{ path('dashboard_payment') }}">Payments</a>
+              </span>
+              <span class="nav-item">
                 <a class="nav-link" href="#">Trips</a>
-              </li>
-              <li class="nav-item">
+              </span>
+              <span class="nav-item">
                 <a class="nav-link" href="#">Reporting</a>
-              </li>
-            </div>
+              </span>
+            </li>
             <hr>
             <li class="nav-item">
               <h2><span class="title">Bookings</span></h2>
             </li>
-            <div class="links-aligned">
-              <li class="nav-item">
-                <a class="nav-link" href="#">All bookings</a>
-              </li>
-              <li class="nav-item">
+            <li class="links-aligned">
+              <span class="nav-item">
+                <a class="nav-link" href="{{ path('booking_index') }}">All bookings</a>
+              </span>
+              <span class="nav-item">
                 <a class="nav-link"
                   href="{{ path('general_new') }}">Add
                   new</a>
-              </li>
-            </div>
+              </span>
+            </li>
+            <hr>
+            <li class="nav-item">
+              <h2><span class="title">Other</span></h2>
+            </li>
+            <li class="links-aligned">
+              <span class="nav-item">
+                <a class="nav-link" href="{{ path('agent_index') }}">Agents</a>
+              </span>
+              <span class="nav-item">
+                <a class="nav-link" href="{{ path('client_index') }}">Clients</a>
+              </span>
+              <span class="nav-item">
+                <a class="nav-link" href="{{ path('supplier_index') }}">Suppliers</a>
+              </span>
+            </li>
             <hr>
             <a href="/logout">
               <button class="btn logout">Logout</button>

@@ -1,22 +1,32 @@
 <div class="accordion">
-    <div class="accordionTitle accordionTop">
-        <h2>GENERAL INFORMATION</h2>
-    </div>
+    <a href="{% block generalInfoPath %}{% endblock generalInfoPath %}">
+        <div class="accordionTitle accordionTop">
+            <h2>GENERAL INFORMATION</h2>
+        </div>
+    </a>
     {% block generalInfo %}{% endblock generalInfo %}
-    <div class="accordionTitle">
-        <h2>FINANCIAL INFORMATION</h2>
-    </div>
+    <a href="{% block financialInfoPath %}{% endblock financialInfoPath %}">
+        <div class="accordionTitle">
+            <h2>FINANCIAL INFORMATION</h2>
+        </div>
+    </a>
     {% block financialInfo %}{% endblock financialInfo %}
-    <div class="accordionTitle">
-        <h2>CLIENT PAYMENTS</h2>
-    </div>
+    <a href="{% block clientPaymentsPath %}{% endblock clientPaymentsPath %}">
+        <div class="accordionTitle">
+            <h2>CLIENT PAYMENTS</h2>
+        </div>
+    </a>
     {% block clientPayments %}{% endblock clientPayments %}
-    <div class="accordionTitle">
-        <h2>SUPPLIER INFORMATION</h2>
-    </div>
+    <a href="{% block supplierInfoPath %}{% endblock supplierInfoPath %}">
+        <div class="accordionTitle">
+            <h2>SUPPLIER INFORMATION</h2>
+        </div>
+    </a>
     {% block supplierInfo %}{% endblock supplierInfo %}
-    <div class="accordionTitle accordionBottom">
-        <h2>SUPPLIER PAYMENTS</h2>
-    </div>
+    <a href="{% block supplierPaymentsPath %}{% endblock supplierPaymentsPath %}">
+        <div class="accordionTitle accordionBottom">
+            <h2>SUPPLIER PAYMENTS</h2>
+        </div>
+    </a>
     {% block supplierPayments %}{% endblock supplierPayments %}
 </div>

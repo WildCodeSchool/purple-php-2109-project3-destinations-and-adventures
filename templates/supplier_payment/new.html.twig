@@ -44,6 +44,11 @@
 </div>
     {{ include('supplier_payment/_form.html.twig') }}
     {% endblock supplierPayments %}
-    {% endembed %}
+
+{% block generalInfoPath %}{{ path('general_edit', {'id': booking.id}) }}{% endblock generalInfoPath %}
+{% block clientPaymentsPath %}{{ path('client_payment_new', {booking_id: booking.id}) }}{% endblock clientPaymentsPath %}
+{% block financialInfoPath %}{{ path('financial_edit', {booking_id: booking.id}) }}{% endblock financialInfoPath %}
+{% block supplierInfoPath %}{{ path('supplier_information_new', {booking_id: booking.id}) }}{% endblock supplierInfoPath %}
+{% endembed %}
 </div>
 {% endblock %}

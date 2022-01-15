@@ -80,7 +80,7 @@ class ClientPaymentController extends AbstractController
         ClientPayment $clientPayment,
         EntityManagerInterface $entityManager
     ): Response {
-        if (is_string($request->request->get('_token')) && is_null($request->request->get('_token'))) {
+        if (is_string($request->request->get('_token'))) {
             if ($this->isCsrfTokenValid('delete' . $clientPayment->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($clientPayment);
                 $entityManager->flush();

@@ -46,6 +46,7 @@ class SupplierPaymentController extends AbstractController
 
         return $this->renderForm('supplier_payment/new.html.twig', [
             'supplier_payments' => $suppPayRepo->findBy(['booking' => $booking->getId()]),
+            'booking' => $booking,
             'form' => $form,
         ]);
     }
@@ -99,10 +100,6 @@ class SupplierPaymentController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute(
-            'supplier_payment_new',
-            ['booking_id' => $booking->getId()],
-            Response::HTTP_SEE_OTHER
-        );
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
     }
 }

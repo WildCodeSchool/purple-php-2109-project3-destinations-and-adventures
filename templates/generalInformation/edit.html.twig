@@ -13,7 +13,10 @@
 {{ include('generalInformation/_form.html.twig', {'button_label': 'UPDATE'}) }}
 
 {% endblock generalInfo %}
+{% block financialInfoPath %}{{ path('financial_edit', {booking_id: booking.id}) }}{% endblock financialInfoPath %}
+{% block clientPaymentsPath %}{{ path('client_payment_new', {booking_id: booking.id}) }}{% endblock clientPaymentsPath %}
+{% block supplierInfoPath %}{{ path('supplier_information_new', {booking_id: booking.id}) }}{% endblock supplierInfoPath %}
+{% block supplierPaymentsPath %}{{ path('supplier_payment_new', {booking_id: booking.id}) }}{% endblock supplierPaymentsPath %}
 {% endembed %}
-
 </div>
 {% endblock main %} 

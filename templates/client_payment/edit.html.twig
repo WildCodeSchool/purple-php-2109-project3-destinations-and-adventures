@@ -5,12 +5,19 @@
 {% block main %}
 <div class="clientPayment">
     <h1>Edit ClientPayment</h1>
-    
-    {% embed "/components/_accordion.html.twig" %}
-      {% block clientPayments %}
-        {{ include('client_payment/_form.html.twig', {'button_label': 'Update'}) }}
-        {{ include('client_payment/_delete_form.html.twig') }}
-      {% endblock clientPayments %}
-    {% endembed %}
+
+{% embed "/components/_accordion.html.twig" %}
+
+{% block clientPayments %}
+{{ include('client_payment/_form.html.twig', {'button_label': 'Update'}) }}
+{{ include('client_payment/_delete_form.html.twig') }}
+
+{% endblock clientPayments %}
+
+{% block generalInfoPath %}{{ path('general_edit', {'id': client_payment.booking.id}) }}{% endblock generalInfoPath %}
+{% block financialInfoPath %}{{ path('financial_edit', {booking_id: client_payment.booking.id}) }}{% endblock financialInfoPath %}
+{% block supplierInfoPath %}{{ path('supplier_information_new', {booking_id: client_payment.booking.id}) }}{% endblock supplierInfoPath %}
+{% block supplierPaymentsPath %}{{ path('supplier_payment_new', {booking_id: client_payment.booking.id}) }}{% endblock supplierPaymentsPath %}
+{% endembed %}
 </div>
 {% endblock %}

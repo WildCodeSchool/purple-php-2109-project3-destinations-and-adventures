@@ -1,12 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit SupplierInformation{% endblock %}
+{% block title %}}Edit Supplier's Information{% endblock %}
 
 {% block main %}
-    <h1>Edit SupplierInformation</h1>
+<div class="clientPayment">
+    <h1>Edit Supplier's Information</h1>
 
-    {{ include('supplier_information/_form.html.twig', {'button_label': 'Update'}) }}
+{% embed "/components/_accordion.html.twig" %}
 
-    <a href="{{ path('supplier_information_new', {'booking_id': supplier_information.booking.id}) }}">back to list</a>
+{% block supplierInfo %}
+{{ include('supplier_information/_form.html.twig', {'button_label': 'Update'}) }}
+{# add delete here #}
 
+{% endblock supplierInfo %}
+
+{% block generalInfoPath %}{{ path('general_edit', {'id': supplier_information.booking.id}) }}{% endblock generalInfoPath %}
+{% block financialInfoPath %}{{ path('financial_edit', {booking_id: supplier_information.booking.id}) }}{% endblock financialInfoPath %}
+{% block clientPaymentsPath %}{{ path('client_payment_new', {booking_id: supplier_information.booking.id}) }}{% endblock clientPaymentsPath %}
+{% block supplierPaymentsPath %}{{ path('supplier_payment_new', {booking_id: supplier_information.booking.id}) }}{% endblock supplierPaymentsPath %}
+{% endembed %}
+</div>
 {% endblock %}

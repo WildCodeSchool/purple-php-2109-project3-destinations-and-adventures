@@ -1,11 +1,20 @@
-{% extends 'base.html.twig' %} {% block title %}New Booking{% endblock %} {%
-block main %}
+{% extends 'base.html.twig' %}
+{% block title %}New Booking{% endblock %}
+
+{% block main %}
 <div class="financialInfo">
     <h2>Edit booking # {{ booking.id }}</h2>
     {% embed "/components/_accordion.html.twig" %}
-{% block financialInfo %}
-{{ include("financial_info/_form.html.twig", {button_label: "SAVE"}) }}
-{% endblock financialInfo %}
+    {% block financialInfo %}
+
+    {{ include("financial_info/_form.html.twig", {button_label: "SAVE"}) }}
+
+    {% endblock financialInfo %}
+
+    {% block generalInfoPath %}{{ path('general_edit', {'id': booking.id}) }}{% endblock generalInfoPath %}
+    {% block clientPaymentsPath %}{{ path('client_payment_new', {booking_id: booking.id}) }}{% endblock clientPaymentsPath %}
+    {% block supplierInfoPath %}{{ path('supplier_information_new', {booking_id: booking.id}) }}{% endblock supplierInfoPath %}
+    {% block supplierPaymentsPath %}{{ path('supplier_payment_new', {booking_id: booking.id}) }}{% endblock supplierPaymentsPath %}
     {% endembed %}
 </div>
 {% endblock main %}
