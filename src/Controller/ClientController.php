@@ -28,32 +28,18 @@ class ClientController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("{booking_id}/client/new", name="new", methods={"GET", "POST"})
-     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     /**
+     * @Route("client/{id}/delete", name="delete", methods={"POST", "GET"}, requirements={"id"="\d+"})
      */
-    public function new(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Client $client, EntityManagerInterface $entityManager): Response
     {
-        $client = new Client();
-        $form = $this->createForm(ClientType::class, $client);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($client);
-            $entityManager->flush();
-
-            return $this->redirectToRoute(
-                'client_payment_new',
-                ['booking_id' => $booking->getId()],
-                Response::HTTP_SEE_OTHER
-            );
+        if (is_string($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $client->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($client);
+                $entityManager->flush();
+            }
         }
-
-        return $this->renderForm('client/new.html.twig', [
-            'booking' => $booking,
-            'client' => $client,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('client_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**

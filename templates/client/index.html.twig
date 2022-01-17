@@ -20,6 +20,7 @@
                 <td>{{ client.name }}</td>
                 <td>
                     <!-- action to edit or delete -->
+                    {{ include("client/_delete_form.html.twig") }}
                 </td>
             </tr>
         {% else %}
