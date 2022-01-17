@@ -1,0 +1,35 @@
+@import "variables.scss";
+
+main {
+    .accordion {
+        margin-top: 7.25rem;
+        width: 90%;
+        max-width: 44rem;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+
+        .accordionTop {
+            border-radius: 5px 5px 0 0;
+        }
+
+        .accordionBottom {
+            border-radius: 0 0 5px 5px;
+        }
+
+        .accordionTitle {
+            background-color: $green;
+            height: 2.875rem;
+            border: 0.25px solid $light;
+
+            h2 {
+                margin-bottom: 0;
+                margin-left: 0.875rem;
+                line-height: 2.875rem;
+                color: $light;
+                font-family: $Helvetica;
+                font-size: 0.875rem;
+            }
+        }
+    }
+}

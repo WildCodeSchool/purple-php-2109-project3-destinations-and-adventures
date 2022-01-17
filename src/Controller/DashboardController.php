@@ -4,9 +4,8 @@ namespace App\Controller;
 
 use App\Form\DaysType;
 use App\Repository\BookingRepository;
-use DateTime;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,9 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     /**
+     * @Route("payment/", name="payment", methods={"GET", "POST"})
+     */
+    public function paymentIndex(BookingRepository $bookingRepository): Response
+    {
+        return $this->render('dashboard/payment_index.html.twig', [
+            'bookings' => $bookingRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("trip/", name="trip", methods={"GET", "POST"})
      */
-    public function paymentIndex(BookingRepository $bookingRepository, Request $request): Response
+    public function tripIndex(BookingRepository $bookingRepository, Request $request): Response
     {
         $form = $this->createForm(DaysType::class);
         $form->handleRequest($request);
