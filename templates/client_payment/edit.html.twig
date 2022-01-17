@@ -5,7 +5,6 @@
 {% block main %}
 <div class="clientPayment">
     <h1>Edit ClientPayment</h1>
-    
     {% embed "/components/_accordion.html.twig" %}
       {% block clientPayments %}
         {{ include('client_payment/_form.html.twig', {'button_label': 'Update'}) }}
