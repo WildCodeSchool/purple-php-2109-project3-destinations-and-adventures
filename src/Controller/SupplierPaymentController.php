@@ -44,8 +44,9 @@ class SupplierPaymentController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_payment/new.html.twig', [
+        return $this->renderForm('accordion/supplier_payment/new.html.twig', [
             'supplier_payments' => $suppPayRepo->findBy(['booking' => $booking->getId()]),
+            'booking' => $booking,
             'form' => $form,
         ]);
     }
@@ -75,7 +76,7 @@ class SupplierPaymentController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_payment/edit.html.twig', [
+        return $this->renderForm('accordion/supplier_payment/edit.html.twig', [
             'supplier_payment' => $supplierPayment,
             'form' => $form,
         ]);

@@ -35,7 +35,7 @@ class FinancialInfoController extends AbstractController
             );
         }
 
-        return $this->renderForm('financial_info/edit.html.twig', [
+        return $this->renderForm('accordion/financial_info/edit.html.twig', [
             'booking' => $booking,
             'form' => $form,
         ]);
