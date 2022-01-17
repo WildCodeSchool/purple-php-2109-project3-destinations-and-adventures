@@ -11,7 +11,6 @@ use App\Form\GeneralInfoType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-
 /**
  * @Route("/booking/general-informations/", name="general_")
  */
