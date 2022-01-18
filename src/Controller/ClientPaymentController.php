@@ -55,7 +55,8 @@ class ClientPaymentController extends AbstractController
     public function edit(
         Request $request,
         ClientPayment $clientPayment,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Booking $booking
     ): Response {
         $form = $this->createForm(ClientPaymentType::class, $clientPayment);
         $form->handleRequest($request);
@@ -67,6 +68,7 @@ class ClientPaymentController extends AbstractController
         }
 
         return $this->render('accordion/client_payment/edit.html.twig', [
+            'booking' => $booking,
             'client_payment' => $clientPayment,
             'form' => $form->createView(),
         ]);
