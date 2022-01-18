@@ -13,13 +13,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-/**
- * @Route("/booking/", name="supplier_")
- */
 class SupplierController extends AbstractController
 {
     /**
-     * @Route("supplier/", name="index", methods={"GET"})
+     * @Route("/supplier/", name="supplier_index", methods={"GET"})
      */
     public function index(SupplierRepository $supplierRepository): Response
     {
@@ -29,7 +26,7 @@ class SupplierController extends AbstractController
     }
 
     /**
-     * @Route("{booking_id}/supplier/new", name="new", methods={"GET", "POST"})
+     * @Route("/booking/{booking_id}/supplier/new", name="supplier_new", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      */
     public function new(Booking $booking, Request $request, EntityManagerInterface $entityManager): Response
@@ -48,6 +45,32 @@ class SupplierController extends AbstractController
         }
 
         return $this->renderForm('supplier/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    /**
+      * @Route("/supplier/{id}/edit", name="supplier_edit", methods={"GET", "POST"})
+     */
+    public function edit(
+        Request $request,
+        Supplier $supplier,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $form = $this->createForm(SupplierType::class, $supplier);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute(
+                'supplier_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
+        }
+
+        return $this->renderForm('supplier/edit.html.twig', [
             'form' => $form,
         ]);
     }
