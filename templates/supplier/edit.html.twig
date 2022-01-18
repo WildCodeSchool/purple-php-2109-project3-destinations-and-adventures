@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %} 
+{% block title %}Edit Supplier{% endblock %}
+{% block main %}
+<h1>Edit Supplier</h1>
+    {{ include("supplier/_form.html.twig", {button_label: "UPDATE"}) }}
+{% endblock %}
