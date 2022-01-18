@@ -21,7 +21,7 @@
                 <td>{{ supplier.name }}</td>
                 <td>{{ supplier.note }}</td>
                 <td>
-                    <!-- action to edit and delete -->
+                    <a href="{{ path('supplier_edit', {'id': supplier.id}) }}">Edit</a>
                 </td>
             </tr>
         {% else %}
