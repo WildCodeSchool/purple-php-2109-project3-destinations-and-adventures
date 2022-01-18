@@ -56,7 +56,7 @@ class SupplierInformationController extends AbstractController
     /**
      * @Route("{booking_id}/supplier_information/{supplier_information_id}/edit", name="edit", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
-     * @ParamConverter("supplier_information", options={"mapping": {"supplier_information_id": "id"}})
+     * @ParamConverter("supplierInformation", options={"mapping": {"supplier_information_id": "id"}})
      */
     public function edit(
         Request $request,

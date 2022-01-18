@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block main %}
+<div class="dashboardTrips">
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+    <div class="upcommingTrips">
+        <h2>Upcoming Trips</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Lead Customer</th>
+                    <th>Trip Name</th>
+                    <th>Departure Date</th>
+                    <th>Return Date</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for upcoming_trip in upcomingTrips %}
+                    <tr>
+                        <td>{{ upcoming_trip.leadCustomer.name }}</td>
+                        <td>{{ upcoming_trip.name }}</td>
+                        <td>{{ upcoming_trip.departure ? upcoming_trip.departure|date('Y-m-d') : '' }}</td>
+                        <td>{{ upcoming_trip.returnDate ? upcoming_trip.returnDate|date('Y-m-d') : '' }}</td>
+                        <td>{{ upcoming_trip.total }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">no records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+    <div class="currentTrips">
+        <h2>Current Trips</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Lead Customer</th>
+                    <th>Trip Name</th>
+                    <th>Departure Date</th>
+                    <th>Return Date</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for current_trip in currentTrips %}
+                    <tr>
+                        <td>{{ current_trip.leadCustomer.name }}</td>
+                        <td>{{ current_trip.name }}</td>
+                        <td>{{ current_trip.departure ? current_trip.departure|date('Y-m-d') : '' }}</td>
+                        <td>{{ current_trip.returnDate ? current_trip.returnDate|date('Y-m-d') : '' }}</td>
+                        <td>{{ current_trip.total }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">no records found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+    <div class="returnedTrip">
+        <h2>Returned Trips</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Trip Name</th>
+                    <th>Return Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for returned_trip in returnedTrips %}
+                    {% for client_payment in returned_trip.clientPayments %}
+                        <tr>
+                            <td>{{ client_payment.client.name }}</td>
+                            <td>{{ returned_trip.name }}</td>
+                            <td>{{ returned_trip.returnDate ? returned_trip.returnDate|date('Y-m-d') : '' }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">no records found</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
