@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Booking;
 use App\Form\GeneralInfoType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/booking/general-informations/", name="general_")
@@ -35,13 +36,14 @@ class GeneralInfoController extends AbstractController
             );
         }
 
-        return $this->render('generalInformation/new.html.twig', [
+        return $this->render('accordion/generalInformation/new.html.twig', [
             "form" => $form->createView(),
         ]);
     }
 
-     /**
-     * @Route("{id}/edit", name="edit")
+    /**
+     * @Route("{booking_id}/edit", name="edit")
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      */
     public function edit(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
     {
@@ -53,7 +55,7 @@ class GeneralInfoController extends AbstractController
 
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->renderForm('generalInformation/edit.html.twig', [
+        return $this->renderForm('accordion/generalInformation/edit.html.twig', [
             'booking' => $booking,
             'form' => $form,
         ]);

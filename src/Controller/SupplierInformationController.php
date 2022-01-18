@@ -46,7 +46,7 @@ class SupplierInformationController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_information/new.html.twig', [
+        return $this->renderForm('accordion/supplier_information/new.html.twig', [
             'supplier_informations' => $suppInfoRepo->findBy(['booking' => $booking->getId()]),
             'booking' => $booking,
             'form' => $form,
@@ -77,7 +77,7 @@ class SupplierInformationController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_information/edit.html.twig', [
+        return $this->renderForm('accordion/supplier_information/edit.html.twig', [
             'supplier_information' => $supplierInformation,
             'form' => $form,
         ]);

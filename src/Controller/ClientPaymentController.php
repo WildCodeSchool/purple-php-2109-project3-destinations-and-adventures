@@ -40,7 +40,7 @@ class ClientPaymentController extends AbstractController
             );
         }
 
-        return $this->renderForm('client_payment/new.html.twig', [
+        return $this->renderForm('accordion/client_payment/new.html.twig', [
             'booking' => $booking,
             'client_payment' => $clientPayment,
             'form' => $form,
@@ -66,7 +66,7 @@ class ClientPaymentController extends AbstractController
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('client_payment/edit.html.twig', [
+        return $this->render('accordion/client_payment/edit.html.twig', [
             'client_payment' => $clientPayment,
             'form' => $form->createView(),
         ]);
