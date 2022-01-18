@@ -22,8 +22,12 @@ class ClientPaymentController extends AbstractController
      * @Route("{booking_id}/client_payment/new", name="new", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      */
-    public function new(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
-    {
+    public function new(
+        Request $request,
+        Booking $booking,
+        EntityManagerInterface $entityManager,
+        ClientPaymentRepository $clientPaymentRepo
+    ): Response {
         $clientPayment = new ClientPayment();
         $form = $this->createForm(ClientPaymentType::class, $clientPayment);
         $form->handleRequest($request);
@@ -42,7 +46,7 @@ class ClientPaymentController extends AbstractController
 
         return $this->renderForm('accordion/client_payment/new.html.twig', [
             'booking' => $booking,
-            'client_payment' => $clientPayment,
+            'client_payments' => $clientPaymentRepo->findBy(['booking' => $booking->getId()]),
             'form' => $form,
         ]);
     }
@@ -64,7 +68,11 @@ class ClientPaymentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'client_payment_new',
+                ['booking_id' => $booking->getId()],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('accordion/client_payment/edit.html.twig', [

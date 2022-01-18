@@ -3,6 +3,44 @@
 {% block title %}New ClientPayment{% endblock %}
 
 {% block clientPayments %}
+<div class="informations">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Amount Due</th>
+                <th>Mode</th>
+                <th>Date</th>
+                <th>By</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client_payment in client_payments %}
+                <tr>
+                    <td>{{ client_payment.type }}</td>
+                    <td>{{ client_payment.amount }}</td>
+                    <td>{{ client_payment.mode }}</td>
+                    <td>{{ client_payment.date ? client_payment.date|date('Y-m-d') : '' }}</td>
+                    <td>{{ client_payment.client.name }}</td>
+                    <td>
+                        {% if client_payment.status == 'due' %}
+                            <a
+                                href="{{ path('client_payment_edit', {'booking_id': client_payment.booking.id, 'client_payment_id': client_payment.id}) }}">edit</a>
+                                {{ include('accordion/client_payment/_delete_form.html.twig') }}
+                                {% else %}
+                            {{ include('accordion/client_payment/_delete_form.html.twig') }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
     {{ include('accordion/client_payment/_form.html.twig') }}
     <a href="{{ path('client_new', {booking_id: booking.id}) }}">Add client</a>
 {% endblock clientPayments %}
