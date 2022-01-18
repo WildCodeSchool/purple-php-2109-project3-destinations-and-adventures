@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Agent;
 use App\Form\Agent1Type;
 use App\Repository\AgentRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgentController extends AbstractController
 {
     /**
-     * @Route("/", name="index", methods={"GET"})
+     * @Route("/{id}/edit", name="index", methods={"GET", "POST"})
      */
     public function index(AgentRepository $agentRepository): Response
     {

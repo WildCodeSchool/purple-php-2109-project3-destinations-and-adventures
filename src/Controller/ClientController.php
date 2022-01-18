@@ -29,6 +29,33 @@ class ClientController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("{booking_id}/client/new", name="new", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     */
+    public function new(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
+    {
+        $client = new Client();
+        $form = $this->createForm(ClientType::class, $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($client);
+            $entityManager->flush();
+
+            return $this->redirectToRoute(
+                'client_payment_new',
+                ['booking_id' => $booking->getId()],
+                Response::HTTP_SEE_OTHER
+            );
+        }
+        return $this->renderForm('client/new.html.twig', [
+            'booking' => $booking,
+            'client' => $client,
+            'form' => $form,
+        ]);
+    }
+
      /**
      * @Route("client/{id}/delete", name="delete", methods={"POST", "GET"}, requirements={"id"="\d+"})
      */
