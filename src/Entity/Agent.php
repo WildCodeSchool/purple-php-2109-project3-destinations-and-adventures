@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Agent
 {
+    public const UNITS = ['$', '%'];
+    public const TYPES = ['included', 'on_top_off'];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -38,6 +40,18 @@ class Agent
      * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="agent")
      */
     private Collection $bookings;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=Agent::TYPES, message="Choose a valid status.")
+     */
+    private ?string $commissionType;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice(choices=Agent::UNITS, message="Choose a valid status.")
+     */
+    private ?string $commissionUnit;
 
     public function __construct()
     {
@@ -99,6 +113,30 @@ class Agent
                 $booking->setAgent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCommissionType(): ?string
+    {
+        return $this->commissionType;
+    }
+
+    public function setCommissionType(?string $commissionType): self
+    {
+        $this->commissionType = $commissionType;
+
+        return $this;
+    }
+
+    public function getCommissionUnit(): ?string
+    {
+        return $this->commissionUnit;
+    }
+
+    public function setCommissionUnit(?string $commissionUnit): self
+    {
+        $this->commissionUnit = $commissionUnit;
 
         return $this;
     }
