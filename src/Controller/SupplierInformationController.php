@@ -82,4 +82,29 @@ class SupplierInformationController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    /**
+     * @Route("{booking_id}/supplier_information/{supplier_information_id}", name="delete", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     * @ParamConverter("supplierInformation", options={"mapping": {"supplier_information_id": "id"}})
+     */
+    public function delete(
+        Request $request,
+        SupplierInformation $supplierInformation,
+        EntityManagerInterface $entityManager,
+        Booking $booking
+    ): Response {
+        if (is_string($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $supplierInformation->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($supplierInformation);
+                $entityManager->flush();
+            }
+        }
+
+        return $this->redirectToRoute(
+            'supplier_information_new',
+            ['booking_id' => $booking->getId()],
+            Response::HTTP_SEE_OTHER
+        );
+    }
 }
