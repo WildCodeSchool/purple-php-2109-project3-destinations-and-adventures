@@ -167,12 +167,16 @@
             </thead>
             <tbody>
                 {% for dai_commission in daiCommissions %}
+                {% set profit = dai_commission.total %}
+                {% for supplier_payment in dai_commission.supplierPayments %}
+                {% set profit = profit - supplier_payment.paidAmount %}
+                {% endfor %}
                 <tr>
                     <td>{{ dai_commission.name }}</td>
                     <td>{{ dai_commission.returnDate ? dai_commission.returnDate|date('m-d-Y') : '' }}</td>
-                    <td>??</td>
-                    <td>??</td>
-                    <td>??</td>
+                    <td>{{ profit }}</td>
+                    <td>{{ profit * 20 / 100 }}</td>
+                    <td>20 %</td>
                 </tr>
                 {% else %}
                 <tr>
