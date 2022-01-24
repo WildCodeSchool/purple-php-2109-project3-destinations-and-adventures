@@ -31,8 +31,8 @@ class DashboardController extends AbstractController
         if ($form->isSubmitted()) {
             if (
                 $form->getData() === ['days' => 7]
-                || $form->getData() === ['days' => 14]
-                || $form->getData() === ['days' => 21]
+                || $form->getData() === ['days' => 15]
+                || $form->getData() === ['days' => 30]
             ) {
                 $days = $form->getData();
             }
@@ -59,8 +59,8 @@ class DashboardController extends AbstractController
         if ($form->isSubmitted()) {
             if (
                 $form->getData() === ['days' => 7]
-                || $form->getData() === ['days' => 14]
-                || $form->getData() === ['days' => 21]
+                || $form->getData() === ['days' => 15]
+                || $form->getData() === ['days' => 30]
             ) {
                 $days = $form->getData();
             }

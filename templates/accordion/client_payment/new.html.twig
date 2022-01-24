@@ -21,7 +21,7 @@
                     <td>{{ client_payment.type }}</td>
                     <td>{{ client_payment.amount }}</td>
                     <td>{{ client_payment.mode }}</td>
-                    <td>{{ client_payment.date ? client_payment.date|date('Y-m-d') : '' }}</td>
+                    <td>{{ client_payment.date ? client_payment.date|date('m-d-Y') : '' }}</td>
                     <td>{{ client_payment.client.name }}</td>
                     <td>
                         {% if client_payment.status == 'due' %}
