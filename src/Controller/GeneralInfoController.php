@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Booking;
 use App\Form\GeneralInfoType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/booking/general-informations/", name="general_")
@@ -28,10 +29,14 @@ class GeneralInfoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($booking);
             $entityManager->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute(
+                'financial_edit',
+                ['booking_id' => $booking->getId()],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
-        return $this->render('generalInformation/new.html.twig', [
+        return $this->render('accordion/generalInformation/new.html.twig', [
             "form" => $form->createView(),
         ]);
     }
@@ -51,5 +56,25 @@ class GeneralInfoController extends AbstractController
             }
         }
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("{booking_id}/edit", name="edit")
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     */
+    public function edit(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(GeneralInfoType::class, $booking);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('accordion/generalInformation/edit.html.twig', [
+            'booking' => $booking,
+            'form' => $form,
+        ]);
     }
 }

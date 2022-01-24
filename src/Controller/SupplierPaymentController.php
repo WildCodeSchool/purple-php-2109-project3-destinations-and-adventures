@@ -44,8 +44,9 @@ class SupplierPaymentController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_payment/new.html.twig', [
+        return $this->renderForm('accordion/supplier_payment/new.html.twig', [
             'supplier_payments' => $suppPayRepo->findBy(['booking' => $booking->getId()]),
+            'booking' => $booking,
             'form' => $form,
         ]);
     }
@@ -59,8 +60,7 @@ class SupplierPaymentController extends AbstractController
         Request $request,
         Booking $booking,
         EntityManagerInterface $entityManager,
-        SupplierPayment $supplierPayment,
-        SupplierPaymentRepository $suppPayRepo
+        SupplierPayment $supplierPayment
     ): Response {
         $form = $this->createForm(SupplierPaymentType::class, $supplierPayment);
         $form->handleRequest($request);
@@ -75,9 +75,35 @@ class SupplierPaymentController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_payment/edit.html.twig', [
+        return $this->renderForm('accordion/supplier_payment/edit.html.twig', [
+            'booking' => $booking,
             'supplier_payment' => $supplierPayment,
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @Route("{booking_id}/supplier_payment/{supplier_payment_id}", name="delete", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     * @ParamConverter("supplierPayment", options={"mapping": {"supplier_payment_id": "id"}})
+     */
+    public function delete(
+        Request $request,
+        SupplierPayment $supplierPayment,
+        EntityManagerInterface $entityManager,
+        Booking $booking
+    ): Response {
+        if (is_string($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $supplierPayment->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($supplierPayment);
+                $entityManager->flush();
+            }
+        }
+
+        return $this->redirectToRoute(
+            'supplier_payment_new',
+            ['booking_id' => $booking->getId()],
+            Response::HTTP_SEE_OTHER
+        );
     }
 }

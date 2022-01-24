@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\SupplierPayment;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,36 @@ class SupplierPaymentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, SupplierPayment::class);
+    }
+
+    /**
+     * @return mixed Returns an array of SupplierPayment objects
+     */
+    public function findOucommingSupplierPayments(int $days)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.date <= :chooseDays')
+            ->andWhere('s.date >= :today')
+            ->setParameter('today', new DateTime())
+            ->setParameter('chooseDays', new DateTime('today + ' . $days . 'days'))
+            ->orderBy('s.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return mixed Returns an array of SupplierPayment objects
+     */
+    public function findOucommingSupplierCommissions(int $days)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.dueDateCommission <= :chooseDays')
+            ->andWhere('s.dueDateCommission >= :today')
+            ->setParameter('today', new DateTime())
+            ->setParameter('chooseDays', new DateTime('today + ' . $days . 'days'))
+            ->orderBy('s.dueDateCommission', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

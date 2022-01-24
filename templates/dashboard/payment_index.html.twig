@@ -1,0 +1,186 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Payment{% endblock %}
+
+{% block main %}
+<div class="dashboardPayment">
+    <div class="bashboardTile">
+        <h1>Dashboard</h1>
+        <p>></p>
+        <h2>Payments</h2>
+    </div>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+    <div class="incomingClientPayment">
+        <h3>Incoming Clients Payment</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th>Trip Name</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for client_payment in clientPayments %}
+                {% if client_payment.status == "due" %}
+                {% set total = total + client_payment.amount %}
+                <tr>
+                    <td>{{ client_payment.client.name }}</td>
+                    <td>{{ client_payment.booking.name }}</td>
+                    <td>{{ client_payment.amount }}</td>
+                    <td>{{ client_payment.date ? client_payment.date|date('Y-m-d') : '' }}</td>
+                </tr>
+                {% endif %}
+                {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="totalClientPayment">
+            <h3>Total: {{ total }}$</h3>
+        </div>
+    </div>
+    <div class="outcomingSupplierPayment">
+        <h3>Outcoming Suppliers Payments</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Supplier Name</th>
+                    <th>Trip Name</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for supplier_payment in supplierPayments %}
+                {% if supplier_payment.status == "due" %}
+                {% set total = total + supplier_payment.paidAmount %}
+                <tr>
+                    <td>{{ supplier_payment.supplier.name }}</td>
+                    <td>{{ supplier_payment.booking.name }}</td>
+                    <td>{{ supplier_payment.paidAmount }}</td>
+                    <td>{{ supplier_payment.date ? supplier_payment.date|date('Y-m-d') : '' }}</td>
+                </tr>
+                {% endif %}
+                {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="totalSupplierPayment">
+            <h3>Total: {{ total }}$</h3>
+        </div>
+    </div>
+    <div class="incomingSupplierCommissions">
+        <h3>Incoming Suppliers Commissions</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Supplier Name</th>
+                    <th>Trip Name</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for supplier_commission in supplierCommissions %}
+                {% if supplier_commission.status == "due" %}
+                {% set total = total + supplier_commission.paidAmount %}
+                <tr>
+                    <td>{{ supplier_commission.supplier.name }}</td>
+                    <td>{{ supplier_commission.booking.name }}</td>
+                    <td>{{ supplier_commission.dueCommission }}</td>
+                    <td>{{ supplier_commission.dueDateCommission ? supplier_commission.dueDateCommission|date('Y-m-d') : '' }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="totalSupplierCommision">
+            <h3>Total: {{ total }}$</h3>
+        </div>
+    </div>
+    <div class="outcomingAgentCommissions">
+        <h3>Outcoming payment - Agent Commissions</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Trip Name</th>
+                    <th>Agent</th>
+                    <th>Date</th>
+                    <th>Grand Total</th>
+                    <th>Commission</th>
+                    <th>%</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for agent_commission in agentCommissions %}
+                <tr>
+                    <td>{{ agent_commission.name }}</td>
+                    <td>{% if agent_commission.agent is not null %}
+                        {{ agent_commission.agent.name }}
+                    {% endif %}</td>
+                    <td>{{ agent_commission.departure ? agent_commission.departure|date('Y-m-d') : '' }}</td>
+                    <td>{{ agent_commission.total }}</td>
+                    <td>??</td>
+                    <td>??</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="totalAgentCommission">
+            <h3>Total: {{ total }}$</h3>
+        </div>
+    </div>
+    <div class="daiCommission">
+        <h3>DAI Commissions - Clients returning</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Trip Name</th>
+                    <th>Return Date</th>
+                    <th>Gross Profit</th>
+                    <th>Commission</th>
+                    <th>%</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dai_commission in daiCommissions %}
+                <tr>
+                    <td>{{ dai_commission.name }}</td>
+                    <td>{{ dai_commission.returnDate ? dai_commission.returnDate|date('Y-m-d') : '' }}</td>
+                    <td>??</td>
+                    <td>??</td>
+                    <td>??</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

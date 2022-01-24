@@ -1,23 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
-		<title>{% block title %}{% endblock %}</title>
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app') }}
-		{% endblock %}
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
-	</head>
-	<body class="body">
-		<header>
-			{% include "components/_navbar.html.twig" %}
-		</header>
-		<main>
-			{% block main %}{% endblock %}
-		</main>
-	</body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}" />
+  <title>{% block title %}{% endblock %}</title>
+  {% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+  {% block javascripts %}
+  {{ encore_entry_script_tags('app') }}
+  {% endblock %}
+</head>
+
+<body class="body">
+  {% block body %}
+  <header>
+    <nav class="navbar navbar-light fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <span>Destinations & Adventures</span><br>
+          <span id="times">INTERNATIONAL</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <hr>
+              <li class="nav-item">
+                <h6><span class="title">Logged in as</span></h6>
+              </li>
+              <li class="nav-item">
+                <h5>
+                    {% if app.user %}
+                      {{ app.user.username }}
+                    {% else %}
+                      Unknown
+                    {% endif %}
+                </h5>
+              </li>
+              <hr>
+              <li class="nav-item">
+                <h2><span class="title">Dashboard</span></h2>
+              </li>
+              <li class="links-aligned">
+                <span class="nav-item">
+                  <a class="nav-link" href="{{ path('dashboard_payment') }}">Payments</a>
+                </span>
+                <span class="nav-item">
+                  <a class="nav-link" href="#">Trips</a>
+                </span>
+                <span class="nav-item">
+                  <a class="nav-link" href="#">Reporting</a>
+                </span>
+              </li>
+              <hr>
+              <li class="nav-item">
+                <h2><span class="title">Bookings</span></h2>
+              </li>
+              <li class="links-aligned">
+                <span class="nav-item">
+                  <a class="nav-link" href="{{ path('booking_index') }}">All bookings</a>
+                </span>
+                <span class="nav-item">
+                  <a class="nav-link" href="{{ path('general_new') }}">Add
+                    new</a>
+                </span>
+              </li>
+              <hr>
+              <li class="nav-item">
+                <h2><span class="title">Other</span></h2>
+              </li>
+              <li class="links-aligned">
+                <span class="nav-item">
+                  <a class="nav-link" href="{{ path('agent_index') }}">Agents</a>
+                </span>
+                <span class="nav-item">
+                  <a class="nav-link" href="{{ path('client_index') }}">Clients</a>
+                </span>
+                <span class="nav-item">
+                  <a class="nav-link" href="{{ path('supplier_index') }}">Suppliers</a>
+                </span>
+              </li>
+              <hr>
+              <a href="/logout">
+                <button class="btn logout">Logout</button>
+              </a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    {% block main %}{% endblock %}
+  </main>
+  {% endblock body %}
+</body>
+
 </html>
