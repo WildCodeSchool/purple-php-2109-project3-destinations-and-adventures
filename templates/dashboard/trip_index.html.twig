@@ -84,11 +84,12 @@
                             <td>{{ returned_trip.name }}</td>
                             <td>{{ returned_trip.returnDate ? returned_trip.returnDate|date('m-d-Y') : '' }}</td>
                         </tr>
+                        {% endfor %}
                     {% else %}
                         <tr>
                             <td colspan="6">no records found</td>
                         </tr>
-                    {% endfor %}
+
                 {% endfor %}
             </tbody>
         </table>
