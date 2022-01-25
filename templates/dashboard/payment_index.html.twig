@@ -130,23 +130,32 @@
                 </tr>
             </thead>
             <tbody>
-                {% set total = 0 %}
+
                 {% for agent_commission in agentCommissions %}
+                {% set total = 0 %}
+                {% if agent_commission.agent is not null %}
+                        {% if agent_commission.agent.commissionUnit == '%' %}
+                            {% set commission = estimate_profit + estimate_profit * agent_commission.agent.commission %}
+                            {% set rate = agent_commission.agent.commission %}
+                        {% else %}
+                            {% set commission = agent_commission.agent.commission %}
+                            {% set rate = agent_commission.total / agent_commission.agent.commission %}
+                        {% endif %}
                 <tr>
                     <td>{{ agent_commission.name }}</td>
-                    <td>{% if agent_commission.agent is not null %}
-                        {{ agent_commission.agent.name }}
-                    {% endif %}</td>
+                    <td>{{ agent_commission.agent.name }}</td>
                     <td>{{ agent_commission.departure ? agent_commission.departure|date('m-d-Y') : '' }}</td>
                     <td>{{ agent_commission.total }}</td>
-                    <td>??</td>
-                    <td>??</td>
+                    <td>{{ commission }}</td>
+                    <td>{{ rate }}</td>
                 </tr>
+                {% endif %}
                 {% else %}
                 <tr>
                     <td colspan="8">no records found</td>
                 </tr>
                 {% endfor %}
+
             </tbody>
         </table>
         <div class="totalAgentCommission">
@@ -169,7 +178,6 @@
             </thead>
             <tbody>
                 {% for dai_commission in daiCommissions %}
-                {{ dump(dai_commission) }}
                 {% set profit = 0 %}
                 {% set estimate_profit = dai_commission.total %}
                 {% set commission = 0 %}
@@ -183,14 +191,12 @@
                 {% endif %}
 
                 {% for client_payment in dai_commission.clientPayments %}
-                    {{ dump(client_payment) }}
                     {% if client_payment.status == "paid" %}
                         {% set profit = profit + client_payment.amount %}
                     {% endif %}
                 {% endfor %}
 
                 {% for supplier_payment in dai_commission.supplierPayments %}
-                {{ dump(supplier_payment) }}
                 {% if supplier_payment.status == "paid" %}
                     {% set profit = profit - supplier_payment.paidAmount %}
                 {% endif %}
@@ -217,4 +223,4 @@
         </table>
     </div>
 </div>
-{% endblock %}
+{% endblock main %}
