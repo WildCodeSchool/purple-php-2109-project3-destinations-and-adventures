@@ -1,0 +1,7 @@
+{% extends 'accordion/layout.html.twig' %}
+
+{% block title %}Add an Agency{% endblock %}
+
+{% block agencyInfo %}
+{{ include('accordion/agency/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock agencyInfo %}

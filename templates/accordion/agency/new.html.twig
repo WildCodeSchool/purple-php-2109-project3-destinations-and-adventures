@@ -1,0 +1,8 @@
+{% extends 'accordion/layout.html.twig' %}
+
+{% block title %}Add an Agency{% endblock %}
+
+{% block agencyInfo %}
+{{ include('accordion/agency/_form.html.twig') }}
+<a href="{{ path('agent_new', {booking_id: booking.id}) }}">Add agency</a>
+{% endblock agencyInfo %}
