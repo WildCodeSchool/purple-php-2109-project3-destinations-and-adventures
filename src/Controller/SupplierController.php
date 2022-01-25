@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Booking;
 use App\Entity\Supplier;
+use App\Entity\SupplierPayment;
 use App\Form\SupplierType;
 use App\Repository\SupplierRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -73,5 +74,22 @@ class SupplierController extends AbstractController
         return $this->renderForm('supplier/edit.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @Route("/supplier/{id}/delete", name="supplier_delete", methods={"GET", "POST"})
+     */
+    public function delete(
+        Request $request,
+        Supplier $supplier,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if (is_string($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $supplier->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($supplier);
+                $entityManager->flush();
+            }
+        }
+            return $this->redirectToRoute('supplier_index', [], Response::HTTP_SEE_OTHER);
     }
 }
