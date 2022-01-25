@@ -17,6 +17,7 @@ class DaysType extends AbstractType
                     '7 Days' => 7,
                     '15 Days' => 15,
                     '30 Days' => 30,
+                    'All' => 'all',
                 ],
                 'label' => 'Within',
             ])

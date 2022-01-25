@@ -83,13 +83,13 @@ class BookingRepository extends ServiceEntityRepository
     /**
      * @return mixed Returns an array of Booking objects
      */
-    public function findReturnedTrips()
+    public function findReturnedTrips(int $days)
     {
         return $this->createQueryBuilder('b')
             ->where('b.returnDate <= :today')
             ->andWhere('b.returnDate <= :fifteenDays')
             ->setParameter('today', new DateTime())
-            ->setParameter('fifteenDays', new DateTime('today + 15 days'))
+            ->setParameter('fifteenDays', new DateTime('today + ' . $days . 'days'))
             ->orderBy('b.departure', 'ASC')
             ->getQuery()
             ->getResult();
