@@ -15,8 +15,8 @@ class DaysType extends AbstractType
             ->add('days', ChoiceType::class, [
                 'choices' => [
                     '7 Days' => 7,
-                    '14 Days' => 14,
-                    '21 Days' => 21,
+                    '15 Days' => 15,
+                    '30 Days' => 30,
                 ],
                 'label' => 'Within',
             ])

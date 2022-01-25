@@ -25,8 +25,8 @@
                     <tr>
                         <td>{{ upcoming_trip.leadCustomer.name }}</td>
                         <td>{{ upcoming_trip.name }}</td>
-                        <td>{{ upcoming_trip.departure ? upcoming_trip.departure|date('Y-m-d') : '' }}</td>
-                        <td>{{ upcoming_trip.returnDate ? upcoming_trip.returnDate|date('Y-m-d') : '' }}</td>
+                        <td>{{ upcoming_trip.departure ? upcoming_trip.departure|date('m-d-Y') : '' }}</td>
+                        <td>{{ upcoming_trip.returnDate ? upcoming_trip.returnDate|date('m-d-Y') : '' }}</td>
                         <td>{{ upcoming_trip.total }}</td>
                     </tr>
                 {% else %}
@@ -54,8 +54,8 @@
                     <tr>
                         <td>{{ current_trip.leadCustomer.name }}</td>
                         <td>{{ current_trip.name }}</td>
-                        <td>{{ current_trip.departure ? current_trip.departure|date('Y-m-d') : '' }}</td>
-                        <td>{{ current_trip.returnDate ? current_trip.returnDate|date('Y-m-d') : '' }}</td>
+                        <td>{{ current_trip.departure ? current_trip.departure|date('m-d-Y') : '' }}</td>
+                        <td>{{ current_trip.returnDate ? current_trip.returnDate|date('m-d-Y') : '' }}</td>
                         <td>{{ current_trip.total }}</td>
                     </tr>
                 {% else %}
@@ -82,7 +82,7 @@
                         <tr>
                             <td>{{ client_payment.client.name }}</td>
                             <td>{{ returned_trip.name }}</td>
-                            <td>{{ returned_trip.returnDate ? returned_trip.returnDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ returned_trip.returnDate ? returned_trip.returnDate|date('m-d-Y') : '' }}</td>
                         </tr>
                     {% else %}
                         <tr>

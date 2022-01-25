@@ -19,7 +19,7 @@
                 {% for supplier_payment in supplier_payments %}
                 <tr>
                     <td>{{ supplier_payment.supplier.name }}</td>
-                    <td>{{ supplier_payment.date ? supplier_payment.date|date('Y-m-d') : '' }}</td>
+                    <td>{{ supplier_payment.date ? supplier_payment.date|date('m-d-Y') : '' }}</td>
                     <td>{{ supplier_payment.paidAmount }}</td>
                     <td>{{ supplier_payment.dueCommission }}</td>
 
