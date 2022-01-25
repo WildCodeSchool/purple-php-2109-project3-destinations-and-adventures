@@ -46,7 +46,7 @@ class SupplierInformationController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_information/new.html.twig', [
+        return $this->renderForm('accordion/supplier_information/new.html.twig', [
             'supplier_informations' => $suppInfoRepo->findBy(['booking' => $booking->getId()]),
             'booking' => $booking,
             'form' => $form,
@@ -56,7 +56,7 @@ class SupplierInformationController extends AbstractController
     /**
      * @Route("{booking_id}/supplier_information/{supplier_information_id}/edit", name="edit", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
-     * @ParamConverter("supplier_information", options={"mapping": {"supplier_information_id": "id"}})
+     * @ParamConverter("supplierInformation", options={"mapping": {"supplier_information_id": "id"}})
      */
     public function edit(
         Request $request,
@@ -77,9 +77,34 @@ class SupplierInformationController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_information/edit.html.twig', [
+        return $this->renderForm('accordion/supplier_information/edit.html.twig', [
             'supplier_information' => $supplierInformation,
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @Route("{booking_id}/supplier_information/{supplier_information_id}", name="delete", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     * @ParamConverter("supplierInformation", options={"mapping": {"supplier_information_id": "id"}})
+     */
+    public function delete(
+        Request $request,
+        SupplierInformation $supplierInformation,
+        EntityManagerInterface $entityManager,
+        Booking $booking
+    ): Response {
+        if (is_string($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $supplierInformation->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($supplierInformation);
+                $entityManager->flush();
+            }
+        }
+
+        return $this->redirectToRoute(
+            'supplier_information_new',
+            ['booking_id' => $booking->getId()],
+            Response::HTTP_SEE_OTHER
+        );
     }
 }

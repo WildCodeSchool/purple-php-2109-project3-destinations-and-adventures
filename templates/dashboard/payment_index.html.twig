@@ -9,6 +9,10 @@
         <p>></p>
         <h2>Payments</h2>
     </div>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
     <div class="incomingClientPayment">
         <h3>Incoming Clients Payment</h3>
         <table class="table">
@@ -22,18 +26,16 @@
             </thead>
             <tbody>
                 {% set total = 0 %}
-                {% for booking in bookings %}
-                {% for client_payment in booking.clientPayments %}
+                {% for client_payment in clientPayments %}
                 {% if client_payment.status == "due" %}
                 {% set total = total + client_payment.amount %}
                 <tr>
                     <td>{{ client_payment.client.name }}</td>
-                    <td>{{ booking.name }}</td>
+                    <td>{{ client_payment.booking.name }}</td>
                     <td>{{ client_payment.amount }}</td>
                     <td>{{ client_payment.date ? client_payment.date|date('Y-m-d') : '' }}</td>
                 </tr>
                 {% endif %}
-                {% endfor %}
                 {% else %}
                 <tr>
                     <td colspan="8">no records found</td>
@@ -58,18 +60,16 @@
             </thead>
             <tbody>
                 {% set total = 0 %}
-                {% for booking in bookings %}
-                {% for supplier_payment in booking.supplierPayments %}
+                {% for supplier_payment in supplierPayments %}
                 {% if supplier_payment.status == "due" %}
                 {% set total = total + supplier_payment.paidAmount %}
                 <tr>
                     <td>{{ supplier_payment.supplier.name }}</td>
-                    <td>{{ booking.name }}</td>
+                    <td>{{ supplier_payment.booking.name }}</td>
                     <td>{{ supplier_payment.paidAmount }}</td>
                     <td>{{ supplier_payment.date ? supplier_payment.date|date('Y-m-d') : '' }}</td>
                 </tr>
                 {% endif %}
-                {% endfor %}
                 {% else %}
                 <tr>
                     <td colspan="8">no records found</td>
@@ -94,19 +94,17 @@
             </thead>
             <tbody>
                 {% set total = 0 %}
-                {% for booking in bookings %}
-                {% for supplier_payment in booking.supplierPayments %}
-                {% if supplier_payment.status == "due" %}
-                {% set total = total + supplier_payment.paidAmount %}
+                {% for supplier_commission in supplierCommissions %}
+                {% if supplier_commission.status == "due" %}
+                {% set total = total + supplier_commission.paidAmount %}
                 <tr>
-                    <td>{{ supplier_payment.supplier.name }}</td>
-                    <td>{{ booking.name }}</td>
-                    <td>{{ supplier_payment.dueCommission }}</td>
-                    <td>{{ supplier_payment.dueDateCommission ? supplier_payment.dueDateCommission|date('Y-m-d') : '' }}
+                    <td>{{ supplier_commission.supplier.name }}</td>
+                    <td>{{ supplier_commission.booking.name }}</td>
+                    <td>{{ supplier_commission.dueCommission }}</td>
+                    <td>{{ supplier_commission.dueDateCommission ? supplier_commission.dueDateCommission|date('Y-m-d') : '' }}
                     </td>
                 </tr>
                 {% endif %}
-                {% endfor %}
                 {% else %}
                 <tr>
                     <td colspan="8">no records found</td>
@@ -133,12 +131,14 @@
             </thead>
             <tbody>
                 {% set total = 0 %}
-                {% for booking in bookings %}
+                {% for agent_commission in agentCommissions %}
                 <tr>
-                    <td>{{ booking.name }}</td>
-                    <td>{{ booking.agent }}</td>
-                    <td>{{ booking.departure ? booking.departure|date('Y-m-d') : '' }}</td>
-                    <td>{{ booking.total }}</td>
+                    <td>{{ agent_commission.name }}</td>
+                    <td>{% if agent_commission.agent is not null %}
+                        {{ agent_commission.agent.name }}
+                    {% endif %}</td>
+                    <td>{{ agent_commission.departure ? agent_commission.departure|date('Y-m-d') : '' }}</td>
+                    <td>{{ agent_commission.total }}</td>
                     <td>??</td>
                     <td>??</td>
                 </tr>
@@ -166,10 +166,10 @@
                 </tr>
             </thead>
             <tbody>
-                {% for booking in bookings %}
+                {% for dai_commission in daiCommissions %}
                 <tr>
-                    <td>{{ booking.name }}</td>
-                    <td>{{ booking.returnDate ? booking.returnDate|date('Y-m-d') : '' }}</td>
+                    <td>{{ dai_commission.name }}</td>
+                    <td>{{ dai_commission.returnDate ? dai_commission.returnDate|date('Y-m-d') : '' }}</td>
                     <td>??</td>
                     <td>??</td>
                     <td>??</td>

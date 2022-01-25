@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgentController extends AbstractController
 {
     /**
-     * @Route("/{id}/edit", name="index", methods={"GET", "POST"})
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(AgentRepository $agentRepository): Response
     {

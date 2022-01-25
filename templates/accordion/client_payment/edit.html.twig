@@ -1,0 +1,8 @@
+{% extends 'accordion/layout.html.twig' %}
+
+{% block title %}Edit ClientPayment{% endblock %}
+
+{% block clientPayments %}
+    {{ include('accordion/client_payment/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('accordion/client_payment/_delete_form.html.twig') }}
+{% endblock clientPayments %}
