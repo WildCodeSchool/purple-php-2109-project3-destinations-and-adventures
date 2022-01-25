@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Agent;
 use App\Form\Agent1Type;
 use App\Repository\AgentRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
