@@ -83,15 +83,15 @@ class ClientPaymentController extends AbstractController
     }
 
     /**
-     * @Route("{booking_id}/client_payment/{client_payment_id}", name="delete", methods={"GET", "POST"})
+     * @Route("{booking_id}/client_payment/{client_payment_id}/delete", name="delete", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      * @ParamConverter("clientPayment",options={"mapping": {"client_payment_id": "id"}})
      */
     public function delete(
         Request $request,
         ClientPayment $clientPayment,
-        Booking $booking,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Booking $booking
     ): Response {
         if (is_string($request->request->get('_token'))) {
             if ($this->isCsrfTokenValid('delete' . $clientPayment->getId(), $request->request->get('_token'))) {
