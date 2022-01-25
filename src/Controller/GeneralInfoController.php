@@ -42,7 +42,8 @@ class GeneralInfoController extends AbstractController
     }
 
     /**
-     * @Route("{id}/delete", name="delete", methods={"GET", "POST"})
+     * @Route("{booking_id}/delete", name="delete", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      */
     public function delete(
         Request $request,
@@ -55,7 +56,7 @@ class GeneralInfoController extends AbstractController
                 $entityManager->flush();
             }
         }
-        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('booking_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
