@@ -84,7 +84,7 @@ class AgentController extends AbstractController
         return $this->renderForm('accordion/agency/edit.html.twig', [
             'booking' => $booking,
             'form' => $form,
-            'agency' => $agent,
+            'agent' => $agent,
         ]);
     }
 
@@ -109,7 +109,7 @@ class AgentController extends AbstractController
                 $entityManager->flush();
             }
         }
-
+        
         return $this->redirectToRoute(
             'agent_index',
             [],
