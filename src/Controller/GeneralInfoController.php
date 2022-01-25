@@ -42,6 +42,24 @@ class GeneralInfoController extends AbstractController
     }
 
     /**
+     * @Route("{booking_id}/delete", name="delete", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     */
+    public function delete(
+        Request $request,
+        Booking $booking,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if (is_string($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $booking->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($booking);
+                $entityManager->flush();
+            }
+        }
+        return $this->redirectToRoute('booking_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
      * @Route("{booking_id}/edit", name="edit")
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      */
