@@ -1,29 +1,57 @@
 @import "variables.scss";
 @import "~bootstrap/scss/bootstrap";
 
-.accordion {
-    background-color: #eee;
-    color: #444;
-    padding: 18px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.4s;
+.all-booking-head {
+    width: 80%;
 }
 
-.active {
-    background-color: #ccc;
-}
-
-.panel {
-    padding: 0 18px;
-    background-color: white;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-}
-
-header {
+.all-booking {
+    width: 80%;
     margin-bottom: 5em;
+
+    .all-booking-accordion {
+        background-color: #ECECEC;
+        color: #444;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+    }
+
+    section:nth-child(odd) .all-booking-accordion {
+        background-color: #D9D9D9;
+    }
+
+    section:nth-child(2) .all-booking-accordion {
+        border-radius: 10px 10px 0 0;
+    }
+
+    section:last-child .all-booking-accordion {
+        border-radius: 0 0 10px 10px;
+    }
+
+    section:last-child .all-booking-accordion.active {
+        border-radius: 0;
+    }
+
+    section:last-child .panel {
+        border-radius: 0 0 10px 10px;
+    }
+
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+    
+    .active {
+        background-color: #c5c5c5!important;
+    }
+
+
+
 }
