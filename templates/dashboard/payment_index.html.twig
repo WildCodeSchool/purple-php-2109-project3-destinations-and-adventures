@@ -160,21 +160,51 @@
                 <tr>
                     <th>Trip Name</th>
                     <th>Return Date</th>
+                    <th>Est Gross Profit</th>
                     <th>Gross Profit</th>
+                    <th>Est Commission</th>
                     <th>Commission</th>
                     <th>%</th>
                 </tr>
             </thead>
             <tbody>
                 {% for dai_commission in daiCommissions %}
-                {% set profit = dai_commission.total %}
+                {{ dump(dai_commission) }}
+                {% set profit = 0 %}
+                {% set estimate_profit = dai_commission.total %}
+                {% set commission = 0 %}
+
+                {% if dai_commission.agent is not null %}
+                    {% if dai_commission.agent.commissionUnit == '%' %}
+                        {% set commission = estimate_profit + estimate_profit * dai_commission.agent.commission %}
+                    {% else %}
+                        {% set commission = dai_commission.agent.commission %}
+                    {% endif %}
+                {% endif %}
+
+                {% for client_payment in dai_commission.clientPayments %}
+                    {{ dump(client_payment) }}
+                    {% if client_payment.status == "paid" %}
+                        {% set profit = profit + client_payment.amount %}
+                    {% endif %}
+                {% endfor %}
+
                 {% for supplier_payment in dai_commission.supplierPayments %}
-                {% set profit = profit - supplier_payment.paidAmount %}
+                {{ dump(supplier_payment) }}
+                {% if supplier_payment.status == "paid" %}
+                    {% set profit = profit - supplier_payment.paidAmount %}
+                {% endif %}
+                    {% set estimate_profit = estimate_profit - supplier_payment.paidAmount %}
+
+                    {% set estimate_profit = estimate_profit - commission %}
+                    {% set profit = profit - commission %}
                 {% endfor %}
                 <tr>
                     <td>{{ dai_commission.name }}</td>
                     <td>{{ dai_commission.returnDate ? dai_commission.returnDate|date('m-d-Y') : '' }}</td>
+                    <td>{{ estimate_profit }}</td>
                     <td>{{ profit }}</td>
+                    <td>{{ estimate_profit * 20 / 100 }}</td>
                     <td>{{ profit * 20 / 100 }}</td>
                     <td>20 %</td>
                 </tr>
