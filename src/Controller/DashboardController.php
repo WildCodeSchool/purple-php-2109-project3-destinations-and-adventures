@@ -100,4 +100,16 @@ class DashboardController extends AbstractController
             'returnedTrips' => $returnedTrips
         ]);
     }
+
+    /**
+     * @Route("reporting/", name="reporting", )
+     */
+    public function reporting(ClientPaymentRepository $clientPaymentRepo, Request $request): Response
+    {
+        $payments = $clientPaymentRepo->findAll();
+
+        return $this->render('dashboard/reporting.html.twig', [
+            'payments' => $payments,
+        ]);
+    }
 }
