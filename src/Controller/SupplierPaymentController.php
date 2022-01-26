@@ -44,8 +44,9 @@ class SupplierPaymentController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_payment/new.html.twig', [
+        return $this->renderForm('accordion/supplier_payment/new.html.twig', [
             'supplier_payments' => $suppPayRepo->findBy(['booking' => $booking->getId()]),
+            'booking' => $booking,
             'form' => $form,
         ]);
     }
@@ -59,8 +60,7 @@ class SupplierPaymentController extends AbstractController
         Request $request,
         Booking $booking,
         EntityManagerInterface $entityManager,
-        SupplierPayment $supplierPayment,
-        SupplierPaymentRepository $suppPayRepo
+        SupplierPayment $supplierPayment
     ): Response {
         $form = $this->createForm(SupplierPaymentType::class, $supplierPayment);
         $form->handleRequest($request);
@@ -75,7 +75,8 @@ class SupplierPaymentController extends AbstractController
             );
         }
 
-        return $this->renderForm('supplier_payment/edit.html.twig', [
+        return $this->renderForm('accordion/supplier_payment/edit.html.twig', [
+            'booking' => $booking,
             'supplier_payment' => $supplierPayment,
             'form' => $form,
         ]);

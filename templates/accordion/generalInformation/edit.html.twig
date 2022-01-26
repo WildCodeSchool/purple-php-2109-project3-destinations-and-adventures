@@ -1,0 +1,18 @@
+{% extends 'accordion/layout.html.twig' %}
+
+{% block title %}Edit booking{% endblock %}
+{% block generalInfoPath %}
+       <div class="accordionTitle accordionTop">
+            <h2>GENERAL INFORMATION</h2>
+        </div>
+{% endblock generalInfoPath %}
+{% block financialInfoPath %}
+        <a href="{{ path('financial_edit', {booking_id: booking.id}) }}">
+        <div class="accordionTitle">
+                <h2>FINANCIAL INFORMATION</h2>
+            </div>
+        </a>
+    {% endblock financialInfoPath %}
+{% block generalInfo %}
+    {{ include('accordion/generalInformation/_form.html.twig', {'button_label': 'UPDATE'}) }}
+{% endblock generalInfo %}

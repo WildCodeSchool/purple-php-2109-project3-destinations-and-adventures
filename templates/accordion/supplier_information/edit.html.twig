@@ -1,0 +1,12 @@
+{% extends 'accordion/layout.html.twig' %}
+
+{% block title %}Edit SupplierInformation{% endblock %}
+
+{% block supplierInfo %}
+    {{ include('accordion/supplier_information/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('supplier_information_new', {'booking_id': supplier_information.booking.id}) }}">back to list</a>
+{% endblock supplierInfo %}
+{% block javascripts %}
+{{ encore_entry_script_tags('supplierInfo') }}
+{% endblock %}

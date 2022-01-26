@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<div class="accordion">
+    {% block generalInfoPath %}
+        <a href="{{ path('general_edit', {booking_id: booking.id}) }}">
+            <div class="accordionTitle accordionTop">
+                <h2>GENERAL INFORMATION</h2>
+            </div>
+        </a>
+    {% endblock generalInfoPath %}
+    <div class="generalInfo">
+        {% block generalInfo %}{% endblock generalInfo %}
+    </div>
+
+    {% block agencyInfoPath %}
+    {% if booking.agent is null %}
+        <a href="{{ path('agent_new', {booking_id: booking.id}) }}">
+            <div class="accordionTitle">
+                <h2>AGENCY</h2>
+            </div>
+        </a>
+    {% else %}
+    <a href="{{ path('agent_edit', {booking_id: booking.id, agent_id: booking.agent.id}) }}">
+        <div class="accordionTitle">
+            <h2>AGENCY</h2>
+        </div>
+    </a>
+    {% endif %}
+    {% endblock agencyInfoPath %}
+
+    <div class="agencyInfo">
+        {% block agencyInfo %}{% endblock agencyInfo %}
+    </div>
+    {% block financialInfoPath %}
+        <a href="{{ path('financial_edit', {booking_id: booking.id}) }}">
+        <div class="accordionTitle">
+                <h2>FINANCIAL INFORMATION</h2>
+            </div>
+        </a>
+    {% endblock financialInfoPath %}
+
+    <div class="financialInfo">
+        {% block financialInfo %}{% endblock financialInfo %}
+    </div>
+    {% block clientPaymentPath %}
+        <a href="{{ path('client_payment_new', {booking_id: booking.id}) }}">
+            <div class="accordionTitle">
+                <h2>CLIENT PAYMENTS</h2>
+            </div>
+        </a>
+    {% endblock clientPaymentPath %}
+
+    <div class="clientPayment">
+        {% block clientPayments %}{% endblock clientPayments %}
+    </div>
+    {% block supplierInfoPath %}
+        <a href="{{ path('supplier_information_new', {booking_id: booking.id}) }}">
+            <div class="accordionTitle">
+                <h2>SUPPLIER INFORMATION</h2>
+            </div>
+        </a>
+    {% endblock supplierInfoPath %}
+
+    <div class="supplierInformation">
+        {% block supplierInfo %}{% endblock supplierInfo %}
+    </div>
+    {% block supplierPaymentPath %}
+        <a href="{{ path('supplier_payment_new', {booking_id: booking.id}) }}">
+            <div class="accordionTitle accordionBottom">
+                <h2>SUPPLIER PAYMENTS</h2>
+            </div>
+        </a>
+    {% endblock supplierPaymentPath %}
+
+    <div class="supplierPayment">
+        {% block supplierPayments %}{% endblock supplierPayments %}
+    </div>
+</div>
+{% endblock main %}

@@ -1,0 +1,17 @@
+{% extends 'accordion/layout.html.twig' %}
+
+{% block title %}New Booking{% endblock %}
+
+{% block financialInfoPath %}
+        <div class="accordionTitle">
+                <h2>FINANCIAL INFORMATION</h2>
+            </div>
+    {% endblock financialInfoPath %}
+{% block financialInfo %}
+    {{ include("accordion/financial_info/_form.html.twig", {button_label: "SAVE"}) }}
+
+{% endblock financialInfo %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('financialInfo') }}
+{% endblock %}

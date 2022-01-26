@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Agent;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,6 +23,20 @@ class AgentType extends AbstractType
             ->add('commission', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Amount',
+                ]
+            ])
+            ->add('commissionUnit', ChoiceType::class, [
+                'choices' => [
+                    '$' => '$',
+                    '%' => '%',
+                ],
+                'label' => '',
+                'placeholder' => 'Unit',
+            ])
+            ->add('date', DateType::class, [
+                'widget' => 'single_text',
+                'attr' => [
+                    'placeholder' => 'Date',
                 ]
             ])
         ;

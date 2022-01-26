@@ -1,126 +1,35 @@
 @import "variables.scss";
-@import "~bootstrap/scss/bootstrap";
 
 .generalInfo {
-    padding-top: 8rem;
-    padding-bottom: 2rem;
-    margin: 0 2rem;
+    form {
+        width: 85%;
+        max-width: 22rem;
 
-    a {
-        text-decoration: none;
-    }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 35px;
-        color: $darkgreen;
-    }
-
-    h3 {
-        font-size: 1rem;
-    }
-
-    input {
-        margin-bottom: 0.5rem;
-        width: 100%;
-    }
-
-    .accordion-body {
-        padding: 2rem;
-    }
-
-    .form-section {
-        margin-bottom: 2rem;
-    }
-
-    // Bootstrap Form variables
-    .accordion-button:not(.collapsed) {
-        color: white;
-        background-color: $green !important;
-        font-weight: bold;
-    }
-
-    .accordion-button {
-        color: white;
-        background-color: $lightgreen;
-        font-weight: bold;
-    }
-
-    .accordion-button::after {
-        filter: invert(99%) sepia(8%) saturate(4%) hue-rotate(70deg)
-        brightness(103%) contrast(100%);
-    }
-
-    .accordion-button:not(.collapsed)::after {
-        filter: invert(99%) sepia(8%) saturate(4%) hue-rotate(70deg)
-        brightness(103%) contrast(100%);
-    }
-
-    .accordion-body {
-        background: $form-bg;
-    }
-
-    .general-info {
-        section {
-            margin-bottom: 2rem;
+        label {
+            font-family: $Helvetica;
+            font-size: 1rem;
+            color: black;
+            margin-top: 1.25rem;
+            margin-bottom: 0.375rem;
         }
-    }
 
-    .badge {
-        color: #dc3545 !important;
-    }
-
-    label.required:before {
-        content: "* ";
-        color: #dc3545;
-    }
-
-    input {
-        border: 1px solid rgba(0, 0, 0, 0.2);
-    }
-
-    // JS btn animation
-    .btn {
-        width: 6rem;
-        background: $lightgreen;
-        color: #fff;
-        position: relative;
-        z-index: 1;
-    }
-
-    .btn::before {
-        content: "";
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        position: absolute;
-        background-color: $green;
-        z-index: -1;
-        transition: transform 150ms ease-in-out;
-        transform: scalex(0);
-        transform-origin: left;
-    }
-
-    .btn:hover::before {
-        transform: scalex(1);
-    }
-
-    .btn:hover {
-        color: #fff;
-    }
-    // End of JS btn animation
-
-    @media screen and (min-width: 768px) {
-        margin: 0 5rem;
-
-        .accordion-body {
-            padding: 3rem;
+        input {
+            height: 2.25rem;
         }
-    }
 
-    @media screen and (min-width: 1024px) {
-        margin: 0 16rem;
-        padding-top: 10rem;
+        textarea {
+            height: 6.25rem;
+        }
+
+        .btn {
+            display: block;
+            margin: 1rem auto;
+            text-align: center;
+            width: 9.625rem;
+            height: 2.25rem;
+            text-align: center;
+            background-color: $green;
+            color: $light;
+        }
     }
 }

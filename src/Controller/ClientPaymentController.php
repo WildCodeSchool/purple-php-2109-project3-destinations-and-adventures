@@ -22,8 +22,12 @@ class ClientPaymentController extends AbstractController
      * @Route("{booking_id}/client_payment/new", name="new", methods={"GET", "POST"})
      * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
      */
-    public function new(Request $request, Booking $booking, EntityManagerInterface $entityManager): Response
-    {
+    public function new(
+        Request $request,
+        Booking $booking,
+        EntityManagerInterface $entityManager,
+        ClientPaymentRepository $clientPaymentRepo
+    ): Response {
         $clientPayment = new ClientPayment();
         $form = $this->createForm(ClientPaymentType::class, $clientPayment);
         $form->handleRequest($request);
@@ -40,9 +44,9 @@ class ClientPaymentController extends AbstractController
             );
         }
 
-        return $this->renderForm('client_payment/new.html.twig', [
+        return $this->renderForm('accordion/client_payment/new.html.twig', [
             'booking' => $booking,
-            'client_payment' => $clientPayment,
+            'client_payments' => $clientPaymentRepo->findBy(['booking' => $booking->getId()]),
             'form' => $form,
         ]);
     }
@@ -55,7 +59,8 @@ class ClientPaymentController extends AbstractController
     public function edit(
         Request $request,
         ClientPayment $clientPayment,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Booking $booking
     ): Response {
         $form = $this->createForm(ClientPaymentType::class, $clientPayment);
         $form->handleRequest($request);
@@ -63,29 +68,41 @@ class ClientPaymentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'client_payment_new',
+                ['booking_id' => $booking->getId()],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
-        return $this->render('client_payment/edit.html.twig', [
+        return $this->render('accordion/client_payment/edit.html.twig', [
+            'booking' => $booking,
             'client_payment' => $clientPayment,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("client_payment/{id}/delete", name="delete", methods={"GET", "POST"})
+     * @Route("{booking_id}/client_payment/{client_payment_id}/delete", name="delete", methods={"GET", "POST"})
+     * @ParamConverter("booking", options={"mapping": {"booking_id": "id"}})
+     * @ParamConverter("clientPayment",options={"mapping": {"client_payment_id": "id"}})
      */
     public function delete(
         Request $request,
         ClientPayment $clientPayment,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Booking $booking
     ): Response {
-        if (is_string($request->request->get('_token')) && is_null($request->request->get('_token'))) {
+        if (is_string($request->request->get('_token'))) {
             if ($this->isCsrfTokenValid('delete' . $clientPayment->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($clientPayment);
                 $entityManager->flush();
             }
         }
-        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            'client_payment_new',
+            ['booking_id' => $booking->getId()],
+            Response::HTTP_SEE_OTHER
+        );
     }
 }

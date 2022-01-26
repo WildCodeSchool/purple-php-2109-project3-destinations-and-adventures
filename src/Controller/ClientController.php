@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Repository\BookingRepository;
 
 /**
  * @Route("/booking/", name="client_")
@@ -48,12 +49,34 @@ class ClientController extends AbstractController
                 Response::HTTP_SEE_OTHER
             );
         }
-
         return $this->renderForm('client/new.html.twig', [
             'booking' => $booking,
             'client' => $client,
             'form' => $form,
         ]);
+    }
+
+     /**
+     * @Route("client/{id}/delete", name="delete", methods={"POST", "GET"}, requirements={"id"="\d+"})
+     */
+    public function delete(
+        Request $request,
+        Client $client,
+        BookingRepository $bookingRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if (is_string($request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $client->getId(), $request->request->get('_token'))) {
+                $bookings = $bookingRepository->findBy(["leadCustomer" => $client]);
+                if (!empty($bookings)) {
+                    $this->addFlash('notice', $client->getName() . " is a lead customer so he/she can't be deleted");
+                } else {
+                    $entityManager->remove($client);
+                    $entityManager->flush();
+                }
+            }
+        }
+        return $this->redirectToRoute('client_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
