@@ -114,6 +114,7 @@
         h2 {
             margin: 1rem 0;
         }
+
         p {
             margin-left: 1rem;
             margin-right: 1rem;
@@ -242,12 +243,15 @@
 }
 
 @media screen and (min-width: 1024px) {
+    
     .dashboardPayment {
         max-width: 80%;
+
         .paymentRow {
             display: flex;
             justify-content: space-between;
             margin: 0;
+
             .incomingClientPayment {
                 width: 50%;
                 margin-right: 0.75rem;
@@ -264,11 +268,13 @@
             justify-content: space-between;
             margin: 0;
             margin-bottom: 1rem;
+
             .incomingSupplierCommissions {
                 width: 50%;
                 margin-right: 0.75rem;
             }
         }
+
         .daiCommission {
             margin-left: 0.75rem;
             width: 50%;
