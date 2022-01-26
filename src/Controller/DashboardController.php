@@ -104,12 +104,17 @@ class DashboardController extends AbstractController
     /**
      * @Route("reporting/", name="reporting", )
      */
-    public function reporting(ClientPaymentRepository $clientPaymentRepo, Request $request): Response
-    {
-        $payments = $clientPaymentRepo->findAll();
+    public function reporting(
+        ClientPaymentRepository $clientPaymentRepo,
+        SupplierPaymentRepository $supplierPaymentRepo,
+        Request $request
+    ): Response {
+        $clientPayments = $clientPaymentRepo->findAll();
+        $supplierPayments = $supplierPaymentRepo->findAll();
 
         return $this->render('dashboard/reporting.html.twig', [
-            'payments' => $payments,
+            'clientPayments' => $clientPayments,
+            'supplierPayments' => $supplierPayments,
         ]);
     }
 }
