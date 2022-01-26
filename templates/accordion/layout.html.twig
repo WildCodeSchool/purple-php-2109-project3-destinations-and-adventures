@@ -12,6 +12,26 @@
     <div class="generalInfo">
         {% block generalInfo %}{% endblock generalInfo %}
     </div>
+
+    {% block agencyInfoPath %}
+    {% if booking.agent is null %}
+        <a href="{{ path('agent_new', {booking_id: booking.id}) }}">
+            <div class="accordionTitle">
+                <h2>AGENCY</h2>
+            </div>
+        </a>
+    {% else %}
+    <a href="{{ path('agent_edit', {booking_id: booking.id, agent_id: booking.agent.id}) }}">
+        <div class="accordionTitle">
+            <h2>AGENCY</h2>
+        </div>
+    </a>
+    {% endif %}
+    {% endblock agencyInfoPath %}
+
+    <div class="agencyInfo">
+        {% block agencyInfo %}{% endblock agencyInfo %}
+    </div>
     {% block financialInfoPath %}
         <a href="{{ path('financial_edit', {booking_id: booking.id}) }}">
         <div class="accordionTitle">
