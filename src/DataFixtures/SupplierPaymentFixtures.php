@@ -11,6 +11,10 @@ use Doctrine\Persistence\ObjectManager;
 class SupplierPaymentFixtures extends Fixture
 {
     public const OBJECT_QUANTITY = 25;
+    public const STATUS = [
+        'paid',
+        'due',
+    ];
 
     public function load(ObjectManager $manager): void
     {
@@ -20,6 +24,7 @@ class SupplierPaymentFixtures extends Fixture
             $supplierPayment->setDate(new DateTime());
             $supplierPayment->setPaidAmount(rand(300, 700));
             $supplierPayment->setDueCommission(rand(10, 30));
+            $supplierPayment->setStatus(self::STATUS[rand(0, 1)]);
             $supplierPayment->setDueDateCommission($date->add(new DateInterval('P' . rand(5, 15) . 'D')));
             $supplierPayment->setSupplier($this->getReference('supplier_' . $i));
             $supplierPayment->setBooking($this->getReference('booking_' . $i));
