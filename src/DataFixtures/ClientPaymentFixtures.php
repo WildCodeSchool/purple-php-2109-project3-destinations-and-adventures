@@ -11,6 +11,10 @@ class ClientPaymentFixtures extends Fixture
 {
 
     public const OBJECT_QUANTITY = 10;
+    public const STATUS = [
+        'paid',
+        'due',
+    ];
 
     public function load(ObjectManager $manager): void
     {
@@ -18,6 +22,7 @@ class ClientPaymentFixtures extends Fixture
             $clientPayment = new ClientPayment();
             $clientPayment->setDate(new DateTime());
             $clientPayment->setAmount(rand(1000, 2500));
+            $clientPayment->setStatus(self::STATUS[rand(0, 1)]);
             $clientPayment->setBooking($this->getReference('booking_' . $i));
             $clientPayment->setClient($this->getReference('client_' . $i));
             $manager->persist($clientPayment);

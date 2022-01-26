@@ -22,6 +22,10 @@
                 <td>{{ agent.commission }}</td>
                 <td>
                     <!-- action to edit and delete -->
+                    {% for booking in agent.bookings %}
+                    <a href="{{ path('agent_edit', {'agent_id': agent.id, 'booking_id': booking.id}) }}">Edit</a>
+                    {{ include('agent/_delete_form.html.twig') }}
+                    {% endfor %}
                 </td>
             </tr>
         {% else %}

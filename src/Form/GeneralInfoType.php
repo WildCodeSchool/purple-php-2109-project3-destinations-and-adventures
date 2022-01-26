@@ -55,9 +55,6 @@ class GeneralInfoType extends AbstractType
                     'placeholder' => 'return date',
                 ]
             ])
-            ->add('agent', AgentType::class, [
-                'required' => false,
-            ])
         ;
     }
 
