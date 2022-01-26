@@ -3,7 +3,7 @@
 {% block title %}All bookings{% endblock %}
 
 {% block main %}
-<div class="all-booking-head">
+<div class="all-booking-header">
     <h1>Booking index</h1>
     {% if bookings|length <= 1 %}
     <p><strong>{{ bookings|length }}</strong> booking registered</p>
@@ -12,18 +12,18 @@
     {% endif %}
 </div>
 <section class="all-booking">
-    <table>
+    <table class="all-booking-head">
         <tr>
             <td><strong>Booking name</strong></td>
             <td><strong>Traveling dates</strong></td>
             <td><strong>Total coast</strong></td>
             <td><strong>Client</strong></td>
             <td><strong>Supplier</strong></td>
-            <td></td>
+            <td><strong>Actions</strong></td>
         </tr>
     </table>
     {% for booking in bookings %}
-    <section>
+    <section class="all-booking-section">
         <table class="all-booking-accordion">
             <tr>
                 <td>
@@ -102,7 +102,7 @@
         </table>
         <div class="panel">
             <div class="client-payments-section">
-                <div>
+                <div class="payments-section-head">
                     <div>
                         <h2>CLIENT PAYMENTS</h2>
                         <a href="{{ path('client_payment_new', {booking_id: booking.id}) }}"><svg
@@ -190,7 +190,7 @@
                 </table>
             </div>
             <div class="supplier-payments-section">
-                <div>
+                <div class="payments-section-head">
                     <div>
                         <h2>SUPPLIER PAYMENTS</h2>
                         <a href="{{ path('supplier_information_new', {booking_id: booking.id}) }}"><svg
@@ -306,7 +306,9 @@
 </section>
 <script>
     var acc = document.getElementsByClassName("all-booking-accordion");
+    var section = document.getElementsByClassName("all-booking-section");
     var i;
+    var j;
     for (i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function () {
             this.classList.toggle("active");
@@ -314,8 +316,14 @@
             if (panel.style.maxHeight) {
                 panel.style.maxHeight = null;
             } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
+                panel.style.maxHeight = "fit-content";
             }
+        });
+    }
+
+    for (j = 0; j < section.length; j++) {
+        section[j].addEventListener("click", function () {
+            this.classList.toggle("active-section");
         });
     }
 </script>

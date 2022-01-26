@@ -1,23 +1,73 @@
 @import "variables.scss";
 @import "~bootstrap/scss/bootstrap";
 
-.all-booking-head {
-    width: 80%;
+.all-booking-header {
+    width: 95%;
+    margin: 0 auto;
 }
 
 .all-booking {
-    width: 80%;
+    width: 95%;
+    margin: 0 auto;
     margin-bottom: 5em;
+    overflow-x: scroll;
+    background: #F4FAF4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    padding: 1em 2em;
 
     .all-booking-accordion {
         background-color: #ECECEC;
         color: #444;
-        padding: 18px;
         width: 100%;
         text-align: left;
         border: none;
         outline: none;
         transition: 0.4s;
+        min-width: 800px;
+
+        tr {
+            display: flex;
+            justify-content: space-around;
+            padding: .5em 1em;
+            align-items: center;
+
+            td {
+                margin: 0;
+                width: 16.5%;
+            }
+
+            td:last-child {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                a, form {
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    section {
+        background: #F6F6F6;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        min-width: 800px;
+    }
+
+    section.active-section {
+
+        .panel {
+            padding: 2em 1em;
+        }
+    }
+
+    section:nth-child(2) {
+        border-radius: 10px 10px 0 0;
+    }
+
+    section:last-child {
+        border-radius: 0 0 10px 10px;
     }
 
     section:nth-child(odd) .all-booking-accordion {
@@ -41,17 +91,111 @@
     }
 
     .panel {
-        padding: 0 18px;
-        background-color: white;
+        padding: 0 1em;
+        background: #F6F6F6;
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.2s ease-out;
+        width: 100%;
+
+        div {
+            background: #FFFFFF;
+            border-radius: 6px;
+        }
+
+        .payments-section-head {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.2em 1.4em 1.4em 1.4em;
+
+            div {
+                display: flex;
+            }
+
+            h2 {
+                margin-bottom: 0!important;
+                font-size: 1.3em;
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                margin-left: 1em;
+            }
+        }
     }
     
     .active {
         background-color: #c5c5c5!important;
     }
 
+    .all-booking-head {
+        width: 100%;
+        min-width: 800px;
 
+        tr {
+            display: flex;
+            justify-content: space-around;
+            padding: 1em;
 
+            td {
+                margin: 0;
+                font-size: 1.1em;
+                width: 16.5%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 999px) {
+
+    .all-booking section {
+        min-width: 600px;
+    }
+
+    .all-booking {
+
+        .all-booking-head {
+            min-width: 600px;
+
+            tr td {
+                text-align: center;
+            }
+        }
+
+        .all-booking-accordion {
+            min-width: 600px;
+
+            tr td:not(:last-child) {
+                text-align: center;
+            }
+
+            tr td:last-child {
+                justify-content: center;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    
+    .all-booking {
+
+        .all-booking-head {
+
+            tr {
+                td {
+                    font-size: 1.4em;
+                }
+            }
+        }
+    }
+
+    .all-booking-header {
+        width: 85%;
+    }
+    
+    .all-booking {
+        width: 85%;
+    }
 }
