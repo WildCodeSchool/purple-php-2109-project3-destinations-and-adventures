@@ -80,6 +80,7 @@ class SupplierInformationController extends AbstractController
         return $this->renderForm('accordion/supplier_information/edit.html.twig', [
             'supplier_information' => $supplierInformation,
             'form' => $form,
+            'booking' => $booking,
         ]);
     }
 
