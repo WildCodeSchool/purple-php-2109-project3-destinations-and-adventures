@@ -64,7 +64,8 @@ class RegistrationController extends AbstractController
     public function accountCreation(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository
     ): Response {
 
         $user = new User();
@@ -90,8 +91,9 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('account_creation');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('account_creation/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'accounts' => $userRepository->findAll(),
         ]);
     }
 }
