@@ -18,6 +18,7 @@ import './styles/financialInfo.scss';
 import './styles/supplierPayment.scss';
 import './styles/supplierInformation.scss';
 import './styles/dashboard.scss';
+import './styles/accountCreation.scss';
 
 // start the Stimulus application
 import './bootstrap';
