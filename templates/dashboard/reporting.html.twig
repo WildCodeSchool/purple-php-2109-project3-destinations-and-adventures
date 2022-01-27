@@ -46,7 +46,6 @@
         </div>
     </div>
     <div class="monthlyGrossProfit">
-        {% set year = 'now'|date('Y') %}
         <h3>Monthly Gross Profit - {{ year }}</h3>
         <table class="table">
             <thead>
@@ -77,6 +76,47 @@
                         {% set monthly_profit = monthly_earnings - monthly_expenses %}
                         {{ monthly_profit|format_currency('USD', {rounding_mode: 'floor'}) }}
                         {% set total = total + monthly_profit %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="totalYearSales">
+            <h3>Total: {{ total|format_currency('USD', {rounding_mode: 'floor'}) }}</h3>
+        </div>
+    </div>
+    <div class="monthlyUECommissions">
+        <h3>Monthly EU Commission - {{ year }}</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for month in range(1, 12) %}
+                {% set date = month ~ "/1/" ~ year %}
+                <tr>
+                    <td>{{ date|date('F') }}</td>
+                    <td>
+                        {% set monthly_earnings = 0 %}
+                        {% set monthly_expenses = 0 %}
+                        {% for client_payment in clientPayments %}
+                        {% for supplier_payment in supplierPayments %}
+                        {% for day in range(1, 31) %}
+                        {% if client_payment.status == 'paid' and client_payment.booking.departure|date('Y-m-d') == year ~ '-' ~ "%02d"|format(month) ~ '-' ~ "%02d"|format(day) and supplier_payment.status == 'paid' and supplier_payment.booking.departure|date('Y-m-d') == year ~ '-' ~ "%02d"|format(month) ~ '-' ~ "%02d"|format(day) %}
+                            {% set monthly_earnings = monthly_earnings + client_payment.amount %}
+                            {% set monthly_expenses = monthly_expenses + supplier_payment.paidAmount %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
+                        {# Commission = gross profit * 20% #}
+                        {% set monthly_commission = (monthly_earnings - monthly_expenses) * 0.2 %}
+                        {{ monthly_commission|format_currency('USD', {rounding_mode: 'floor'}) }}
+                        {% set total = total + monthly_commission %}
                     </td>
                 </tr>
                 {% endfor %}
