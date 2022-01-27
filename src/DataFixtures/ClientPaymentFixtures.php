@@ -22,7 +22,7 @@ class ClientPaymentFixtures extends Fixture
             $clientPayment = new ClientPayment();
             $clientPayment->setDate(new DateTime());
             $clientPayment->setAmount(rand(1000, 2500));
-            $clientPayment->setStatus(self::STATUS[rand(0, 1)]);
+            $clientPayment->setStatus('paid');
             $clientPayment->setBooking($this->getReference('booking_' . $i));
             $clientPayment->setClient($this->getReference('client_' . $i));
             $manager->persist($clientPayment);

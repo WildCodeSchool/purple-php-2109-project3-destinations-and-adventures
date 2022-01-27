@@ -22,9 +22,9 @@ class SupplierPaymentFixtures extends Fixture
         for ($i = 0; $i < self::OBJECT_QUANTITY; $i++) {
             $supplierPayment = new SupplierPayment();
             $supplierPayment->setDate(new DateTime());
-            $supplierPayment->setPaidAmount(rand(300, 700));
-            $supplierPayment->setDueCommission(rand(10, 30));
-            $supplierPayment->setStatus(self::STATUS[rand(0, 1)]);
+            $supplierPayment->setPaidAmount(rand(2, 4) * 1000);
+            $supplierPayment->setDueCommission(rand(60, 90) * 10);
+            $supplierPayment->setStatus('paid');
             $supplierPayment->setDueDateCommission($date->add(new DateInterval('P' . rand(5, 15) . 'D')));
             $supplierPayment->setSupplier($this->getReference('supplier_' . $i));
             $supplierPayment->setBooking($this->getReference('booking_' . $i));

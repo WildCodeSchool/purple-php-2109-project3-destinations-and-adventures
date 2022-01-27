@@ -149,7 +149,7 @@
 
                         {% if dai_commission.agent is not null %}
                         {% if dai_commission.agent.commissionUnit == '%' %}
-                        {% set commission = estimate_profit + estimate_profit * dai_commission.agent.commission %}
+                        {% set commission = estimate_profit - estimate_profit / (1 + dai_commission.agent.commission / 100) %}
                         {% else %}
                         {% set commission = dai_commission.agent.commission %}
                         {% endif %}
@@ -163,7 +163,7 @@
 
                         {% for supplier_payment in dai_commission.supplierPayments %}
                         {% if supplier_payment.status == "paid" %}
-                        {% set profit = profit - supplier_payment.paidAmount %}
+                            {% set profit = profit - supplier_payment.paidAmount %}
                         {% endif %}
                         {% set estimate_profit = estimate_profit - supplier_payment.paidAmount %}
 
@@ -173,10 +173,10 @@
                         <tr>
                             <td>{{ dai_commission.name }}</td>
                             <td>{{ dai_commission.returnDate ? dai_commission.returnDate|date('m-d-Y') : '' }}</td>
-                            <td>{{ estimate_profit }}</td>
-                            <td>{{ profit }}</td>
-                            <td>{{ estimate_profit * 20 / 100 }}</td>
-                            <td>{{ profit * 20 / 100 }}</td>
+                            <td>{{ estimate_profit|round(1, 'ceil') }}</td>
+                            <td>{{ profit|round(1, 'ceil') }}</td>
+                            <td>{{ estimate_profit|round(1, 'ceil') * 20 / 100 }}</td>
+                            <td>{{ profit|round(1, 'ceil') * 20 / 100 }}</td>
                             <td>20</td>
                         </tr>
                         {% else %}
@@ -206,10 +206,11 @@
                 <tbody>
 
                     {% for agent_commission in agentCommissions %}
+                    {% set estimate_profit = agent_commission.total %}
                     {% set total = 0 %}
                     {% if agent_commission.agent is not null %}
                     {% if agent_commission.agent.commissionUnit == '%' %}
-                    {% set commission = estimate_profit + estimate_profit * agent_commission.agent.commission %}
+                    {% set commission = estimate_profit - estimate_profit / (1 + agent_commission.agent.commission / 100) %}
                     {% set rate = agent_commission.agent.commission %}
                     {% else %}
                     {% set commission = agent_commission.agent.commission %}
@@ -220,8 +221,8 @@
                         <td>{{ agent_commission.agent.name }}</td>
                         <td>{{ agent_commission.departure ? agent_commission.departure|date('m-d-Y') : '' }}</td>
                         <td>{{ agent_commission.total }}</td>
-                        <td>{{ commission }}</td>
-                        <td>{{ rate }}</td>
+                        <td>{{ commission|round(1, 'ceil') }}</td>
+                        <td>{{ rate|round(1, 'ceil') }}</td>
                     </tr>
                     {% endif %}
                     {% else %}
