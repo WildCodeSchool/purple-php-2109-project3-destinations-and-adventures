@@ -13,7 +13,7 @@
         <select name="year" id="year">
             <option value="{{ 'now'|date('Y') }}">Choose a year</option>
 
-            {% for year in years %}
+            {% for year in years|sort %}
             {# The if statement is used to keep displaying the selected value #}
             <option value="{{ year }}" id="{{ year }}" {% if post.year is defined and post.year == year %} selected="true"
                 {% endif %}>{{ year }}</option>
