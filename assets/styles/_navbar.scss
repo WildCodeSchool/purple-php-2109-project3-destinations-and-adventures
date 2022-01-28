@@ -62,11 +62,17 @@ header {
             }
         }
 
+        .navbar-toggler:focus, .navbar-toggler:focus-visible {
+            outline: 0!important;
+            box-shadow: none!important;
+        }
+
         .offcanvas {
             background-color: $green;
 
             .offcanvas-header {
-                margin-right: 0;
+                margin: 0 0 0 auto;
+                padding: 1.5rem 1rem 0 1rem;
 
                 .btn-close {
                     filter: invert(100%) sepia(44%) saturate(284%) hue-rotate(352deg) brightness(100%) contrast(75%);
