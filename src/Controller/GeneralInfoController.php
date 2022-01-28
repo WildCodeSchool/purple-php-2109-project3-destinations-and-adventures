@@ -30,7 +30,7 @@ class GeneralInfoController extends AbstractController
             $entityManager->persist($booking);
             $entityManager->flush();
             return $this->redirectToRoute(
-                'financial_edit',
+                'agent_new',
                 ['booking_id' => $booking->getId()],
                 Response::HTTP_SEE_OTHER
             );
@@ -71,7 +71,19 @@ class GeneralInfoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            if ($booking->getAgent()) {
+                return $this->redirectToRoute(
+                    'agent_edit',
+                    ['booking_id' => $booking->getId(), 'agent_id' => $booking->getAgent()->getId() ],
+                    Response::HTTP_SEE_OTHER
+                );
+            } else {
+                return $this->redirectToRoute(
+                    'agent_new',
+                    ['booking_id' => $booking->getId()],
+                    Response::HTTP_SEE_OTHER
+                );
+            }
         }
         return $this->renderForm('accordion/generalInformation/edit.html.twig', [
             'booking' => $booking,

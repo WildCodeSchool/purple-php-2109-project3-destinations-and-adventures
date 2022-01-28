@@ -50,6 +50,22 @@ class SupplierPaymentRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
+    /**
+     * @return mixed Returns an array of SupplierPayment objects
+     */
+    public function findByYear(string $year)
+    {
+        return $this->createQueryBuilder('s')
+            ->addSelect('b')
+            ->join('s.booking', 'b')
+            ->where("s.status = 'paid'")
+            ->andWhere("b.departure LIKE :year")
+            ->setParameter('year', $year . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return SupplierPayment[] Returns an array of SupplierPayment objects
     //  */
