@@ -2,9 +2,18 @@
 
 // Header is the nav container
 
+header {
+    margin-bottom: 8em;
+}
+
 .navbar {
     background-color: $green;
     height: 5rem !important;
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        color: $light !important;
+    }
 
     .pe-3 {
         padding-right: 0rem !important;
@@ -13,6 +22,14 @@
     h5 {
         margin: 0;
         color: rgba(255, 255, 255, 0.75);
+    }
+
+    li {
+        text-align: center;
+    }
+
+    .navbar-nav a[href="/logout"] {
+        text-align: center;
     }
 
     .container-fluid {
@@ -25,10 +42,9 @@
             padding-top: 0.8rem !important;
             font-family: $TrajanPro;
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.85);
+            color: $light;
             font-weight: bold;
             text-align: center;
-
 
             #times {
                 font-family: $Times;
@@ -42,25 +58,24 @@
             background: $darkgreen;
 
             .navbar-toggler-icon {
-                filter: invert(100%) sepia(44%) saturate(284%)
-                hue-rotate(352deg) brightness(100%) contrast(75%);
+                filter: invert(100%) sepia(44%) saturate(284%) hue-rotate(352deg) brightness(100%) contrast(75%);
             }
         }
 
-        .navbar-light .navbar-nav .nav-link:hover,
-        .navbar-light .navbar-nav .nav-link:focus {
-            color: red;
+        .navbar-toggler:focus, .navbar-toggler:focus-visible {
+            outline: 0!important;
+            box-shadow: none!important;
         }
 
         .offcanvas {
             background-color: $green;
 
             .offcanvas-header {
-                margin-right: 0;
+                margin: 0 0 0 auto;
+                padding: 1.5rem 1rem 0 1rem;
 
                 .btn-close {
-                    filter: invert(100%) sepia(44%) saturate(284%)
-                    hue-rotate(352deg) brightness(100%) contrast(75%);
+                    filter: invert(100%) sepia(44%) saturate(284%) hue-rotate(352deg) brightness(100%) contrast(75%);
                 }
             }
 
@@ -82,6 +97,11 @@
                 }
             }
 
+            .nav-link:hover,
+            .nav-link:focus {
+                color: #eeeeee !important;
+            }
+
             .nav-item {
                 color: $lightgreen;
 
@@ -97,8 +117,12 @@
     }
 
     .logout {
-        background:$darkgreen;
-        color: white;
+        background: $darkgreen;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .logout:hover {
+        color: #eeeeee !important;
     }
 
     @media screen and (min-width: 768px) {
@@ -111,4 +135,3 @@
         }
     }
 }
-

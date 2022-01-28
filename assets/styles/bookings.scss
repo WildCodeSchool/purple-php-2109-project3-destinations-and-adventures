@@ -1,29 +1,310 @@
 @import "variables.scss";
 @import "~bootstrap/scss/bootstrap";
 
-.accordion {
-    background-color: #eee;
-    color: #444;
-    padding: 18px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.4s;
+.all-booking-header {
+    width: 95%;
+    margin: 0 auto;
 }
 
-.active {
-    background-color: #ccc;
-}
-
-.panel {
-    padding: 0 18px;
-    background-color: white;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-}
-
-header {
+.all-booking {
+    width: 95%;
+    margin: 0 auto;
     margin-bottom: 5em;
+    background: #F4FAF4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    padding: 1em 2em;
+
+    .all-booking-accordion {
+        background-color: #ECECEC;
+        color: #444;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+        min-width: 800px;
+
+        tr {
+            display: flex;
+            justify-content: space-around;
+            padding: .5em 1em;
+            align-items: center;
+
+            td {
+                width: 16.5%;
+            }
+
+            td:last-child {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 7%;
+
+                a, form {
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    section {
+        background: #F6F6F6;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        min-width: 800px;
+    }
+
+    section:nth-child(2) {
+        border-radius: 10px 10px 0 0;
+    }
+
+    section:last-child {
+        border-radius: 0 0 10px 10px;
+    }
+
+    section:nth-child(odd) .all-booking-accordion {
+        background-color: #D9D9D9;
+    }
+
+    section:nth-child(2) .all-booking-accordion {
+        border-radius: 10px 10px 0 0;
+    }
+
+    section:last-child .all-booking-accordion {
+        border-radius: 0 0 10px 10px;
+    }
+
+    section:last-child .all-booking-accordion.active {
+        border-radius: 0;
+    }
+
+    section:last-child .panel {
+        border-radius: 0 0 10px 10px;
+    }
+
+    .panel {
+        padding: 0 1em;
+        background: #F6F6F6;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        width: 100%;
+
+        .payments-section {
+            background: #FFFFFF;
+            border-radius: 6px;
+            padding: 0 1.4em 1.4em 1.4em;
+            margin-bottom: 1em;
+
+            table {
+                width: 100%;
+
+                tr {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: .5em .7em;
+                    align-items: center;
+
+                    td {
+                        width: 16.5%;
+                    }
+
+                    td:last-child {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        width: 7%;
+
+                        a, form {
+                            margin: 0;
+                        }
+                    }
+                }
+
+                tbody tr {
+                    background-color: $thirdBackground;
+                    margin-bottom: .5em;
+                    border-radius: 5px;
+                }
+            }
+
+            .status span {
+                border-radius: 7px;
+                padding: .3em .6em;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: .8em;
+            }
+
+            .status.paid span {
+                background: rgba(52, 159, 50, 0.5);
+            }
+
+            .status.due span {
+                background: rgba(226, 195, 30, 0.5);
+            }
+
+            .add-new {
+                width: 22%;
+                margin: 0 auto;
+                margin-top: 1.5em;
+                background-color: $button-bg;
+                padding: 0;
+
+                td {
+                    justify-content: center!important;
+                    width: 100%!important;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: $thirdBackground;
+                    padding: 10px;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+
+        .payments-section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 0 1.4em 0;
+
+            div {
+                display: flex;
+                align-items: center;
+            }
+
+            div:last-child .payments-total {
+                margin-right: 1em;
+            }
+
+            div:last-child .payments-total div:first-child,
+            div:last-child .payments-due div:first-child {
+                background-color: #C4C4C4;
+                padding: .2em .4em;
+                border-radius: 5px 0 0 5px;
+            }
+
+            div:last-child .payments-total div:last-child,
+            div:last-child .payments-due div:last-child {
+                background-color: #EBEBEB;
+                padding: .2em .4em;
+                border-radius: 0 5px 5px 0;
+            }
+
+            h2 {
+                margin-bottom: 0!important;
+                font-size: 1.3em;
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                margin-left: 1em;
+            }
+        }
+    }
+
+    a svg {
+        color: #212529;
+    }
+
+    svg:hover {
+        color: #43afee;
+    }
+
+    .btn {
+        padding: 0;
+    }
+
+    .active {
+        background-color: #c5c5c5!important;
+    }
+
+    .all-booking-head {
+        width: 100%;
+        min-width: 800px;
+
+        tr {
+            display: flex;
+            justify-content: space-around;
+            padding: 1em;
+
+            td {
+                margin: 0;
+                font-size: 1.2em;
+                width: 16.5%;
+            }
+
+            td:last-child {
+                width: 7%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .all-booking {
+        overflow-x: scroll;
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1023px) {
+
+    .all-booking section {
+        min-width: 600px;
+    }
+
+    .all-booking {
+
+        .all-booking-head {
+            min-width: 600px;
+
+            tr td {
+                text-align: center;
+            }
+        }
+
+        .all-booking-accordion {
+            min-width: 600px;
+
+            tr td:not(:last-child) {
+                text-align: center;
+            }
+
+            tr td:last-child {
+                justify-content: center;
+            }
+        }
+
+        .panel .payments-section .add-new {
+            width: 35%;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    
+    .all-booking {
+
+        .all-booking-head {
+
+            tr {
+                td {
+                    font-size: 1.4em;
+                }
+            }
+        }
+    }
+
+    .all-booking-header {
+        width: 82%;
+    }
+
+    .all-booking {
+        width: 82%;
+    }
 }
