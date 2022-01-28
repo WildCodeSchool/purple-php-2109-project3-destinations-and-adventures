@@ -2,10 +2,12 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Agent;
 use App\Entity\Booking;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class BookingFixtures extends Fixture
 {
@@ -37,6 +39,7 @@ class BookingFixtures extends Fixture
             $booking->setReturnDate($date->modify('+' . rand(25, 45) . ' days'));
             $booking->setTotal(rand(2500, 25000));
             $booking->setPerPerson($booking->getTotal() / $booking->getTravelersCount());
+            $booking->setAgent($this->getReference('agent_' . rand(0, 7)));
             $this->addReference('booking_' . $key, $booking);
             $manager->persist($booking);
         }
@@ -48,7 +51,8 @@ class BookingFixtures extends Fixture
     {
         // Return here all fixtures classes which ProgramFixtures depends on
         return [
-            AClientFixtures::class
+            AClientFixtures::class,
+            Agent::class
         ];
     }
 }
