@@ -43,15 +43,14 @@ class Agent
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Choice(choices=Agent::TYPES, message="Choose a valid status.")
-     */
-    private ?string $commissionType;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Choice(choices=Agent::UNITS, message="Choose a valid status.")
      */
     private ?string $commissionUnit;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private ?\DateTimeInterface $date;
 
     public function __construct()
     {
@@ -117,18 +116,6 @@ class Agent
         return $this;
     }
 
-    public function getCommissionType(): ?string
-    {
-        return $this->commissionType;
-    }
-
-    public function setCommissionType(?string $commissionType): self
-    {
-        $this->commissionType = $commissionType;
-
-        return $this;
-    }
-
     public function getCommissionUnit(): ?string
     {
         return $this->commissionUnit;
@@ -137,6 +124,18 @@ class Agent
     public function setCommissionUnit(?string $commissionUnit): self
     {
         $this->commissionUnit = $commissionUnit;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

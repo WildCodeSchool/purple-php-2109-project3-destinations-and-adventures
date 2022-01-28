@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+    <div class="login_page">
+        <div class="background"></div>
+        <div class="login">
+            <div class="destination_adventures">
+                <h1>
+                    <span class="trajan_maj">D</span><span class="trajan_min">ESTINATIONS</span> <span
+                        class=" trajan_maj">&</span>
+                    <span class="trajan_maj">A</span><span class="trajan_min">DVENTURES</span></h1>
+            </div>
+            <div class="international">
+                <h2>INTERNATIONAL</h2>
+            </div>
+            <h3>Create the first account</h3>
+            {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+            {{ form_rest(registrationForm) }}
+            <button type="submit" class="btn">Register</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}

@@ -95,6 +95,18 @@ class BookingRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return mixed Returns an array of Booking objects
+     */
+    public function findByYear(string $year)
+    {
+        return $this->createQueryBuilder('b')
+            ->select('b')
+            ->where('b.departure LIKE :year')
+            ->setParameter('year', $year . '%')
+            ->getQuery()
+            ->getResult();
+    }
 
     // /**
     //  * @return Booking[] Returns an array of Booking objects

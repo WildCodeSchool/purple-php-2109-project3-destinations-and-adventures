@@ -4,95 +4,110 @@
 
 {% block main %}
 <div class="dashboardTrips">
+    <div class="bashboardTile">
+        <h1>Dashboard</h1>
+        <p>></p>
+        <h2>Trips</h2>
+    </div>
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
     {{ form_end(form) }}
-    <div class="upcommingTrips">
-        <h2>Upcoming Trips</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Lead Customer</th>
-                    <th>Trip Name</th>
-                    <th>Departure Date</th>
-                    <th>Return Date</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for upcoming_trip in upcomingTrips %}
-                    <tr>
-                        <td>{{ upcoming_trip.leadCustomer.name }}</td>
-                        <td>{{ upcoming_trip.name }}</td>
-                        <td>{{ upcoming_trip.departure ? upcoming_trip.departure|date('m-d-Y') : '' }}</td>
-                        <td>{{ upcoming_trip.returnDate ? upcoming_trip.returnDate|date('m-d-Y') : '' }}</td>
-                        <td>{{ upcoming_trip.total }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="6">no records found</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-</div>
-    <div class="currentTrips">
-        <h2>Current Trips</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Lead Customer</th>
-                    <th>Trip Name</th>
-                    <th>Departure Date</th>
-                    <th>Return Date</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for current_trip in currentTrips %}
-                    <tr>
-                        <td>{{ current_trip.leadCustomer.name }}</td>
-                        <td>{{ current_trip.name }}</td>
-                        <td>{{ current_trip.departure ? current_trip.departure|date('m-d-Y') : '' }}</td>
-                        <td>{{ current_trip.returnDate ? current_trip.returnDate|date('m-d-Y') : '' }}</td>
-                        <td>{{ current_trip.total }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="6">no records found</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-</div>
-    <div class="returnedTrip">
-        <h2>Returned Trips</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Client Name</th>
-                    <th>Trip Name</th>
-                    <th>Return Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for returned_trip in returnedTrips %}
-                    {% for client_payment in returned_trip.clientPayments %}
+    <div class="tripTables">
+        <div class="upcommingTrips">
+            <h2>Upcoming Trips</h2>
+            <div class="tablescroll">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ client_payment.client.name }}</td>
-                            <td>{{ returned_trip.name }}</td>
-                            <td>{{ returned_trip.returnDate ? returned_trip.returnDate|date('m-d-Y') : '' }}</td>
+                            <th>Lead Customer</th>
+                            <th>Trip Name</th>
+                            <th>Departure Date</th>
+                            <th>Return Date</th>
+                            <th>Total</th>
                         </tr>
-                        {% endfor %}
-                    {% else %}
+                    </thead>
+                    <tbody>
+                        {% for upcoming_trip in upcomingTrips %}
+                        <tr>
+                            <td>{{ upcoming_trip.leadCustomer.name }}</td>
+                            <td>{{ upcoming_trip.name }}</td>
+                            <td>{{ upcoming_trip.departure ? upcoming_trip.departure|date('m-d-Y') : '' }}</td>
+                            <td>{{ upcoming_trip.returnDate ? upcoming_trip.returnDate|date('m-d-Y') : '' }}</td>
+                            <td>{{ upcoming_trip.total }}</td>
+                        </tr>
+                        {% else %}
                         <tr>
                             <td colspan="6">no records found</td>
                         </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="alignTripTables">
+            <div class="currentTrips">
+                <h2>Current Trips</h2>
+                <div class="tablescroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Lead Customer</th>
+                                <th>Trip Name</th>
+                                <th>Departure Date</th>
+                                <th>Return Date</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for current_trip in currentTrips %}
+                            <tr>
+                                <td>{{ current_trip.leadCustomer.name }}</td>
+                                <td>{{ current_trip.name }}</td>
+                                <td>{{ current_trip.departure ? current_trip.departure|date('m-d-Y') : '' }}</td>
+                                <td>{{ current_trip.returnDate ? current_trip.returnDate|date('m-d-Y') : '' }}</td>
+                                <td>{{ current_trip.total }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="6">no records found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="returnedTrip">
+                <h2>Returned Trips</h2>
+                <div class="tablescroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Client Name</th>
+                                <th>Trip Name</th>
+                                <th>Return Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for returned_trip in returnedTrips %}
+                            {% for client_payment in returned_trip.clientPayments %}
+                            <tr>
+                                <td>{{ client_payment.client.name }}</td>
+                                <td>{{ returned_trip.name }}</td>
+                                <td>{{ returned_trip.returnDate ? returned_trip.returnDate|date('m-d-Y') : '' }}</td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="6">no records found</td>
+                            </tr>
 
-                {% endfor %}
-            </tbody>
-        </table>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

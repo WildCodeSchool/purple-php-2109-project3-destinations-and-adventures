@@ -1,0 +1,283 @@
+@import "variables.scss";
+
+.dashboardTrips {
+    width: 90%;
+    max-width: 40rem;
+
+    .bashboardTile {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        h1,
+        p,
+        h2 {
+            margin: 1rem 0;
+        }
+
+        p {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+    }
+
+    form {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 0.625rem;
+
+        #days {
+            margin: 0;
+
+            .form-group {
+                display: flex;
+                align-items: center;
+
+                label {
+                    margin-right: 0.5rem;
+                }
+
+                select {
+                    padding: 0 0 0 0.5rem;
+                }
+            }
+        }
+    }
+
+    .upcommingTrips,
+    .currentTrips,
+    .returnedTrip {
+        h2 {
+            font-size: 1.125rem;
+        }
+
+        .tablescroll {
+            height: 25rem;
+            min-height: 25rem;
+            overflow-y: scroll;
+            margin-bottom: 1.5rem;
+            background-color: #e3e3e3;
+
+            .table {
+                text-align: center;
+                width: 95%;
+                font-style: $Helvetica;
+                border-spacing: 0 0.25rem;
+                background-color: #e3e3e3;
+                border-radius: 0.25rem;
+
+                thead {
+                    font-size: 0.938rem;
+
+                    td {
+                        border: none;
+                    }
+
+                    th {
+                        vertical-align: middle;
+                    }
+                }
+
+                tbody {
+                    font-size: 0.813rem;
+
+                    td {
+                        height: 2.5rem;
+                        border: none;
+                    }
+
+                    tr:nth-child(odd) {
+                        background-color: #c6c6c6;
+                    }
+
+                    tr:nth-child(even) {
+                        background-color: #f6f6f6;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dashboardPayment {
+    width: 90%;
+    max-width: 40rem;
+
+    .bashboardTile {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        h1,
+        p,
+        h2 {
+            margin: 1rem 0;
+        }
+
+        p {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+    }
+
+    form {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 0.625rem;
+
+        #days {
+            margin: 0;
+
+            .form-group {
+                display: flex;
+                align-items: center;
+
+                label {
+                    margin-right: 0.5rem;
+                }
+
+                select {
+                    padding: 0 0 0 0.5rem;
+                }
+            }
+        }
+    }
+
+    .incomingClientPayment,
+    .outcomingSupplierPayment,
+    .incomingSupplierCommissions,
+    .outcomingAgentCommissions,
+    .daiCommission {
+        h3 {
+            font-size: 1.125rem;
+        }
+
+        .tablescroll {
+            height: 25rem;
+            min-height: 25rem;
+            overflow-y: scroll;
+            margin-bottom: 1.5rem;
+            background-color: #e3e3e3;
+
+            .table {
+                text-align: center;
+                width: 95%;
+                font-style: $Helvetica;
+                border-spacing: 0 0.25rem;
+                background-color: #e3e3e3;
+                border-radius: 0.25rem;
+
+                thead {
+                    font-size: 0.938rem;
+
+                    td {
+                        border: none;
+                    }
+
+                    th {
+                        vertical-align: middle;
+                    }
+                }
+
+                tbody {
+                    font-size: 0.813rem;
+
+                    td {
+                        height: 2.5rem;
+                        border: none;
+                    }
+
+                    tr:nth-child(odd) {
+                        background-color: #c6c6c6;
+                    }
+
+                    tr:nth-child(even) {
+                        background-color: #f6f6f6;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .dashboardTrips {
+        max-width: 80%;
+
+        .tripTables {
+            display: flex;
+            flex-direction: column;
+
+            .upcommingTrips {
+                width: 100%;
+                margin-bottom: 1.5rem;
+
+                .tablescroll {
+                    width: 100%;
+
+                    table {
+                        max-width: 100%;
+                    }
+                }
+            }
+
+            .alignTripTables {
+                display: flex;
+                justify-content: space-between;
+                margin: 0;
+
+                .currentTrips {
+                    width: 50%;
+                    margin-right: 0.75rem;
+                }
+
+                .returnedTrip {
+                    margin-left: 0.75rem;
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    
+    .dashboardPayment {
+        max-width: 80%;
+
+        .paymentRow {
+            display: flex;
+            justify-content: space-between;
+            margin: 0;
+
+            .incomingClientPayment {
+                width: 50%;
+                margin-right: 0.75rem;
+            }
+
+            .outcomingSupplierPayment {
+                margin-left: 0.75rem;
+                width: 50%;
+            }
+        }
+
+        .paymentRow {
+            display: flex;
+            justify-content: space-between;
+            margin: 0;
+            margin-bottom: 1rem;
+
+            .incomingSupplierCommissions {
+                width: 50%;
+                margin-right: 0.75rem;
+            }
+        }
+
+        .daiCommission {
+            margin-left: 0.75rem;
+            width: 50%;
+        }
+    }
+}
