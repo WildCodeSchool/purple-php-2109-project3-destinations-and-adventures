@@ -9,9 +9,21 @@
         <p>></p>
         <h2>Reporting</h2>
     </div>
+    <form action="" method="post">
+        <select name="year" id="year">
+            <option value="{{ 'now'|date('Y') }}">Choose a year</option>
+
+            {% for year in years|sort %}
+            {# The if statement is used to keep displaying the selected value #}
+            <option value="{{ year }}" id="{{ year }}" {% if post.year is defined and post.year == year %} selected="true"
+                {% endif %}>{{ year }}</option>
+            {% endfor %}
+
+        </select>
+        <input type="submit" value="ok">
+    </form>
     <div class="monthlySales">
-        {% set year = 'now'|date('Y') %}
-        <h3>Monthly Sales {{ year }}</h3>
+        <h3>Monthly Sales - {{ year }}</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -26,16 +38,118 @@
                 <tr>
                     <td>{{ date|date('F') }}</td>
                     <td>
+                        {# Initialisation of needed variable #}
                         {% set monthly_sales = 0 %}
-                        {% for payment in payments %}
+
+                        {% for payment in clientPayments %}
                         {% for day in range(1, 31) %}
-                        {% if payment.status == 'paid' and payment.booking.departure|date('Y-m-d') == year ~ '-' ~ "%02d"|format(month) ~ '-' ~ "%02d"|format(day) %}
+                        {% if payment.booking.departure|date('Y-m-d') == year ~ '-' ~ "%02d"|format(month) ~ '-' ~ "%02d"|format(day) %}
                         {% set monthly_sales = monthly_sales + payment.amount %}
                         {% endif %}
                         {% endfor %}
                         {% endfor %}
                         {{ monthly_sales|format_currency('USD', {rounding_mode: 'floor'}) }}
                         {% set total = total + monthly_sales %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="totalYearSales">
+            <h3>Total: {{ total|format_currency('USD', {rounding_mode: 'floor'}) }}</h3>
+        </div>
+    </div>
+    <div class="monthlyGrossProfit">
+        <h3>Monthly Gross Profit - {{ year }}</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for month in range(1, 12) %}
+                {% set date = month ~ "/1/" ~ year %}
+                <tr>
+                    <td>{{ date|date('F') }}</td>
+                    <td>
+                        {# Initialisation of needed variables #}
+                        {% set monthly_earnings = 0 %}
+                        {% set monthly_expenses = 0 %}
+
+                        {# Loop to "feed" the earnings variable #}
+                        {% for client_payment in clientPayments %}
+                        {% for day in range(1, 31) %}
+                        {% if client_payment.booking.departure|date('Y-m-d') == year ~ '-' ~ "%02d"|format(month) ~ '-' ~ "%02d"|format(day) %}
+                        {% set monthly_earnings = monthly_earnings + client_payment.amount %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+
+                        {# Loop to "feed" the expenses variable #}
+                        {% for supplier_payment in supplierPayments %}
+                        {% for day in range(1, 31) %}
+                        {% if supplier_payment.booking.departure|date('Y-m-d') == year ~ '-' ~ "%02d"|format(month) ~ '-' ~ "%02d"|format(day) %}
+                        {% set monthly_expenses = monthly_expenses + supplier_payment.paidAmount %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+
+                        {% set monthly_profit = monthly_earnings - monthly_expenses %}
+                        {{ monthly_profit|format_currency('USD', {rounding_mode: 'floor'}) }}
+                        {% set total = total + monthly_profit %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="totalYearSales">
+            <h3>Total: {{ total|format_currency('USD', {rounding_mode: 'floor'}) }}</h3>
+        </div>
+    </div>
+    <div class="monthlyUECommissions">
+        <h3>Monthly EU Commission - {{ year }}</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = 0 %}
+                {% for month in range(1, 12) %}
+                {% set date = month ~ "/1/" ~ year %}
+                <tr>
+                    <td>{{ date|date('F') }}</td>
+                    <td>
+                        {# Initialisation of needed variables #}
+                        {% set monthly_earnings = 0 %}
+                        {% set monthly_expenses = 0 %}
+
+                        {# Loop to "feed" the earnings variable #}
+                        {% for client_payment in clientPayments %}
+                        {% for day in range(1, 31) %}
+                        {% if client_payment.booking.departure|date('Y-m-d') == year ~ '-' ~ "%02d"|format(month) ~ '-' ~ "%02d"|format(day) %}
+                        {% set monthly_earnings = monthly_earnings + client_payment.amount %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+
+                        {# Loop to "feed" the expenses variable #}
+                        {% for supplier_payment in supplierPayments %}
+                        {% for day in range(1, 31) %}
+                        {% if supplier_payment.booking.departure|date('Y-m-d') == year ~ '-' ~ "%02d"|format(month) ~ '-' ~ "%02d"|format(day) %}
+                        {% set monthly_expenses = monthly_expenses + supplier_payment.paidAmount %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+
+                        {% set monthly_commission = (monthly_earnings - monthly_expenses) * 0.2 %}
+                        {{ monthly_commission|format_currency('USD', {rounding_mode: 'floor'}) }}
+                        {% set total = total + monthly_commission %}
                     </td>
                 </tr>
                 {% endfor %}

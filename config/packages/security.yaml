@@ -27,6 +27,9 @@ security:
             logout:
                 path: app_logout   
 
+    role_hierarchy:
+        ROLE_CONTRIBUTOR: ROLE_VISITOR
+        ROLE_ADMIN: ROLE_CONTRIBUTOR  
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
@@ -37,5 +40,11 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         -  {  path:  ^/register ,  roles:  IS_AUTHENTICATED_ANONYMOUSLY  } 
-        -  {  path:  ^/login ,  roles:  IS_AUTHENTICATED_ANONYMOUSLY  } 
+        -  {  path:  ^/login ,  roles:  IS_AUTHENTICATED_ANONYMOUSLY  }
+        -  {  path:  ^/reset-password ,  roles:  IS_AUTHENTICATED_ANONYMOUSLY  }
+        -  {  path:  ^/logout ,  roles:  ROLE_VISITOR  }
+        -  {  path:  ^/dashboard ,  roles:  ROLE_VISITOR  }
+        -  {  path:  ^/$ ,  roles:  ROLE_VISITOR  }
         -  {  path:  ^/ ,  roles:  ROLE_ADMIN  }
+
+        

@@ -35,6 +35,21 @@ class ClientPaymentRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return mixed Returns an array of ClientPayment objects
+     */
+    public function findByYear(string $year)
+    {
+        return $this->createQueryBuilder('c')
+            ->addSelect('b')
+            ->join('c.booking', 'b')
+            ->where("c.status = 'paid'")
+            ->andWhere("b.departure LIKE :year")
+            ->setParameter('year', $year . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return ClientPayment[] Returns an array of ClientPayment objects
     //  */
