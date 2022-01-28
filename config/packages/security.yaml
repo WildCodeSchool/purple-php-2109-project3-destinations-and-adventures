@@ -38,6 +38,8 @@ security:
     access_control:
         -  {  path:  ^/register ,  roles:  IS_AUTHENTICATED_ANONYMOUSLY  } 
         -  {  path:  ^/login ,  roles:  IS_AUTHENTICATED_ANONYMOUSLY  }
+        -  {  path:  ^/reset-password ,  roles:  IS_AUTHENTICATED_ANONYMOUSLY  }
+        -  {  path:  ^/logout ,  roles:  ROLE_VISITOR  }
         -  {  path:  ^/dashboard ,  roles:  ROLE_VISITOR  }
         -  {  path:  ^/$ ,  roles:  ROLE_VISITOR  }
         -  {  path:  ^/ ,  roles:  ROLE_ADMIN  }
