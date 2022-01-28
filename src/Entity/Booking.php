@@ -201,6 +201,11 @@ class Booking
         return $this->departure;
     }
 
+    public function getDepartureYear(): string
+    {
+        return date_format($this->departure, 'Y');
+    }
+
     public function setDeparture(\DateTimeInterface $departure): self
     {
         $this->departure = $departure;

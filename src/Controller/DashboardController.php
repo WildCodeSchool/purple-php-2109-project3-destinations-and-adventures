@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Form\DaysType;
+use App\Form\YearType;
 use App\Repository\BookingRepository;
 use App\Repository\ClientPaymentRepository;
 use App\Repository\SupplierPaymentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -107,14 +109,43 @@ class DashboardController extends AbstractController
     public function reporting(
         ClientPaymentRepository $clientPaymentRepo,
         SupplierPaymentRepository $supplierPaymentRepo,
+        BookingRepository $bookingRepository,
         Request $request
     ): Response {
-        $clientPayments = $clientPaymentRepo->findAll();
-        $supplierPayments = $supplierPaymentRepo->findAll();
+
+        // Start of getting all the years where a trip starts
+        $bookings = $bookingRepository->findAll();
+
+        $years = [];
+        foreach ($bookings as $booking) {
+            $years[] = $booking->getDepartureYear();
+        }
+        $years = array_unique($years);
+        // End of getting all the years
+
+        // Set up of default data when arriving on the page - before using the form
+        $year = date('Y');
+        $bookings = $bookingRepository->findByYear($year);
+        $clientPayments = $clientPaymentRepo->findByYear($year);
+        $supplierPayments = $supplierPaymentRepo->findByYear($year);
+
+        // Behavior of the page when a year is selected with the form
+        if (isset($_POST['year']) && !empty($_POST['year'])) {
+            $bookings = $bookingRepository->findByYear($_POST['year']);
+            $clientPayments = $clientPaymentRepo->findByYear($_POST['year']);
+            $supplierPayments = $supplierPaymentRepo->findByYear($_POST['year']);
+
+            // Variable year is no longer date('Y') but the selected year
+            $year = $_POST['year'];
+        }
 
         return $this->render('dashboard/reporting.html.twig', [
             'clientPayments' => $clientPayments,
             'supplierPayments' => $supplierPayments,
+            'years' => $years,
+            'year' => $year,
+            'bookings' => $bookings,
+            'post' => $_POST,
         ]);
     }
 }
