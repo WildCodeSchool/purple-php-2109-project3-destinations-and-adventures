@@ -27,6 +27,9 @@ security:
             logout:
                 path: app_logout   
 
+    role_hierarchy:
+        ROLE_CONTRIBUTOR: ROLE_VISITOR
+        ROLE_ADMIN: ROLE_CONTRIBUTOR  
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
