@@ -10,7 +10,6 @@
     width: 95%;
     margin: 0 auto;
     margin-bottom: 5em;
-    overflow-x: scroll;
     background: #F4FAF4;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 6px;
@@ -33,7 +32,6 @@
             align-items: center;
 
             td {
-                margin: 0;
                 width: 16.5%;
             }
 
@@ -41,6 +39,7 @@
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
+                width: 7%;
 
                 a, form {
                     margin: 0;
@@ -53,13 +52,6 @@
         background: #F6F6F6;
         border: 1px solid rgba(0, 0, 0, 0.3);
         min-width: 800px;
-    }
-
-    section.active-section {
-
-        .panel {
-            padding: 2em 1em;
-        }
     }
 
     section:nth-child(2) {
@@ -98,18 +90,109 @@
         transition: max-height 0.2s ease-out;
         width: 100%;
 
-        div {
+        .payments-section {
             background: #FFFFFF;
             border-radius: 6px;
+            padding: 0 1.4em 1.4em 1.4em;
+            margin-bottom: 1em;
+
+            table {
+                width: 100%;
+
+                tr {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: .5em .7em;
+                    align-items: center;
+
+                    td {
+                        width: 16.5%;
+                    }
+
+                    td:last-child {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        width: 7%;
+        
+                        a, form {
+                            margin: 0;
+                        }
+                    }
+                }
+
+                tbody tr {
+                    background-color: $thirdBackground;
+                    margin-bottom: .5em;
+                    border-radius: 5px;
+                }
+            }
+
+            .status span {
+                border-radius: 7px;
+                padding: .3em .6em;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: .8em;
+            }
+
+            .status.paid span {
+                background: rgba(52, 159, 50, 0.5);
+            }
+
+            .status.due span {
+                background: rgba(226, 195, 30, 0.5);
+            }
+
+            .add-new {
+                width: 22%;
+                margin: 0 auto;
+                margin-top: 1.5em;
+                background-color: $button-bg;
+                padding: 0;
+                
+                td {
+                    justify-content: center!important;
+                    width: 100%!important;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: $thirdBackground;
+                    padding: 10px;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
         }
 
         .payments-section-head {
             display: flex;
             justify-content: space-between;
-            padding: 1.2em 1.4em 1.4em 1.4em;
+            align-items: center;
+            padding: 1em 0 1.4em 0;
 
             div {
                 display: flex;
+                align-items: center;
+            }
+
+            div:last-child .payments-total {
+                margin-right: 1em;
+            }
+
+            div:last-child .payments-total div:first-child,
+            div:last-child .payments-due div:first-child {
+                background-color: #C4C4C4;
+                padding: .2em .4em;
+                border-radius: 5px 0 0 5px;
+            }
+
+            div:last-child .payments-total div:last-child,
+            div:last-child .payments-due div:last-child {
+                background-color: #EBEBEB;
+                padding: .2em .4em;
+                border-radius: 0 5px 5px 0;
             }
 
             h2 {
@@ -123,6 +206,18 @@
                 margin-left: 1em;
             }
         }
+    }
+
+    a svg {
+        color: #212529;
+    }
+
+    svg:hover {
+        color: #43afee;
+    }
+
+    .btn {
+        padding: 0;
     }
     
     .active {
@@ -140,14 +235,24 @@
 
             td {
                 margin: 0;
-                font-size: 1.1em;
+                font-size: 1.2em;
                 width: 16.5%;
+            }
+
+            td:last-child {
+                width: 7%;
             }
         }
     }
 }
 
-@media screen and (min-width: 700px) and (max-width: 999px) {
+@media screen and (max-width: 700px) {
+    .all-booking {
+        overflow-x: scroll;
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1023px) {
 
     .all-booking section {
         min-width: 600px;
@@ -174,10 +279,14 @@
                 justify-content: center;
             }
         }
+
+        .panel .payments-section .add-new {
+            width: 35%;
+        }
     }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1024px) {
     
     .all-booking {
 
@@ -192,10 +301,10 @@
     }
 
     .all-booking-header {
-        width: 85%;
+        width: 82%;
     }
     
     .all-booking {
-        width: 85%;
+        width: 82%;
     }
 }
