@@ -242,6 +242,7 @@
             padding: 0;
         }
     }
+
     .monthlySales,
     .monthlyGrossProfit,
     .monthlyUECommissions {
@@ -340,7 +341,8 @@
 
     .dashboardReporting {
         max-width: 70%;
-        .reportingTables{
+
+        .reportingTables {
             display: flex;
 
             .monthlySales,
