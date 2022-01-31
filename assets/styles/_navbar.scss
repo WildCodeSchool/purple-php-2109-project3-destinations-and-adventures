@@ -6,7 +6,15 @@ header {
     margin-bottom: 8em;
 }
 
-.navbar {
+.navbar-mobile {
+    display: flex;
+}
+
+.navbar-desktop {
+    display: none !important;
+}
+
+.navbar-mobile {
     background-color: $green;
     height: 5rem !important;
 
@@ -17,11 +25,6 @@ header {
 
     .pe-3 {
         padding-right: 0rem !important;
-    }
-
-    h5 {
-        margin: 0;
-        color: rgba(255, 255, 255, 0.75);
     }
 
     li {
@@ -62,9 +65,10 @@ header {
             }
         }
 
-        .navbar-toggler:focus, .navbar-toggler:focus-visible {
-            outline: 0!important;
-            box-shadow: none!important;
+        .navbar-toggler:focus,
+        .navbar-toggler:focus-visible {
+            outline: 0 !important;
+            box-shadow: none !important;
         }
 
         .offcanvas {
@@ -85,6 +89,13 @@ header {
                 hr {
                     color: $light;
                 }
+
+                h3 {
+                    font-size: 1.1em;
+                    color: rgba(255, 255, 255, 0.75);
+                    padding-top: .5em;
+                    word-wrap: break-word;
+                }
             }
 
             .nav-link,
@@ -92,7 +103,6 @@ header {
                 color: rgba(255, 255, 255, 0.5);
 
                 .title {
-                    font-weight: bold;
                     font-size: 1.5rem !important;
                 }
             }
@@ -133,5 +143,131 @@ header {
                 font-size: 0.75rem !important;
             }
         }
+    }
+}
+
+.navbar-desktop {
+    background-color: $green;
+    height: 4rem !important;
+    justify-content: initial;
+    align-items: initial;
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        color: $light !important;
+    }
+
+    ul hr {
+        color: $light;
+    }
+
+    ul hr:first-child {
+        margin-top: 0;
+    }
+
+    .pe-3 {
+        padding-right: 0rem !important;
+    }
+
+    li {
+        text-align: center;
+    }
+
+    h3 {
+        font-size: 1.1em;
+        color: rgba(255, 255, 255, 0.75);
+        padding-top: .5em;
+        word-wrap: break-word;
+    }
+
+    .navbar-nav a[href="/logout"] {
+        text-align: center;
+    }
+
+    .navbar-brand {
+        margin: 0 !important;
+        padding-top: 0.8rem !important;
+        font-family: $TrajanPro;
+        font-size: 0.75rem;
+        color: $light;
+        font-weight: bold;
+        text-align: center;
+        position: absolute;
+        top: -2%;
+        left: 45%;
+    }
+
+    #times {
+        font-family: $Times;
+        font-weight: normal;
+        letter-spacing: .35rem;
+        font-size: 0.5rem;
+    }
+
+    .logout {
+        background: $darkgreen;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .logout:hover {
+        color: #eeeeee !important;
+    }
+
+    .menu-desktop {
+        margin-top: 3.5em;
+        background-color: $green;
+        height: 100vh;
+        width: 12em;
+        padding: 0 1em;
+    }
+
+    .nav-link,
+    h2 {
+        color: rgba(255, 255, 255, 0.5);
+
+        .title {
+            font-size: 1.5rem !important;
+        }
+    }
+
+    a.nav-link {
+        font-size: 1.1em;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus {
+        color: #eeeeee !important;
+    }
+
+    .nav-item {
+        color: $lightgreen;
+
+        .title {
+            color: white;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .navbar-brand {
+            font-size: 0.95rem !important;
+
+            #times {
+                font-size: 0.75rem !important;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1250px) {
+    .navbar-mobile {
+        display: none !important;
+    }
+
+    .navbar-desktop {
+        display: flex !important;
+    }
+
+    main {
+        margin-left: 11em;
     }
 }

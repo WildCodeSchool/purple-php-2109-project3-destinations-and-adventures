@@ -17,7 +17,7 @@
 <body class="body">
   {% block body %}
   <header>
-    <nav class="navbar navbar-light fixed-top">
+    <nav class="navbar navbar-light fixed-top navbar-mobile">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <span>Destinations & Adventures</span><br>
@@ -35,16 +35,16 @@
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
               <hr>
               <li class="nav-item">
-                <h6><span class="title">Logged in as</span></h6>
+                <h2><span class="title">Logged in as</span></h2>
               </li>
               <li class="nav-item">
-                <h5>
-                    {% if app.user %}
-                      {{ app.user.username }}
-                    {% else %}
-                      Unknown
-                    {% endif %}
-                </h5>
+                <h3>
+                  {% if app.user %}
+                  {{ app.user.username }}
+                  {% else %}
+                  Unknown
+                  {% endif %}
+                </h3>
               </li>
               <hr>
               <li class="nav-item">
@@ -96,6 +96,79 @@
             </ul>
           </div>
         </div>
+      </div>
+    </nav>
+
+
+
+    <nav class="navbar fixed-top navbar-desktop">
+      <a class="navbar-brand" href="/">
+        <span>Destinations & Adventures</span><br>
+        <span id="times">INTERNATIONAL</span>
+      </a>
+      <div class="menu-desktop">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <hr>
+          <li class="nav-item">
+            <h2><span class="title">Logged in as</span></h2>
+          </li>
+          <li class="nav-item">
+            <h3>
+              {% if app.user %}
+              {{ app.user.username }}
+              {% else %}
+              Unknown
+              {% endif %}
+            </h3>
+          </li>
+          <hr>
+          <li class="nav-item">
+            <h2><span class="title">Dashboard</span></h2>
+          </li>
+          <li class="links-aligned">
+            <span class="nav-item">
+              <a class="nav-link" href="{{ path('dashboard_payment') }}">Payments</a>
+            </span>
+            <span class="nav-item">
+              <a class="nav-link" href="{{ path('dashboard_trip') }}">Trips</a>
+            </span>
+            <span class="nav-item">
+              <a class="nav-link" href="{{ path('dashboard_reporting') }}">Reporting</a>
+            </span>
+          </li>
+          <hr>
+          <li class="nav-item">
+            <h2><span class="title">Bookings</span></h2>
+          </li>
+          <li class="links-aligned">
+            <span class="nav-item">
+              <a class="nav-link" href="{{ path('booking_index') }}">All bookings</a>
+            </span>
+            <span class="nav-item">
+              <a class="nav-link" href="{{ path('general_new') }}">Add
+                new</a>
+            </span>
+          </li>
+          <hr>
+          <li class="nav-item">
+            <h2><span class="title">Other</span></h2>
+          </li>
+          <li class="links-aligned">
+            <span class="nav-item">
+              <a class="nav-link" href="{{ path('agent_index') }}">Agents</a>
+            </span>
+            <span class="nav-item">
+              <a class="nav-link" href="{{ path('client_index') }}">Clients</a>
+            </span>
+            <span class="nav-item">
+              <a class="nav-link" href="{{ path('supplier_index') }}">Suppliers</a>
+            </span>
+          </li>
+          <hr>
+          <a href="/logout">
+            <button class="btn logout">Logout</button>
+          </a>
+        </ul>
       </div>
     </nav>
   </header>
