@@ -3,6 +3,7 @@
 .dashboardTrips {
     width: 90%;
     max-width: 40rem;
+    margin: 0 auto;
 
     .bashboardTile {
         display: flex;
@@ -66,6 +67,7 @@
                 border-spacing: 0 0.25rem;
                 background-color: #e3e3e3;
                 border-radius: 0.25rem;
+                margin: 0 auto;
 
                 thead {
                     font-size: 0.938rem;
@@ -103,6 +105,7 @@
 .dashboardPayment {
     width: 90%;
     max-width: 40rem;
+    margin: 0 auto;
 
     .bashboardTile {
         display: flex;
@@ -168,6 +171,7 @@
                 border-spacing: 0 0.25rem;
                 background-color: #e3e3e3;
                 border-radius: 0.25rem;
+                margin: 0 auto;
 
                 thead {
                     font-size: 0.938rem;
@@ -197,6 +201,100 @@
                         background-color: #f6f6f6;
                     }
                 }
+            }
+        }
+    }
+}
+
+.dashboardReporting {
+    width: 90%;
+    max-width: 40rem;
+    margin: 0 auto;
+
+    .dashboardTitle {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        h1,
+        p,
+        h2 {
+            margin: 1rem 0;
+        }
+
+        p {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+    }
+
+    form {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 0.625rem;
+
+        input {
+            margin-left: 0.5rem;
+        }
+
+        select {
+            padding: 0;
+        }
+    }
+
+    .monthlySales,
+    .monthlyGrossProfit,
+    .monthlyUECommissions {
+        h3 {
+            font-size: 1.125rem;
+        }
+
+        .table {
+            text-align: center;
+            width: 95%;
+            font-style: $Helvetica;
+            border-spacing: 0 0.25rem;
+            background-color: #e3e3e3;
+            border-radius: 0.25rem;
+            margin: 0 auto;
+
+            thead {
+                font-size: 0.938rem;
+
+                td {
+                    border: none;
+                }
+
+                th {
+                    vertical-align: middle;
+                }
+            }
+
+            tbody {
+                font-size: 0.813rem;
+
+                td {
+                    height: 2.5rem;
+                    border: none;
+                }
+
+                tr:nth-child(odd) {
+                    background-color: #c6c6c6;
+                }
+
+                tr:nth-child(even) {
+                    background-color: #f6f6f6;
+                }
+            }
+        }
+
+        .totalYearSales {
+            h3 {
+                font-size: 1.125rem;
+                margin-top: 1rem;
+                margin-bottom: 2rem;
+                margin-left: 0.5rem;
             }
         }
     }
@@ -240,10 +338,24 @@
             }
         }
     }
+
+    .dashboardReporting {
+        max-width: 70%;
+
+        .reportingTables {
+            display: flex;
+
+            .monthlySales,
+            .monthlyGrossProfit,
+            .monthlyUECommissions {
+                width: 33%;
+                margin: 0 0.5rem;
+            }
+        }
+    }
 }
 
 @media screen and (min-width: 1024px) {
-    
     .dashboardPayment {
         max-width: 80%;
 
