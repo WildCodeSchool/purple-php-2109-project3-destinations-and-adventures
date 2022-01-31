@@ -3,20 +3,24 @@
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address and we will send you a
-                link to reset your password.
-            </small>
+<div class="login_page">
+<div class="background"></div>
+<div class="login">
+    <div class="destination_adventures">
+        <h1>
+            <span class="trajan_maj">D</span><span class="trajan_min">ESTINATIONS</span> <span class=" trajan_maj">&</span>
+            <span class="trajan_maj">A</span><span class="trajan_min">DVENTURES</span></h1>
         </div>
-
-        <button class="btn btn-primary">Send password reset email</button>
+        <div class="international">
+            <h2>INTERNATIONAL</h2>
+        </div>
+        <h3>Reset your password</h3>
+        {{ form_start(requestForm) }}
+        {{ form_row(requestForm.email) }}
+        
+        <button class="btn btn-primary">Send email to reset password</button>
     {{ form_end(requestForm) }}
+        
+    </div>
+</div>
 {% endblock %}

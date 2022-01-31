@@ -3,10 +3,24 @@
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(resetForm) }}
+<div class="login_page">
+<div class="background"></div>
+<div class="login">
+    <div class="destination_adventures">
+        <h1>
+            <span class="trajan_maj">D</span><span class="trajan_min">ESTINATIONS</span> <span class=" trajan_maj">&</span>
+            <span class="trajan_maj">A</span><span class="trajan_min">DVENTURES</span></h1>
+        </div>
+        <div class="international">
+            <h2>INTERNATIONAL</h2>
+        </div>
+        <h3>Reset your password</h3>
+        {{ form_start(resetForm) }}
         {{ form_row(resetForm.plainPassword) }}
         <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+        {{ form_end(resetForm) }}
+        
+    </div>
+</div>
 {% endblock %}
+
