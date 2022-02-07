@@ -21,7 +21,7 @@
             a svg {
                 color: #212529;
             }
-        
+
             svg:hover {
                 color: #43afee;
             }
@@ -72,7 +72,7 @@
                         display: flex;
                         justify-content: flex-start;
                         align-items: center;
-        
+
                         a, form {
                             margin: 0;
                         }
@@ -98,19 +98,18 @@
         .tablescroll {
             width: 100%;
             overflow-x: scroll;
-            
+
             table {
                 min-width: 600px;
 
                 td, th {
                     width: 22%;
                 }
-    
+
                 thead tr th:last-child, tbody tr td:last-child {
                     width: 12%;
                 }
             }
-            
         }
     }
 }
