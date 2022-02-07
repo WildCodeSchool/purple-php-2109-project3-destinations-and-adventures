@@ -97,7 +97,7 @@ class ClientPaymentController extends AbstractController
         SupplierInformationRepository $supplierInfoRepo,
         Booking $booking
     ): Response {
-        // Initialisation of $ref (previous route variable)
+        // Initialization of $ref (previous route variable)
         $ref = null;
         // Getting previous url
         $referer = $request->headers->get('referer');
