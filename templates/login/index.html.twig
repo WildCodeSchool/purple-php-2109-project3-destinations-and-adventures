@@ -25,8 +25,9 @@
                     {{ error.messageKey|trans(error.messageData, 'security') }}
                 </div>
             {% endif %}
+            <a href="{{ path('app_forgot_password_request') }}">Forgotten Password?</a>
         </form>
-        <a href="{{ path('app_forgot_password_request') }}">Forgotten Password?</a>
+        
     </div>
 </div>
 {% endblock %}
