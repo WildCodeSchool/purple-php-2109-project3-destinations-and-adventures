@@ -97,6 +97,8 @@ class ClientPaymentController extends AbstractController
         SupplierInformationRepository $supplierInfoRepo,
         Booking $booking
     ): Response {
+        // Initialisation of $ref (previous route variable)
+        $ref = null;
         // Getting previous url
         $referer = $request->headers->get('referer');
         // Getting previous route
@@ -111,19 +113,16 @@ class ClientPaymentController extends AbstractController
             }
         }
 
-        // Fixing phpstan error: Variable $ref might not be defined
-        if (isset($ref)) {
-            // Redirection depending on previous route
-            if ($ref == '/') {
-                return $this->redirectToRoute(
-                    'booking_index',
-                    [
-                        'bookings' => $bookingRepository->findAll(),
-                        'supplier_informations' => $supplierInfoRepo->findAll(),
-                    ],
-                    Response::HTTP_SEE_OTHER
-                );
-            }
+        // Redirection depending on previous route
+        if ($ref == '/') {
+            return $this->redirectToRoute(
+                'booking_index',
+                [
+                    'bookings' => $bookingRepository->findAll(),
+                    'supplier_informations' => $supplierInfoRepo->findAll(),
+                ],
+                Response::HTTP_SEE_OTHER
+            );
         }
         return $this->redirectToRoute(
             'client_payment_new',
