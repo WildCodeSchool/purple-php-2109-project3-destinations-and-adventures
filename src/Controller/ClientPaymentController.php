@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Booking;
 use App\Entity\ClientPayment;
 use App\Form\ClientPaymentType;
+use App\Repository\BookingRepository;
 use App\Repository\ClientPaymentRepository;
+use App\Repository\SupplierInformationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,13 +93,36 @@ class ClientPaymentController extends AbstractController
         Request $request,
         ClientPayment $clientPayment,
         EntityManagerInterface $entityManager,
+        BookingRepository $bookingRepository,
+        SupplierInformationRepository $supplierInfoRepo,
         Booking $booking
     ): Response {
+        // Initialization of $ref (previous route variable)
+        $ref = null;
+        // Getting previous url
+        $referer = $request->headers->get('referer');
+        // Getting previous route
+        if (is_string($referer)) {
+            $ref = Request::create($referer)->getPathInfo();
+        }
+
         if (is_string($request->request->get('_token'))) {
             if ($this->isCsrfTokenValid('delete' . $clientPayment->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($clientPayment);
                 $entityManager->flush();
             }
+        }
+
+        // Redirection depending on previous route
+        if ($ref == '/') {
+            return $this->redirectToRoute(
+                'booking_index',
+                [
+                    'bookings' => $bookingRepository->findAll(),
+                    'supplier_informations' => $supplierInfoRepo->findAll(),
+                ],
+                Response::HTTP_SEE_OTHER
+            );
         }
         return $this->redirectToRoute(
             'client_payment_new',
