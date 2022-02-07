@@ -27,12 +27,12 @@
                 <td>
 
                     {% if client_payment.status == 'due' %}
-                        <a
-                            href="{{ path('client_payment_edit', {booking_id: client_payment.booking.id, client_payment_id: client_payment.id}) }}">
-                            Edit</a>
-                        {{ include('accordion/client_payment/_delete_form.html.twig') }}
-                        {% else %}
-                        {{ include('accordion/client_payment/_delete_form.html.twig') }}
+                    <a
+                        href="{{ path('client_payment_edit', {booking_id: client_payment.booking.id, client_payment_id: client_payment.id}) }}">
+                        Edit</a>
+                    {{ include('accordion/client_payment/_delete_form.html.twig') }}
+                    {% else %}
+                    {{ include('accordion/client_payment/_delete_form.html.twig') }}
                     {% endif %}
 
                 </td>
@@ -45,6 +45,6 @@
         </tbody>
     </table>
 </div>
-    {{ include('accordion/client_payment/_form.html.twig') }}
-    <a href="{{ path('client_new', {booking_id: booking.id}) }}">Add client</a>
+{{ include('accordion/client_payment/_form.html.twig') }}
+<a href="{{ path('client_new', {booking_id: booking.id}) }}">Add client</a>
 {% endblock clientPayments %}
