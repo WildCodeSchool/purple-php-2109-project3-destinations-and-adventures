@@ -2,7 +2,6 @@
 
 {% block title %}New SupplierPayment{% endblock %}
 
-
 {% block supplierPayments %}
 <div class="payments">
     <table>
@@ -20,10 +19,8 @@
             <tr>
                 <td>{{ supplier_payment.supplier.name }}</td>
                 <td>{{ supplier_payment.date ? supplier_payment.date|date('m-d-Y') : '' }}</td>
-                <td>{{ supplier_payment.paidAmount }}</td>
-                <td>{{ supplier_payment.dueCommission }}</td>
-
-                </td>
+                <td>{{ supplier_payment.paidAmount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
+                <td>{{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                 <td>
                     {% if supplier_payment.status == 'due' %}
                     <a
