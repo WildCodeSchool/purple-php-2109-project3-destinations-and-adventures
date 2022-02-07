@@ -34,7 +34,7 @@
                             <td>{{ upcoming_trip.name }}</td>
                             <td>{{ upcoming_trip.departure ? upcoming_trip.departure|date('m-d-Y') : '' }}</td>
                             <td>{{ upcoming_trip.returnDate ? upcoming_trip.returnDate|date('m-d-Y') : '' }}</td>
-                            <td>{{ upcoming_trip.total }}</td>
+                            <td>{{ upcoming_trip.total|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                         </tr>
                         {% else %}
                         <tr>
@@ -66,7 +66,7 @@
                                 <td>{{ current_trip.name }}</td>
                                 <td>{{ current_trip.departure ? current_trip.departure|date('m-d-Y') : '' }}</td>
                                 <td>{{ current_trip.returnDate ? current_trip.returnDate|date('m-d-Y') : '' }}</td>
-                                <td>{{ current_trip.total }}</td>
+                                <td>{{ current_trip.total|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             </tr>
                             {% else %}
                             <tr>

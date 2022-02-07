@@ -37,7 +37,7 @@
                     <span><strong>to </strong></span>{{ booking.returnDate ? booking.returnDate|date('Y-m-d') : '' }}
                 </td>
                 <td>
-                    <strong>{{ booking.total }}$</strong>
+                    <strong>{{ booking.total|format_currency('USD', {rounding_mode: 'floor'}) }}$</strong>
                 </td>
                 <td>
                     {% if booking.clientPayments|length <= 1 %}
@@ -53,7 +53,8 @@
                         {% set amount = amount + client_payment.amount %}
                         {% endif %}
                         {% endfor %}
-                        {{ total - amount }}$
+                        {% set total = total - amount %}
+                        {{ total|format_currency('USD', {rounding_mode: 'floor'}) }}$
                     </strong> due
                 </td>
                 <td>
@@ -77,8 +78,8 @@
                         {% for supplier_information in booking.supplierInformation %}
                         {% set due_amount = due_amount + supplier_information.dueDollarsAmount %}
                         {% endfor %}
-
-                        {{ due_amount - paid_amount }}$
+                        {% set due_amount = due_amount - paid_amount %}
+                        {{ due_amount|format_currency('USD', {rounding_mode: 'floor'}) }}$
                     </strong> due
                 </td>
                 <td>
@@ -115,7 +116,7 @@
                     <div>
                         <div class="payments-total">
                             <div><strong>TOTAL</strong></div>
-                            <div>{{ booking.total }} $</div>
+                            <div>{{ booking.total|format_currency('USD', {rounding_mode: 'floor'}) }} $</div>
                         </div>
                         <div class="payments-due">
                             <div><strong>DUE</strong></div>
@@ -127,7 +128,8 @@
                                 {% set amount = amount + client_payment.amount %}
                                 {% endif %}
                                 {% endfor %}
-                                {{ total - amount }}$
+                                {% set total = total - amount %}
+                                {{ total|format_currency('USD', {rounding_mode: 'floor'}) }}$
                             </div>
                         </div>
                     </div>
@@ -149,7 +151,7 @@
                         <tr>
                             <td class="status"><span>{{ client_payment.status }}</span></td>
                             <td>{{ client_payment.type }}</td>
-                            <td>{{ client_payment.amount }}</td>
+                            <td>{{ client_payment.amount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             <td>{{ client_payment.mode }}</td>
                             <td>{{ client_payment.date|date('m-d-Y') }}</td>
                             <td>{{ client_payment.client.name }}</td>
@@ -203,7 +205,7 @@
                                 {% for supplier_payment in booking.supplierPayments %}
                                 {% set total = total - supplier_payment.dueCommission %}
                                 {% endfor %}
-                                {{ total }} $
+                                {{ total|format_currency('USD', {rounding_mode: 'floor'}) }} $
                             </div>
                         </div>
                         <div class="payments-due">
@@ -223,8 +225,8 @@
                                 {% for supplier_information in booking.supplierInformation %}
                                 {% set due_amount = due_amount + supplier_information.dueDollarsAmount %}
                                 {% endfor %}
-
-                                {{ due_amount - paid_amount }}$
+                                {% set due_amount = due_amount - paid_amount %}
+                                {{ due_amount|format_currency('USD', {rounding_mode: 'floor'}) }}$
                             </div>
                         </div>
                     </div>
@@ -247,10 +249,10 @@
                         <tr>
                             <td class="status"><span>{{ supplier_payment.status }}</span></td>
                             <td>{{ supplier_payment.supplier.name }}</td>
-                            <td>{{ supplier_payment.paidAmount }}</td>
+                            <td>{{ supplier_payment.paidAmount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             <td>{{ supplier_payment.date|date('m-d-Y') }}</td>
                             <td>{{ supplier_payment.mode }}</td>
-                            <td>{{ supplier_payment.dueCommission }}</td>
+                            <td>{{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             <td>{{ supplier_payment.dueDateCommission|date('m-d-Y') }}</td>
                             <td>
                                 <a
