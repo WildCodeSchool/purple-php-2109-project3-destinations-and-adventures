@@ -8,5 +8,6 @@
     <a href="{{ path('supplier_information_new', {'booking_id': supplier_information.booking.id}) }}">back to list</a>
 {% endblock supplierInfo %}
 {% block javascripts %}
+{{ encore_entry_script_tags('app') }}
 {{ encore_entry_script_tags('supplierInfo') }}
 {% endblock %}
