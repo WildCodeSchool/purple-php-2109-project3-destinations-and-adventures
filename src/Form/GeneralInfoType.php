@@ -31,7 +31,9 @@ class GeneralInfoType extends AbstractType
                     'placeholder' => 'Travelers count',
                 ]
             ])
-            ->add('leadCustomer', ClientType::class)
+            ->add('leadCustomer', ClientType::class, [
+                'label' => false
+            ])
             ->add('destination', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Destination',
