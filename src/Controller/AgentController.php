@@ -88,7 +88,7 @@ class AgentController extends AbstractController
         ]);
     }
 
-      /**
+    /**
      * @Route("/agent/{agent_id}/delete", name="agent_delete", methods={"GET", "POST"})
      * @ParamConverter("agent", options={"mapping": {"agent_id": "id"}})
      */
@@ -97,22 +97,43 @@ class AgentController extends AbstractController
         Agent $agent,
         EntityManagerInterface $entityManager
     ): Response {
-        // Get the related bookings collection
+        // Initialization of $ref (prevents phpstan error)
+        $ref = null;
+        // Getting previous url
+        $referer = $request->headers->get('referer');
+        // Getting previous route
+        if (is_string($referer)) {
+            $ref = Request::create($referer)->getPathInfo();
+        }
+
+        // Getting bookings collection
         $bookings = $agent->getBookings();
+
+        $bookingId = $bookings[0]->getId();
+
         if (is_string($request->request->get('_token'))) {
             if ($this->isCsrfTokenValid('delete' . $agent->getId(), $request->request->get('_token'))) {
-                // Removing the booking attached to the agent (to get around constraint key error)
-                foreach ($bookings as $booking) {
-                    $entityManager->remove($booking);
-                }
                 $entityManager->remove($agent);
                 $entityManager->flush();
             }
         }
 
+        $form = $this->createForm(AgentType::class, $agent);
+        $form->handleRequest($request);
+
+        // Redirection depending on previous route
+        if ($ref == '/agent') {
+            return $this->redirectToRoute(
+                'agent_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
+        }
         return $this->redirectToRoute(
-            'agent_index',
-            [],
+            'agent_new',
+            [
+                'booking_id' => $bookingId,
+            ],
             Response::HTTP_SEE_OTHER
         );
     }
