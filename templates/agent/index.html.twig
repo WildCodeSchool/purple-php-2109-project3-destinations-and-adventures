@@ -18,7 +18,11 @@
         {% for agent in agents %}
         <tr>
             <td>{{ agent.name }}</td>
-            <td>{{ agent.commission }}</td>
+            {% if agent.commissionUnit == '$' %}
+            <td>{{ agent.commission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
+            {% else %}
+            <td>{{ agent.commission ~ agent.commissionUnit }}</td>
+            {% endif %}
             {% for booking in agent.bookings %}
             <td>{{ booking.name }}</td>
             {% endfor %}
