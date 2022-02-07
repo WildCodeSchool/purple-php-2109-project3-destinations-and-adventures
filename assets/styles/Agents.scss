@@ -1,0 +1,116 @@
+@import "variables.scss";
+@import "~bootstrap/scss/bootstrap";
+
+.all-agents {
+    width: 90%;   
+    margin: 0 auto;
+
+    .tablescroll {
+        margin-bottom: 1.5rem;
+        background-color: #e3e3e3;
+        width: 70%;
+
+        table {
+            text-align: center;
+            font-style: $Helvetica;
+            border-spacing: 0 0.25rem;
+            background-color: #e3e3e3;
+            border-radius: 0.25rem;
+            width: 100%;
+
+            a svg {
+                color: #212529;
+            }
+        
+            svg:hover {
+                color: #43afee;
+            }
+
+            td, th {
+                width: 20%;
+            }
+
+            thead {
+                font-size: 0.938rem;
+
+                tr {
+                    display: flex;
+                    justify-content: space-around;
+                    padding: .5em 1em;
+                    align-items: center;
+                    text-align: left;
+                }
+
+                td {
+                    border: none;
+                }
+
+                th {
+                    vertical-align: middle;
+                }
+            }
+
+            tbody {
+                border-top: 2px solid black;
+                font-size: 0.813rem;
+
+                tr {
+                    display: flex;
+                    justify-content: space-around;
+                    padding: .5em 1em;
+                    align-items: center;
+                    text-align: left;
+
+                    td {
+                        display: flex;
+                        align-items: center;
+                        height: 3rem;
+                        border: none;
+                    }
+
+                    td:last-child {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+        
+                        a, form {
+                            margin: 0;
+                        }
+                    }
+                }
+
+                tr:nth-child(odd) {
+                    background-color: #c6c6c6;
+                }
+
+                tr:nth-child(even) {
+                    background-color: #f6f6f6;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    
+    .all-agents {
+
+        .tablescroll {
+            width: 100%;
+            overflow-x: scroll;
+            
+            table {
+                min-width: 600px;
+
+                td, th {
+                    width: 22%;
+                }
+    
+                thead tr th:last-child, tbody tr td:last-child {
+                    width: 12%;
+                }
+            }
+            
+        }
+    }
+}
