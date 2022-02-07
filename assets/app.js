@@ -14,11 +14,13 @@ import './styles/_navbar.scss';
 import './styles/bookings.scss';
 import './styles/_accordion.scss';
 import './styles/clientPayment.scss';
+import './styles/agency.scss';
 import './styles/financialInfo.scss';
 import './styles/supplierPayment.scss';
 import './styles/supplierInformation.scss';
 import './styles/dashboard.scss';
 import './styles/accountCreation.scss';
+import './styles/clients.scss';
 
 // start the Stimulus application
 import './bootstrap';

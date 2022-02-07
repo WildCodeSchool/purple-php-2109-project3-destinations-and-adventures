@@ -4,12 +4,14 @@
 
 {% block body %}
 <div class="login_page">
-<div class="background"></div>
-<div class="login">
-    <div class="destination_adventures">
-        <h1>
-            <span class="trajan_maj">D</span><span class="trajan_min">ESTINATIONS</span> <span class=" trajan_maj">&</span>
-            <span class="trajan_maj">A</span><span class="trajan_min">DVENTURES</span></h1>
+    <div class="background"></div>
+    <div class="login">
+        <div class="destination_adventures">
+            <h1>
+                <span class="trajan_maj">D</span><span class="trajan_min">ESTINATIONS</span> <span
+                    class=" trajan_maj">&</span>
+                <span class="trajan_maj">A</span><span class="trajan_min">DVENTURES</span>
+            </h1>
         </div>
         <div class="international">
             <h2>INTERNATIONAL</h2>
@@ -21,13 +23,12 @@
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <button type="submit" class="button slide">LOGIN</button>
             {% if error %}
-                <div>
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
-                </div>
+            <div>
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
             {% endif %}
             <a href="{{ path('app_forgot_password_request') }}">Forgotten Password?</a>
         </form>
-        
     </div>
 </div>
 {% endblock %}

@@ -15,9 +15,9 @@ class ClientType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Client name',
+                'label' => 'Lead Customer',
                 'attr' => [
-                    'placeholder' => 'Enter a name',
+                    'placeholder' => 'Client name',
                 ]
             ])
         ;

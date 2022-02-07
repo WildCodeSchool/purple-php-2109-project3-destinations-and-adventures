@@ -62,6 +62,7 @@ class Booking
     private ?string $destination;
 
     /**
+     * @Assert\LessThanOrEqual(propertyPath="departure")
      * @ORM\Column(type="date")
      */
     private DateTimeInterface $confirmationDate;
@@ -72,6 +73,7 @@ class Booking
     private DateTimeInterface $departure;
 
     /**
+     * @Assert\GreaterThan(propertyPath="departure")
      * @ORM\Column(type="date")
      */
     private DateTimeInterface $returnDate;

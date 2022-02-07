@@ -37,7 +37,7 @@
                     <span><strong>to </strong></span>{{ booking.returnDate ? booking.returnDate|date('Y-m-d') : '' }}
                 </td>
                 <td>
-                    <strong>{{ booking.total }}$</strong>
+                    <strong>{{ booking.total|format_currency('USD', {rounding_mode: 'floor'}) }}$</strong>
                 </td>
                 <td>
                     {% if booking.clientPayments|length <= 1 %}
@@ -53,7 +53,8 @@
                         {% set amount = amount + client_payment.amount %}
                         {% endif %}
                         {% endfor %}
-                        {{ total - amount }}$
+                        {% set total = total - amount %}
+                        {{ total|format_currency('USD', {rounding_mode: 'floor'}) }}$
                     </strong> due
                 </td>
                 <td>
@@ -77,8 +78,8 @@
                         {% for supplier_information in booking.supplierInformation %}
                         {% set due_amount = due_amount + supplier_information.dueDollarsAmount %}
                         {% endfor %}
-
-                        {{ due_amount - paid_amount }}$
+                        {% set due_amount = due_amount - paid_amount %}
+                        {{ due_amount|format_currency('USD', {rounding_mode: 'floor'}) }}$
                     </strong> due
                 </td>
                 <td>
@@ -115,7 +116,7 @@
                     <div>
                         <div class="payments-total">
                             <div><strong>TOTAL</strong></div>
-                            <div>{{ booking.total }} $</div>
+                            <div>{{ booking.total|format_currency('USD', {rounding_mode: 'floor'}) }} $</div>
                         </div>
                         <div class="payments-due">
                             <div><strong>DUE</strong></div>
@@ -127,7 +128,8 @@
                                 {% set amount = amount + client_payment.amount %}
                                 {% endif %}
                                 {% endfor %}
-                                {{ total - amount }}$
+                                {% set total = total - amount %}
+                                {{ total|format_currency('USD', {rounding_mode: 'floor'}) }}$
                             </div>
                         </div>
                     </div>
@@ -149,11 +151,12 @@
                         <tr>
                             <td class="status"><span>{{ client_payment.status }}</span></td>
                             <td>{{ client_payment.type }}</td>
-                            <td>{{ client_payment.amount }}</td>
+                            <td>{{ client_payment.amount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             <td>{{ client_payment.mode }}</td>
                             <td>{{ client_payment.date|date('m-d-Y') }}</td>
                             <td>{{ client_payment.client.name }}</td>
                             <td>
+                                {% if client_payment.status == 'due' %}
                                 <a
                                     href="{{ path('client_payment_edit', {booking_id: booking.id, client_payment_id: client_payment.id}) }}"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -172,11 +175,44 @@
                                                 d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                                         </svg></button>
                                 </form>
+                                {% else %}
+                                <form method="post"
+                                    action="{{ path('client_payment_delete', {booking_id: booking.id, client_payment_id: client_payment.id}) }}"
+                                    onsubmit="return confirm('Are you sure you want to delete this client payment?');">
+                                    <input type="hidden" name="_token"
+                                        value="{{ csrf_token('delete' ~ client_payment.id) }}">
+                                    <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                        </svg></button>
+                                </form>
+                                {% endif %}
+                                {# <a
+                                    href="{{ path('client_payment_edit', {booking_id: booking.id, client_payment_id: client_payment.id}) }}"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                    </svg></a>&nbsp;&nbsp;&nbsp;
+                                <form method="post"
+                                    action="{{ path('client_payment_delete', {booking_id: booking.id, client_payment_id: client_payment.id}) }}"
+                                    onsubmit="return confirm('Are you sure you want to delete this client payment?');">
+                                    <input type="hidden" name="_token"
+                                        value="{{ csrf_token('delete' ~ client_payment.id) }}">
+                                    <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                        </svg></button>
+                                </form> #}
                             </td>
                         </tr>
                         {% endfor %}
                         <tr class="add-new">
-                            <td colspan="8"><a class="button slide" href="{{ path('client_payment_new', {booking_id: booking.id}) }}">New client payment</a></td>
+                            <td colspan="8"><a class="button slide"
+                                    href="{{ path('client_payment_new', {booking_id: booking.id}) }}">New client
+                                    payment</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -203,7 +239,7 @@
                                 {% for supplier_payment in booking.supplierPayments %}
                                 {% set total = total - supplier_payment.dueCommission %}
                                 {% endfor %}
-                                {{ total }} $
+                                {{ total|format_currency('USD', {rounding_mode: 'floor'}) }} $
                             </div>
                         </div>
                         <div class="payments-due">
@@ -223,8 +259,8 @@
                                 {% for supplier_information in booking.supplierInformation %}
                                 {% set due_amount = due_amount + supplier_information.dueDollarsAmount %}
                                 {% endfor %}
-
-                                {{ due_amount - paid_amount }}$
+                                {% set due_amount = due_amount - paid_amount %}
+                                {{ due_amount|format_currency('USD', {rounding_mode: 'floor'}) }}$
                             </div>
                         </div>
                     </div>
@@ -247,12 +283,13 @@
                         <tr>
                             <td class="status"><span>{{ supplier_payment.status }}</span></td>
                             <td>{{ supplier_payment.supplier.name }}</td>
-                            <td>{{ supplier_payment.paidAmount }}</td>
+                            <td>{{ supplier_payment.paidAmount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             <td>{{ supplier_payment.date|date('m-d-Y') }}</td>
                             <td>{{ supplier_payment.mode }}</td>
-                            <td>{{ supplier_payment.dueCommission }}</td>
+                            <td>{{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             <td>{{ supplier_payment.dueDateCommission|date('m-d-Y') }}</td>
                             <td>
+                                {% if supplier_payment.status == 'due' %}
                                 <a
                                     href="{{ path('supplier_payment_edit', {booking_id: booking.id, supplierPayment_id: supplier_payment.id}) }}"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -271,12 +308,27 @@
                                                 d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                                         </svg></button>
                                 </form>
+                                {% else %}
+                                <form method="post"
+                                    action="{{ path('supplier_payment_delete', {'supplier_payment_id': supplier_payment.id, 'booking_id': supplier_payment.booking.id}) }}"
+                                    onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    <input type="hidden" name="_token"
+                                        value="{{ csrf_token('delete' ~ supplier_payment.id) }}">
+                                    <button class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                        </svg></button>
+                                </form>
+                                {% endif %}
+
                             </td>
                         </tr>
                         {% endfor %}
                         <tr class="add-new">
                             <td colspan="8">
-                                <a class="button slide" href="{{ path('supplier_payment_new', {booking_id: booking.id}) }}">New supplier
+                                <a class="button slide"
+                                    href="{{ path('supplier_payment_new', {booking_id: booking.id}) }}">New supplier
                                     payment</a>
                             </td>
                         </tr>
