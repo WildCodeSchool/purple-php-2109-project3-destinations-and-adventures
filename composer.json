@@ -74,7 +74,12 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true,
+            "phpro/grumphp": true,
+            "symfony/runtime": true
+        }
     },
     "autoload": {
         "psr-4": {

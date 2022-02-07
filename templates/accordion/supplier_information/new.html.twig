@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ supplier_information.supplier.name }}</td>
                     <td>{{ supplier_information.dueAmount }}</td>
-                    <td>{{ supplier_information.dueDollarsAmount }}</td>
+                    <td>{{ supplier_information.dueDollarsAmount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                     <td>{{ supplier_information.dueDate ? supplier_information.dueDate|date('m-d-Y') : '' }}</td>
                     <td>
                         <a href="{{ path('supplier_information_edit', {'booking_id': supplier_information.booking.id, 'supplier_information_id': supplier_information.id}) }}">edit</a>
