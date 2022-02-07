@@ -28,7 +28,7 @@ class ClientPaymentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->where('c.date <= :chooseDays')
             ->andWhere('c.date >= :today')
-            ->setParameter('today', new DateTime())
+            ->setParameter('today', new DateTime('today'))
             ->setParameter('chooseDays', new DateTime('today + ' . $days . 'days'))
             ->orderBy('c.date', 'ASC')
             ->getQuery()
