@@ -4,12 +4,14 @@
 
 {% block body %}
 <div class="login_page">
-<div class="background"></div>
-<div class="login">
-    <div class="destination_adventures">
-        <h1>
-            <span class="trajan_maj">D</span><span class="trajan_min">ESTINATIONS</span> <span class=" trajan_maj">&</span>
-            <span class="trajan_maj">A</span><span class="trajan_min">DVENTURES</span></h1>
+    <div class="background"></div>
+    <div class="login">
+        <div class="destination_adventures">
+            <h1>
+                <span class="trajan_maj">D</span><span class="trajan_min">ESTINATIONS</span> <span
+                    class=" trajan_maj">&</span>
+                <span class="trajan_maj">A</span><span class="trajan_min">DVENTURES</span>
+            </h1>
         </div>
         <div class="international">
             <h2>INTERNATIONAL</h2>
@@ -17,10 +19,10 @@
         <h3>Reset your password</h3>
         {{ form_start(requestForm) }}
         {{ form_row(requestForm.email) }}
-        
+
         <button class="btn btn-primary">Send email to reset password</button>
-    {{ form_end(requestForm) }}
-        
+        {{ form_end(requestForm) }}
+
     </div>
 </div>
 {% endblock %}
