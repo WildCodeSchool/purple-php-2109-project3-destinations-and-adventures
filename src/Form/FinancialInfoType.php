@@ -16,7 +16,7 @@ class FinancialInfoType extends AbstractType
     {
         $builder
             ->add('total', NumberType::class, [
-                'label' => 'Grant total amount $'
+                'label' => 'Grand total amount $'
             ])
             ->add('perPerson', NumberType::class, [
                 'label' => 'Per person amount $'
