@@ -1,0 +1,175 @@
+@import "variables.scss";
+@import "~bootstrap/scss/bootstrap";
+
+.all-suppliers {
+    width: 90%;   
+    margin: 0 auto;
+
+    .edit-suppliers {
+
+        .title-edit {
+            margin-bottom: .5em;
+        }
+
+        input {
+            width: 20%;
+            padding-left: 1rem;
+            height: 2.75rem;
+            margin-bottom: 1.25rem;
+            background: #ffffff;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 0, 0, 0.36);
+        }
+
+        button {
+            height: 2.25rem;
+            background: #4c672c;
+            border-radius: 3px;
+            border: none;
+            font-family: "Helvetica";
+            color: $white;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            color: $white;
+        }
+    }
+
+    .tablescroll {
+        margin-bottom: 1.5rem;
+        background-color: #e3e3e3;
+        width: 40%;
+
+        table {
+            text-align: center;
+            font-style: $Helvetica;
+            border-spacing: 0 0.25rem;
+            background-color: #e3e3e3;
+            border-radius: 0.25rem;
+            width: 100%;
+
+            a svg {
+                color: #212529;
+            }
+
+            svg:hover {
+                color: #43afee;
+            }
+
+            td, th {
+                width: 20%;
+            }
+
+            thead {
+                font-size: 0.938rem;
+
+                tr {
+                    display: flex;
+                    justify-content: space-around;
+                    padding: .5em 1em;
+                    align-items: center;
+                    text-align: left;
+                }
+
+                td {
+                    border: none;
+                }
+
+                th {
+                    vertical-align: middle;
+                }
+            }
+
+            tbody {
+                border-top: 2px solid black;
+                font-size: 0.813rem;
+
+                tr {
+                    display: flex;
+                    justify-content: space-around;
+                    padding: .5em 1em;
+                    align-items: center;
+                    text-align: left;
+
+                    td {
+                        display: flex;
+                        align-items: center;
+                        height: 3rem;
+                        border: none;
+                    }
+
+                    td:last-child {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+
+                        a, form {
+                            margin: 0;
+                        }
+                    }
+                }
+
+                tr:nth-child(odd) {
+                    background-color: #c6c6c6;
+                }
+
+                tr:nth-child(even) {
+                    background-color: #f6f6f6;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .all-suppliers {
+
+        input {
+            width: 40%;
+        }
+
+        .tablescroll {
+            width: 60%;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .all-suppliers {
+
+        input {
+            width: 60%;
+        }
+
+        .tablescroll {
+            width: 80%;
+
+            table {
+
+                td, th {
+                    width: 22%;
+                }
+
+                thead tr th:last-child, tbody tr td:last-child {
+                    width: 12%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .all-suppliers {
+
+        input {
+            width: 100%;
+        }
+
+        .tablescroll {
+            width: 100%;
+        }
+    }
+}
