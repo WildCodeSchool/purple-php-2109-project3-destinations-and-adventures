@@ -11,6 +11,7 @@
                 <th>Payment Date</th>
                 <th>Amount in $</th>
                 <th>Commission Due</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
                 <td>{{ supplier_payment.date ? supplier_payment.date|date('m-d-Y') : '' }}</td>
                 <td>{{ supplier_payment.paidAmount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                 <td>{{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
+                <td>{{ supplier_payment.status }}</td>
                 <td>
                     {% if supplier_payment.status == 'due' %}
                     <a
