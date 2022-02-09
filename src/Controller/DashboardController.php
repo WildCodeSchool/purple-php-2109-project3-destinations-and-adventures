@@ -31,7 +31,7 @@ class DashboardController extends AbstractController
         $clientPayments = $clientPaymentRepo->findIncommingClientPayments($days['days']);
         $supplierPayments = $supplierPaymentRepo->findOucommingSupplierPayments($days['days']);
         $supplierCommissions = $supplierPaymentRepo->findOucommingSupplierCommissions($days['days']);
-        $agentCommissions = $bookingRepository->findAgentCommission($days['days']);
+        $agentCommissions = $bookingRepository->findUpcommingTripsAndAgentCommission($days['days']);
         $daiCommissions = $bookingRepository->findDaiCommission($days['days']);
 
         $form = $this->createForm(DaysType::class);
@@ -47,14 +47,14 @@ class DashboardController extends AbstractController
                 $clientPayments = $clientPaymentRepo->findIncommingClientPayments($days['days']);
                 $supplierPayments = $supplierPaymentRepo->findOucommingSupplierPayments($days['days']);
                 $supplierCommissions = $supplierPaymentRepo->findOucommingSupplierCommissions($days['days']);
-                $agentCommissions = $bookingRepository->findAgentCommission($days['days']);
+                $agentCommissions = $bookingRepository->findUpcommingTripsAndAgentCommission($days['days']);
                 $daiCommissions = $bookingRepository->findDaiCommission($days['days']);
             } else {
-                $clientPayments = $clientPaymentRepo->findAll();
-                $supplierPayments = $supplierPaymentRepo->findAll();
-                $supplierCommissions = $supplierPaymentRepo->findAll();
-                $agentCommissions = $bookingRepository->findAll();
-                $daiCommissions = $bookingRepository->findAll();
+                $clientPayments = $clientPaymentRepo->findAllFromToday();
+                $supplierPayments = $supplierPaymentRepo->findAllSupplierPaymentsFromToday();
+                $supplierCommissions = $supplierPaymentRepo->findAllSupplierCommissionsFromToday();
+                $agentCommissions = $bookingRepository->findAllUpcommingTripsAndAgentCommission();
+                $daiCommissions = $bookingRepository->findAllDaiCommissionFromToday();
             }
         }
         return $this->renderForm('dashboard/payment_index.html.twig', [
@@ -74,7 +74,7 @@ class DashboardController extends AbstractController
     public function tripIndex(BookingRepository $bookingRepository, Request $request): Response
     {
         $days = ['days' => 7];
-        $upcomingTrips = $bookingRepository->findUpcommingTrips($days['days']);
+        $upcomingTrips = $bookingRepository->findUpcommingTripsAndAgentCommission($days['days']);
         $returnedTrips = $bookingRepository->findReturnedTrips($days['days']);
 
         $form = $this->createForm(DaysType::class);
@@ -87,11 +87,11 @@ class DashboardController extends AbstractController
                 || $form->getData() === ['days' => 30]
             ) {
                 $days = $form->getData();
-                $upcomingTrips = $bookingRepository->findUpcommingTrips($days['days']);
+                $upcomingTrips = $bookingRepository->findUpcommingTripsAndAgentCommission($days['days']);
                 $returnedTrips = $bookingRepository->findReturnedTrips($days['days']);
             } else {
-                $upcomingTrips = $bookingRepository->findAll();
-                $returnedTrips = $bookingRepository->findAll();
+                $upcomingTrips = $bookingRepository->findAllUpcommingTripsAndAgentCommission();
+                $returnedTrips = $bookingRepository->findAllReturnedTrips();
             }
         }
         return $this->renderForm('dashboard/trip_index.html.twig', [

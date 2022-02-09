@@ -54,17 +54,6 @@
     <div class="clientPayment">
         {% block clientPayments %}{% endblock clientPayments %}
     </div>
-    {% block supplierInfoPath %}
-        <a href="{{ path('supplier_information_new', {booking_id: booking.id}) }}">
-            <div class="accordionTitle">
-                <h2>SUPPLIER INFORMATION</h2>
-            </div>
-        </a>
-    {% endblock supplierInfoPath %}
-
-    <div class="supplierInformation">
-        {% block supplierInfo %}{% endblock supplierInfo %}
-    </div>
     {% block supplierPaymentPath %}
         <a href="{{ path('supplier_payment_new', {booking_id: booking.id}) }}">
             <div class="accordionTitle accordionBottom">

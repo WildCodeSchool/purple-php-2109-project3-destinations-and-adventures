@@ -121,16 +121,10 @@ class Booking
      */
     private ?Agent $agent;
 
-    /**
-     * @ORM\OneToMany(targetEntity=SupplierInformation::class, mappedBy="booking", orphanRemoval=true)
-     */
-    private Collection $supplierInformation;
-
     public function __construct()
     {
         $this->clientPayments = new ArrayCollection();
         $this->supplierPayments = new ArrayCollection();
-        $this->supplierInformation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -367,36 +361,6 @@ class Booking
     public function setAgent(?Agent $agent): self
     {
         $this->agent = $agent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|SupplierInformation[]
-     */
-    public function getSupplierInformation(): Collection
-    {
-        return $this->supplierInformation;
-    }
-
-    public function addSupplierInformation(SupplierInformation $supplierInformation): self
-    {
-        if (!$this->supplierInformation->contains($supplierInformation)) {
-            $this->supplierInformation[] = $supplierInformation;
-            $supplierInformation->setBooking($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSupplierInformation(SupplierInformation $supplierInformation): self
-    {
-        if ($this->supplierInformation->removeElement($supplierInformation)) {
-            // set the owning side to null (unless already changed)
-            if ($supplierInformation->getBooking() === $this) {
-                $supplierInformation->setBooking(null);
-            }
-        }
 
         return $this;
     }

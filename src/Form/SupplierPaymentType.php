@@ -24,6 +24,43 @@ class SupplierPaymentType extends AbstractType
                 'label' => 'Supplier',
                 'placeholder' => 'Choose a supplier',
             ])
+            ->add('currency', ChoiceType::class, [
+                'choices' => [
+                    'EUR' => 'EUR',
+                    'CHF' => 'CHF',
+                    'GBP' => 'GBP',
+                    'BGN' => 'BGN',
+                    'HRK' => 'HRK',
+                    'DKK' => 'DKK',
+                    'HUF' => 'HUF',
+                    'PLN' => 'PLN',
+                    'SEK' => 'SEK',
+                    'CZK' => 'CZK',
+                    'RON' => 'RON',
+                    'ALL' => 'ALL',
+                    'BYN' => 'BYN',
+                    'BAM' => 'BAM',
+                    'ISK' => 'ISK',
+                    'MKD' => 'MKD',
+                    'MDL' => 'MDL',
+                    'NOK' => 'NOK',
+                ],
+                'label' => false,
+                'placeholder' => 'currency',
+            ])
+            ->add('dueAmount', NumberType::class, [
+                'label' => 'Amount due to supplier',
+            ])
+            ->add('dueDate', DateType::class, [
+                'label' => 'Due date',
+                'widget' => 'single_text',
+            ])
+            ->add('exchangeRate', NumberType::class, [
+                'label' => 'Exchange rate',
+            ])
+            ->add('dueDollarsAmount', NumberType::class, [
+                'label' => 'Amount in $',
+            ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'Deposit' => 'deposit',
@@ -41,6 +78,7 @@ class SupplierPaymentType extends AbstractType
             ])
             ->add('paidAmount', NumberType::class, [
                 'label' => 'Payment Amount $',
+                'required' => false,
             ])
             ->add('mode', ChoiceType::class, [
                 'choices' => [
@@ -53,7 +91,6 @@ class SupplierPaymentType extends AbstractType
                 'label' => 'Payment mode',
                 'placeholder' => 'Choose a mode',
                 'required' => false,
-
             ])
             ->add('dueCommission', NumberType::class, [
                 'label' => 'Commission due by supplier',

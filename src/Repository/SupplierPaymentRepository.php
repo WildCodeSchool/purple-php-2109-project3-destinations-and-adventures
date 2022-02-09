@@ -38,6 +38,19 @@ class SupplierPaymentRepository extends ServiceEntityRepository
     /**
      * @return mixed Returns an array of SupplierPayment objects
      */
+    public function findAllSupplierPaymentsFromToday()
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.date >= :today')
+            ->setParameter('today', new DateTime('today'))
+            ->orderBy('s.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return mixed Returns an array of SupplierPayment objects
+     */
     public function findOucommingSupplierCommissions(int $days)
     {
         return $this->createQueryBuilder('s')
@@ -50,6 +63,18 @@ class SupplierPaymentRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return mixed Returns an array of SupplierPayment objects
+     */
+    public function findAllSupplierCommissionsFromToday()
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.dueDateCommission >= :today')
+            ->setParameter('today', new DateTime('today'))
+            ->orderBy('s.dueDateCommission', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
     /**
      * @return mixed Returns an array of SupplierPayment objects

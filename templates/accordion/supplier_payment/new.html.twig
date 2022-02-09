@@ -24,6 +24,20 @@
                 <td>{{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                 <td class="status {{ supplier_payment.status }} "><span>{{ supplier_payment.status }}</span></td>
                 <td>
+                    {% if supplier_payment.paidAmount is null %}
+                    {{ 0.00 }}
+                        {% else %}
+                        {{ supplier_payment.paidAmount|format_currency('USD', {rounding_mode: 'floor'}) }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if supplier_payment.dueCommission is null %}
+                    {{ 0.00 }}
+                        {% else %}
+                        {{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}
+                    {% endif %}
+                    </td>
+                <td>
                     {% if supplier_payment.status == 'due' %}
                     <a href="{{ path('supplier_payment_edit', {'supplierPayment_id': supplier_payment.id, 'booking_id': booking.id}) }}"><svg xmlns="http://www.w3.org/2000/svg"
                         width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -60,3 +74,8 @@
 </div>
 {{ include('accordion/supplier_payment/_form.html.twig') }}
 {% endblock supplierPayments %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('app') }}
+{{ encore_entry_script_tags('supplierInfo') }}
+{% endblock %}
