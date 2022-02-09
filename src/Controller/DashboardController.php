@@ -50,11 +50,11 @@ class DashboardController extends AbstractController
                 $agentCommissions = $bookingRepository->findAgentCommission($days['days']);
                 $daiCommissions = $bookingRepository->findDaiCommission($days['days']);
             } else {
-                $clientPayments = $clientPaymentRepo->findAll();
-                $supplierPayments = $supplierPaymentRepo->findAll();
-                $supplierCommissions = $supplierPaymentRepo->findAll();
+                $clientPayments = $clientPaymentRepo->findAllFromToday();
+                $supplierPayments = $supplierPaymentRepo->findAllSupplierPaymentsFromToday();
+                $supplierCommissions = $supplierPaymentRepo->findAllSupplierCommissionsFromToday();
                 $agentCommissions = $bookingRepository->findAll();
-                $daiCommissions = $bookingRepository->findAll();
+                $daiCommissions = $bookingRepository->findAllDaiCommissionFromToday();
             }
         }
         return $this->renderForm('dashboard/payment_index.html.twig', [
@@ -90,8 +90,8 @@ class DashboardController extends AbstractController
                 $upcomingTrips = $bookingRepository->findUpcommingTrips($days['days']);
                 $returnedTrips = $bookingRepository->findReturnedTrips($days['days']);
             } else {
-                $upcomingTrips = $bookingRepository->findAll();
-                $returnedTrips = $bookingRepository->findAll();
+                $upcomingTrips = $bookingRepository->findAllUpcommingTrips();
+                $returnedTrips = $bookingRepository->findAllReturnedTrips();
             }
         }
         return $this->renderForm('dashboard/trip_index.html.twig', [
