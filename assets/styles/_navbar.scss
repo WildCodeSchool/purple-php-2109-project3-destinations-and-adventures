@@ -31,7 +31,7 @@ header {
         text-align: center;
     }
 
-    .navbar-nav a[href="/logout"] {
+    .navbar-nav a {
         text-align: center;
     }
 
@@ -126,12 +126,15 @@ header {
         }
     }
 
-    .logout {
+    .logout,
+    .create-account-btn {
         background: $darkgreen;
         color: rgba(255, 255, 255, 0.5);
+        width: 94%;
     }
 
-    .logout:hover {
+    .logout:hover,
+    .create-account-btn:hover {
         color: #eeeeee !important;
     }
 
@@ -180,10 +183,6 @@ header {
         word-wrap: break-word;
     }
 
-    .navbar-nav a[href="/logout"] {
-        text-align: center;
-    }
-
     .navbar-brand {
         margin: 0 !important;
         padding-top: 0.8rem !important;
@@ -204,12 +203,15 @@ header {
         font-size: 0.5rem;
     }
 
-    .logout {
+    .logout,
+    .create-account-btn {
         background: $darkgreen;
         color: rgba(255, 255, 255, 0.5);
+        width: 85%;
     }
 
-    .logout:hover {
+    .logout:hover,
+    .create-account-btn:hover {
         color: #eeeeee !important;
     }
 
@@ -222,6 +224,10 @@ header {
         padding: 0 1em;
         padding-bottom: 5em;
         overflow-y: scroll;
+
+        .navbar-nav a {
+            text-align: center;
+        }
     }
 
     .nav-link,
