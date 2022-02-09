@@ -57,7 +57,8 @@ class SupplierController extends AbstractController
     public function edit(
         Request $request,
         Supplier $supplier,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Booking $booking
     ): Response {
         $form = $this->createForm(SupplierType::class, $supplier);
         $form->handleRequest($request);
@@ -74,6 +75,7 @@ class SupplierController extends AbstractController
 
         return $this->renderForm('supplier/edit.html.twig', [
             'form' => $form,
+            'booking' => $booking,
         ]);
     }
 
