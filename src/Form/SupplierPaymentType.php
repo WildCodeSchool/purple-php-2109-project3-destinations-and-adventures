@@ -44,16 +44,12 @@ class SupplierPaymentType extends AbstractType
                     'MKD' => 'MKD',
                     'MDL' => 'MDL',
                     'NOK' => 'NOK',
-                    'RSD' => 'RSD',
-                    'UAH' => 'UAH',
-                    'GIP' => 'GIP',
                 ],
                 'label' => false,
                 'placeholder' => 'currency',
             ])
             ->add('dueAmount', NumberType::class, [
                 'label' => 'Amount due to supplier',
-
             ])
             ->add('dueDate', DateType::class, [
                 'label' => 'Due date',
