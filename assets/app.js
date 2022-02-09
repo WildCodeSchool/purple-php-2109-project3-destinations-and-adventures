@@ -19,6 +19,7 @@ import './styles/financialInfo.scss';
 import './styles/supplierPayment.scss';
 import './styles/dashboard.scss';
 import './styles/accountCreation.scss';
+import './styles/suppliers.scss';
 import './styles/agents.scss';
 import './styles/clients.scss';
 

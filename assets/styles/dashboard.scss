@@ -1,8 +1,14 @@
 @import "variables.scss";
 
+.search {
+    color: #ECECEC!important;
+    background-color: $button-bg!important;
+    padding-top: 3px!important;
+    padding-bottom: 3px!important;
+}
+
 .dashboardTrips {
     width: 90%;
-    max-width: 40rem;
     margin: 0 auto;
 
     .bashboardTile {
@@ -26,7 +32,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 0.625rem;
+        margin: 0.5em 0 2em 0;
 
         #days {
             margin: 0;
@@ -41,6 +47,13 @@
 
                 select {
                     padding: 0 0 0 0.5rem;
+                }
+
+                .form-control {
+                    padding: 0 0.5em 0 0.5em;
+                    cursor: pointer;
+                    text-align: center;
+                    margin-right: 1em;
                 }
             }
         }
@@ -57,7 +70,7 @@
             height: 25rem;
             min-height: 25rem;
             overflow-y: scroll;
-            margin-bottom: 1.5rem;
+            margin-bottom: 3em;
             background-color: #e3e3e3;
 
             .table {
@@ -104,7 +117,6 @@
 
 .dashboardPayment {
     width: 90%;
-    max-width: 40rem;
     margin: 0 auto;
 
     .bashboardTile {
@@ -128,7 +140,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 0.625rem;
+        margin: 0.5em 0 2em 0;
 
         #days {
             margin: 0;
@@ -138,11 +150,14 @@
                 align-items: center;
 
                 label {
-                    margin-right: 0.5rem;
+                    margin-right: 0.5em;
                 }
 
                 select {
-                    padding: 0 0 0 0.5rem;
+                    padding: 0 .5em 0 .5em;
+                    cursor: pointer;
+                    text-align: center;
+                    margin-right: 1em;
                 }
             }
         }
@@ -153,15 +168,27 @@
     .incomingSupplierCommissions,
     .outcomingAgentCommissions,
     .daiCommission {
+        margin-bottom: 2em;
+
         h3 {
             font-size: 1.125rem;
+        }
+
+        .total-Payment {
+            width: 100%;
+
+            h3 {
+                margin: 0;
+                padding: .7em 1em;
+                width: fit-content;
+                background-color: #c6c6c6;
+            }
         }
 
         .tablescroll {
             height: 25rem;
             min-height: 25rem;
             overflow-y: scroll;
-            margin-bottom: 1.5rem;
             background-color: #e3e3e3;
 
             .table {
@@ -207,8 +234,7 @@
 }
 
 .dashboardReporting {
-    width: 90%;
-    max-width: 40rem;
+    width: 95%;
     margin: 0 auto;
 
     .dashboardTitle {
@@ -232,14 +258,30 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 0.625rem;
+        margin: 0.5em 0 2em 0;
+
+        label {
+            margin-left: .3em;
+        }
 
         input {
             margin-left: 0.5rem;
         }
 
         select {
-            padding: 0;
+            padding: 0 0.5em 0 0.5em;
+            cursor: pointer;
+            margin: 0 1em 0 .6em;
+            font-size: 1em;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            appearance: none;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
     }
 
@@ -257,7 +299,6 @@
             border-spacing: 0 0.25rem;
             background-color: #e3e3e3;
             border-radius: 0.25rem;
-            margin: 0 auto;
 
             thead {
                 font-size: 0.938rem;
@@ -302,7 +343,7 @@
 
 @media screen and (min-width: 768px) {
     .dashboardTrips {
-        max-width: 80%;
+        width: 85%;
 
         .tripTables {
             display: flex;
@@ -314,6 +355,7 @@
 
                 .tablescroll {
                     width: 100%;
+                    margin-bottom: 1em;
 
                     table {
                         max-width: 100%;
@@ -340,7 +382,7 @@
     }
 
     .dashboardReporting {
-        max-width: 70%;
+        width: 85%;
 
         .reportingTables {
             display: flex;
@@ -357,7 +399,7 @@
 
 @media screen and (min-width: 1024px) {
     .dashboardPayment {
-        max-width: 80%;
+        width: 80%;
 
         .paymentRow {
             display: flex;
