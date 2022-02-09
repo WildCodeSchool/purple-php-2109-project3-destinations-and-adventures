@@ -47,6 +47,7 @@ class SupplierController extends AbstractController
 
         return $this->renderForm('supplier/new.html.twig', [
             'form' => $form,
+            'booking' => $booking,
         ]);
     }
 
