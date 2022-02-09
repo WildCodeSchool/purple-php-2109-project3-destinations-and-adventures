@@ -32,10 +32,12 @@ class SupplierPaymentType extends AbstractType
                 ],
                 'label' => 'Type of payment',
                 'placeholder' => 'Choose a type',
+                'required' => false,
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date of payment',
+                'required' => false,
             ])
             ->add('paidAmount', NumberType::class, [
                 'label' => 'Payment Amount $',
@@ -50,14 +52,17 @@ class SupplierPaymentType extends AbstractType
                 ],
                 'label' => 'Payment mode',
                 'placeholder' => 'Choose a mode',
+                'required' => false,
 
             ])
             ->add('dueCommission', NumberType::class, [
                 'label' => 'Commission due by supplier',
+                'required' => false,
             ])
             ->add('dueDateCommission', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Commission due date',
+                'required' => false,
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [

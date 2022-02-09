@@ -35,7 +35,6 @@ class SupplierPayment
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Assert\Positive
      */
     private ?float $dueCommission;
 
