@@ -116,7 +116,8 @@ class Booking
     private Collection $supplierPayments;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="bookings", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="bookings")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private ?Agent $agent;
 

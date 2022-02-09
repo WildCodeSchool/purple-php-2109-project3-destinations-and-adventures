@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Booking;
 use App\Entity\SupplierPayment;
 use App\Form\SupplierPaymentType;
+use App\Repository\BookingRepository;
 use App\Repository\SupplierPaymentRepository;
+use App\Repository\SupplierRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,8 +93,19 @@ class SupplierPaymentController extends AbstractController
         Request $request,
         SupplierPayment $supplierPayment,
         EntityManagerInterface $entityManager,
+        BookingRepository $bookingRepository,
+        SupplierRepository $supplierInfoRepo,
         Booking $booking
     ): Response {
+        // Initialization of $ref (previous route variable)
+        $ref = null;
+        // Getting previous url
+        $referer = $request->headers->get('referer');
+        // Getting previous route
+        if (is_string($referer)) {
+            $ref = Request::create($referer)->getPathInfo();
+        }
+
         if (is_string($request->request->get('_token'))) {
             if ($this->isCsrfTokenValid('delete' . $supplierPayment->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($supplierPayment);
@@ -100,6 +113,17 @@ class SupplierPaymentController extends AbstractController
             }
         }
 
+        // Redirection depending on previous route
+        if ($ref == '/') {
+            return $this->redirectToRoute(
+                'booking_index',
+                [
+                    'bookings' => $bookingRepository->findAll(),
+                    'supplier_informations' => $supplierInfoRepo->findAll(),
+                ],
+                Response::HTTP_SEE_OTHER
+            );
+        }
         return $this->redirectToRoute(
             'supplier_payment_new',
             ['booking_id' => $booking->getId()],
