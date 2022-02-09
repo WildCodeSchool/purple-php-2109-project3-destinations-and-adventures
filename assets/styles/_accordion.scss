@@ -21,7 +21,7 @@ main {
         .accordionTitle {
             background-color: $green;
             height: 2.875rem;
-            border: 0.25px solid $light;
+            border-bottom: 0.25px solid $light;
 
             h2 {
                 margin-bottom: 0;
@@ -29,8 +29,12 @@ main {
                 line-height: 2.875rem;
                 color: $light;
                 font-family: $Helvetica;
+                font-weight: bold;
                 font-size: 0.875rem;
             }
+        }
+        a {
+            text-decoration: none;
         }
     }
 }
