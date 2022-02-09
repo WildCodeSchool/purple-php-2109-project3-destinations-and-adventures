@@ -22,7 +22,7 @@ class BookingController extends AbstractController
         SupplierInformationRepository $supplierInfoRepo
     ): Response {
         return $this->render('booking/index.html.twig', [
-            'bookings' => $bookingRepository->findAll(),
+            'bookings' => $bookingRepository->findby([], ['id' => 'DESC']),
             'supplier_informations' => $supplierInfoRepo->findAll(),
         ]);
     }

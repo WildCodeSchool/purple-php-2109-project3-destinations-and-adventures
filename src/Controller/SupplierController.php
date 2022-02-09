@@ -22,7 +22,7 @@ class SupplierController extends AbstractController
     public function index(SupplierRepository $supplierRepository): Response
     {
         return $this->render('supplier/index.html.twig', [
-            'suppliers' => $supplierRepository->findAll(),
+            'suppliers' => $supplierRepository->findby([], ['id' => 'DESC']),
         ]);
     }
 
