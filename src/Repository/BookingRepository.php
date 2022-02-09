@@ -24,21 +24,6 @@ class BookingRepository extends ServiceEntityRepository
     /**
      * @return mixed Returns an array of Booking objects
      */
-    public function findAgentCommission(int $days)
-    {
-        return $this->createQueryBuilder('b')
-            ->where('b.departure <= :chooseDays')
-            ->andWhere('b.departure >= :today')
-            ->setParameter('today', new DateTime('today'))
-            ->setParameter('chooseDays', new DateTime('today + ' . $days . 'days'))
-            ->orderBy('b.departure', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @return mixed Returns an array of Booking objects
-     */
     public function findDaiCommission(int $days)
     {
         return $this->createQueryBuilder('b')
@@ -54,13 +39,39 @@ class BookingRepository extends ServiceEntityRepository
     /**
      * @return mixed Returns an array of Booking objects
      */
-    public function findUpcommingTrips(int $days)
+    public function findAllDaiCommissionFromToday()
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.returnDate >= :today')
+            ->setParameter('today', new DateTime('today'))
+            ->orderBy('b.departure', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return mixed Returns an array of Booking objects
+     */
+    public function findUpcommingTripsAndAgentCommission(int $days)
     {
         return $this->createQueryBuilder('b')
             ->where('b.departure <= :chooseDays')
             ->andWhere('b.departure >= :today')
             ->setParameter('today', new DateTime('today'))
             ->setParameter('chooseDays', new DateTime('today + ' . $days . 'days'))
+            ->orderBy('b.departure', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return mixed Returns an array of Booking objects
+     */
+    public function findAllUpcommingTripsAndAgentCommission()
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.departure >= :today')
+            ->setParameter('today', new DateTime('today'))
             ->orderBy('b.departure', 'ASC')
             ->getQuery()
             ->getResult();
@@ -98,6 +109,19 @@ class BookingRepository extends ServiceEntityRepository
     /**
      * @return mixed Returns an array of Booking objects
      */
+    public function findAllReturnedTrips()
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.returnDate <= :today')
+            ->setParameter('today', new DateTime('today'))
+            ->orderBy('b.departure', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return mixed Returns an array of Booking objects
+     */
     public function findByYear(string $year)
     {
         return $this->createQueryBuilder('b')
@@ -107,33 +131,4 @@ class BookingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-    // /**
-    //  * @return Booking[] Returns an array of Booking objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Booking
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

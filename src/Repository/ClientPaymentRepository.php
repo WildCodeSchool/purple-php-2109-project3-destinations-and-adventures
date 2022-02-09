@@ -38,6 +38,19 @@ class ClientPaymentRepository extends ServiceEntityRepository
     /**
      * @return mixed Returns an array of ClientPayment objects
      */
+    public function findAllFromToday()
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.date >= :today')
+            ->setParameter('today', new DateTime('today'))
+            ->orderBy('c.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return mixed Returns an array of ClientPayment objects
+     */
     public function findByYear(string $year)
     {
         return $this->createQueryBuilder('c')
