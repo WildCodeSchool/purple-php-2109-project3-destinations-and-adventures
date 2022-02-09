@@ -28,6 +28,14 @@ class SupplierPaymentFixtures extends Fixture
             $supplierPayment->setDueDateCommission($date->add(new DateInterval('P' . rand(5, 15) . 'D')));
             $supplierPayment->setSupplier($this->getReference('supplier_' . $i));
             $supplierPayment->setBooking($this->getReference('booking_' . $i));
+            $supplierPayment->setDueAmount(rand(500, 1200));
+            $supplierPayment->setDueDate($date->add(new DateInterval('P' . rand(5, 20) . 'D')));
+            $supplierPayment->setExchangeRate(rand(10, 20) / 10);
+            $supplierPayment->setDueDollarsAmount(
+                $supplierPayment->getDueAmount() * $supplierPayment->getExchangeRate()
+            );
+            $supplierPayment->setSupplier($this->getReference('supplier_0'));
+            $supplierPayment->setBooking($this->getReference('booking_' . $i));
             $manager->persist($supplierPayment);
         }
         $manager->flush();

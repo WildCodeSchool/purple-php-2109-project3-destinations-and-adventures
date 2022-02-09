@@ -5,3 +5,7 @@
 {% block supplierPayments %}
     {{ include('accordion/supplier_payment/_form.html.twig', {'button_label': 'Update'}) }}
 {% endblock supplierPayments %}
+{% block javascripts %}
+{{ encore_entry_script_tags('app') }}
+{{ encore_entry_script_tags('supplierInfo') }}
+{% endblock %}

@@ -6,13 +6,13 @@ use App\Entity\Booking;
 use App\Entity\ClientPayment;
 use App\Form\ClientPaymentType;
 use App\Repository\BookingRepository;
-use App\Repository\ClientPaymentRepository;
-use App\Repository\SupplierInformationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ClientPaymentRepository;
+use App\Repository\SupplierPaymentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
@@ -94,7 +94,7 @@ class ClientPaymentController extends AbstractController
         ClientPayment $clientPayment,
         EntityManagerInterface $entityManager,
         BookingRepository $bookingRepository,
-        SupplierInformationRepository $supplierInfoRepo,
+        SupplierPaymentRepository $supplierPaymentRepo,
         Booking $booking
     ): Response {
         // Initialization of $ref (previous route variable)
@@ -119,7 +119,7 @@ class ClientPaymentController extends AbstractController
                 'booking_index',
                 [
                     'bookings' => $bookingRepository->findAll(),
-                    'supplier_informations' => $supplierInfoRepo->findAll(),
+                    'supplier_informations' => $supplierPaymentRepo->findAll(),
                 ],
                 Response::HTTP_SEE_OTHER
             );
