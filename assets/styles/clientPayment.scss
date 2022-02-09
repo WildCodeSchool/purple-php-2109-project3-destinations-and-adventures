@@ -22,7 +22,7 @@
             svg:hover {
                 color: #43afee;
             }
-        
+
             thead {
                 font-size: 0.938rem;
                 border: none;
@@ -30,7 +30,6 @@
                 th {
                     vertical-align: middle;
                 }
-                
             }
 
             tbody {
@@ -52,7 +51,8 @@
                     justify-content: center;
                     align-items: center;
 
-                    a, form {
+                    a,
+                    form {
                         margin: 0;
                         width: 30%;
                     }
@@ -60,16 +60,16 @@
 
                 .status span {
                     border-radius: 7px;
-                    padding: .3em .6em;
+                    padding: 0.3em 0.6em;
                     text-transform: uppercase;
                     font-weight: 700;
-                    font-size: .8em;
+                    font-size: 0.8em;
                 }
-                
+
                 .status.paid span {
                     background: rgba(52, 159, 50, 0.5);
                 }
-    
+
                 .status.due span {
                     background: rgba(226, 195, 30, 0.5);
                 }
