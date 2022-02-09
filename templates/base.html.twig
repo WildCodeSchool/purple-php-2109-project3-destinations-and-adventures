@@ -90,7 +90,10 @@
                 </span>
               </li>
               <hr>
-              <a href="/logout">
+              <a href="{{ path('account_creation') }}">
+                <button class="btn logout">Create account</button>
+              </a><br>
+              <a href="{{ path('app_logout') }}">
                 <button class="btn logout">Logout</button>
               </a>
             </ul>
@@ -165,6 +168,9 @@
             </span>
           </li>
           <hr>
+          <a href="{{ path('account_creation') }}">
+            <button class="btn create-account-btn">Create account</button>
+          </a><br>
           <a href="/logout">
             <button class="btn logout">Logout</button>
           </a>
