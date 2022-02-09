@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'accordion/layout.html.twig' %}
 
 {% block title %}New Client{% endblock %}
 
-{% block main %}
-<h1>Create new Client</h1>
+{% block clientPayments %}
+
+<h3>Add a new client</h3>
 {{ include('client/_form.html.twig') }}
-<a href="{{ path('client_payment_new', {booking_id: booking.id}) }}">back to list</a>
-{% endblock %}
+
+{% endblock clientPayments %}
