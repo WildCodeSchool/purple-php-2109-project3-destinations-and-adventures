@@ -19,8 +19,20 @@
             <tr>
                 <td>{{ supplier_payment.supplier.name }}</td>
                 <td>{{ supplier_payment.date ? supplier_payment.date|date('m-d-Y') : '' }}</td>
-                <td>{{ supplier_payment.paidAmount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
-                <td>{{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
+                <td>
+                    {% if supplier_payment.paidAmount is null %}
+                    {{ 0.00 }}
+                        {% else %}
+                        {{ supplier_payment.paidAmount|format_currency('USD', {rounding_mode: 'floor'}) }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if supplier_payment.dueCommission is null %}
+                    {{ 0.00 }}
+                        {% else %}
+                        {{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}
+                    {% endif %}
+                    </td>
                 <td>
                     {% if supplier_payment.status == 'due' %}
                     <a
@@ -41,3 +53,8 @@
 </div>
 {{ include('accordion/supplier_payment/_form.html.twig') }}
 {% endblock supplierPayments %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('app') }}
+{{ encore_entry_script_tags('supplierInfo') }}
+{% endblock %}

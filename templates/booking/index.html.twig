@@ -68,15 +68,15 @@
                         {% set due_amount = 0 %}
 
                         {% for supplier_payment in booking.supplierPayments %}
-                        {% if supplier_payment.status is same as('paid') %}
-                        {% set paid_amount = paid_amount + supplier_payment.paidAmount %}
-                        {% set due_amount = due_amount + supplier_payment.dueCommission %}
-                        {% endif %}
-                        {% set due_amount = due_amount - supplier_payment.dueCommission %}
+                            {% if supplier_payment.status is same as('paid') %}
+                                {% set paid_amount = paid_amount + supplier_payment.paidAmount %}
+                                {% set due_amount = due_amount + supplier_payment.dueCommission %}
+                            {% endif %}
+                                {% set due_amount = due_amount - supplier_payment.dueCommission %}
                         {% endfor %}
 
-                        {% for supplier_information in booking.supplierInformation %}
-                        {% set due_amount = due_amount + supplier_information.dueDollarsAmount %}
+                        {% for supplier_information in booking.supplierPayments %}
+                            {% set due_amount = due_amount + supplier_information.dueDollarsAmount %}
                         {% endfor %}
                         {% set due_amount = due_amount - paid_amount %}
                         {{ due_amount|format_currency('USD', {rounding_mode: 'floor'}) }}$
@@ -221,7 +221,7 @@
                 <div class="payments-section-head">
                     <div>
                         <h2>SUPPLIER PAYMENTS</h2>
-                        <a href="{{ path('supplier_information_new', {booking_id: booking.id}) }}"><svg
+                        <a href="{{ path('supplier_payment_new', {booking_id: booking.id}) }}"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                 <path
@@ -233,11 +233,11 @@
                             <div><strong>TOTAL</strong></div>
                             <div>
                                 {% set total = 0 %}
-                                {% for supplier_information in booking.supplierInformation %}
-                                {% set total = total + supplier_information.dueDollarsAmount %}
+                                {% for supplier_information in booking.supplierPayments %}
+                                    {% set total = total + supplier_information.dueDollarsAmount %}
                                 {% endfor %}
-                                {% for supplier_payment in booking.supplierPayments %}
-                                {% set total = total - supplier_payment.dueCommission %}
+                                    {% for supplier_payment in booking.supplierPayments %}
+                                    {% set total = total - supplier_payment.dueCommission %}
                                 {% endfor %}
                                 {{ total|format_currency('USD', {rounding_mode: 'floor'}) }} $
                             </div>
@@ -249,15 +249,15 @@
                                 {% set due_amount = 0 %}
 
                                 {% for supplier_payment in booking.supplierPayments %}
-                                {% if supplier_payment.status is same as('paid') %}
-                                {% set paid_amount = paid_amount + supplier_payment.paidAmount %}
-                                {% set due_amount = due_amount + supplier_payment.dueCommission %}
-                                {% endif %}
-                                {% set due_amount = due_amount - supplier_payment.dueCommission %}
+                                    {% if supplier_payment.status is same as('paid') %}
+                                        {% set paid_amount = paid_amount + supplier_payment.paidAmount %}
+                                        {% set due_amount = due_amount + supplier_payment.dueCommission %}
+                                    {% endif %}
+                                    {% set due_amount = due_amount - supplier_payment.dueCommission %}
                                 {% endfor %}
 
-                                {% for supplier_information in booking.supplierInformation %}
-                                {% set due_amount = due_amount + supplier_information.dueDollarsAmount %}
+                                {% for supplier_information in booking.supplierPayments %}
+                                    {% set due_amount = due_amount + supplier_information.dueDollarsAmount %}
                                 {% endfor %}
                                 {% set due_amount = due_amount - paid_amount %}
                                 {{ due_amount|format_currency('USD', {rounding_mode: 'floor'}) }}$
@@ -283,10 +283,22 @@
                         <tr>
                             <td class="status"><span>{{ supplier_payment.status }}</span></td>
                             <td>{{ supplier_payment.supplier.name }}</td>
-                            <td>{{ supplier_payment.paidAmount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
+                            <td>
+                                {% if supplier_payment.paidAmount is null %}
+                                    {{ 0.00 }}
+                                {% else %}
+                                    {{ supplier_payment.paidAmount|format_currency('USD', {rounding_mode: 'floor'}) }}
+                                {% endif %}
+                            </td>
                             <td>{{ supplier_payment.date|date('m-d-Y') }}</td>
                             <td>{{ supplier_payment.mode }}</td>
-                            <td>{{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
+                            <td>
+                                {% if supplier_payment.dueCommission is null %}
+                                    {{ 0.00 }}
+                                {% else %}
+                                    {{ supplier_payment.dueCommission|format_currency('USD', {rounding_mode: 'floor'}) }}
+                                {% endif %}
+                            </td>
                             <td>{{ supplier_payment.dueDateCommission|date('m-d-Y') }}</td>
                             <td>
                                 {% if supplier_payment.status == 'due' %}
