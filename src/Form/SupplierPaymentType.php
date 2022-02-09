@@ -45,7 +45,6 @@ class SupplierPaymentType extends AbstractType
                     'ALL' => 'ALL',
                     'BYN' => 'BYN',
                     'BAM' => 'BAM',
-                    'ISK' => 'ISK',
                 ],
                 'label' => false,
                 'placeholder' => 'currency',
