@@ -24,34 +24,6 @@ class BookingRepository extends ServiceEntityRepository
     /**
      * @return mixed Returns an array of Booking objects
      */
-    public function findAgentCommission(int $days)
-    {
-        return $this->createQueryBuilder('b')
-            ->where('b.departure <= :chooseDays')
-            ->andWhere('b.departure >= :today')
-            ->setParameter('today', new DateTime('today'))
-            ->setParameter('chooseDays', new DateTime('today + ' . $days . 'days'))
-            ->orderBy('b.departure', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @return mixed Returns an array of Booking objects
-     */
-    public function findAllAgentCommissionFromToday()
-    {
-        return $this->createQueryBuilder('b')
-            ->where('b.departure >= :today')
-            ->setParameter('today', new DateTime('today'))
-            ->orderBy('b.departure', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @return mixed Returns an array of Booking objects
-     */
     public function findDaiCommission(int $days)
     {
         return $this->createQueryBuilder('b')
@@ -80,7 +52,7 @@ class BookingRepository extends ServiceEntityRepository
     /**
      * @return mixed Returns an array of Booking objects
      */
-    public function findUpcommingTrips(int $days)
+    public function findUpcommingTripsAndAgentCommission(int $days)
     {
         return $this->createQueryBuilder('b')
             ->where('b.departure <= :chooseDays')
@@ -95,7 +67,7 @@ class BookingRepository extends ServiceEntityRepository
     /**
      * @return mixed Returns an array of Booking objects
      */
-    public function findAllUpcommingTrips()
+    public function findAllUpcommingTripsAndAgentCommission()
     {
         return $this->createQueryBuilder('b')
             ->where('b.departure >= :today')
