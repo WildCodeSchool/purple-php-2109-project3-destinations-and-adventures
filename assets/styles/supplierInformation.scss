@@ -1,7 +1,7 @@
 @import "variables.scss";
 
-.supplierPayment {
-    .payments {
+.supplierInformation {
+    .informations {
         background-color: $secondBackground;
         padding-bottom: 0.75rem;
 
@@ -55,22 +55,6 @@
                         margin: 0;
                         width: 30%;
                     }
-                }
-
-                .status span {
-                    border-radius: 7px;
-                    padding: 0.3em 0.6em;
-                    text-transform: uppercase;
-                    font-weight: 700;
-                    font-size: 0.8em;
-                }
-
-                .status.paid span {
-                    background: rgba(52, 159, 50, 0.5);
-                }
-
-                .status.due span {
-                    background: rgba(226, 195, 30, 0.5);
                 }
             }
         }

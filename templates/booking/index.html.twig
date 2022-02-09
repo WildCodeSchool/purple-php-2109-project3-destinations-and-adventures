@@ -16,7 +16,7 @@
         <tr>
             <td><strong>Booking name</strong></td>
             <td><strong>Traveling dates</strong></td>
-            <td><strong>Total coast</strong></td>
+            <td><strong>Total cost</strong></td>
             <td><strong>Client</strong></td>
             <td><strong>Supplier</strong></td>
             <td><strong>Actions</strong></td>
@@ -149,7 +149,7 @@
                     <tbody>
                         {% for client_payment in booking.clientPayments %}
                         <tr>
-                            <td class="status"><span>{{ client_payment.status }}</span></td>
+                            <td class="status {{ client_payment.status }}"><span>{{ client_payment.status }}</span></td>
                             <td>{{ client_payment.type }}</td>
                             <td>{{ client_payment.amount|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             <td>{{ client_payment.mode }}</td>
@@ -281,7 +281,7 @@
                     <tbody>
                         {% for supplier_payment in booking.supplierPayments %}
                         <tr>
-                            <td class="status"><span>{{ supplier_payment.status }}</span></td>
+                            <td class="status {{ supplier_payment.status }} "><span>{{ supplier_payment.status }}</span></td>
                             <td>{{ supplier_payment.supplier.name }}</td>
                             <td>
                                 {% if supplier_payment.paidAmount is null %}
@@ -371,14 +371,6 @@
                 panel.style.padding = "2em 1em 1em 1em";
             }
         });
-    }
-
-    for (let st of document.getElementsByClassName("status")) {
-        if (st.textContent === "paid") {
-            st.classList.add('paid');
-        } else if (st.textContent === "due") {
-            st.classList.add('due');
-        }
     }
 </script>
 {% endblock main %}

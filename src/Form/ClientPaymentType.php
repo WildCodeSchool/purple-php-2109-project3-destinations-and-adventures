@@ -32,11 +32,13 @@ class ClientPaymentType extends AbstractType
                 ],
                 'label' => 'Type of payment',
                 'placeholder' => 'Choose a type',
+                'required' => false,
 
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date of payment',
+                'required' => false,
 
             ])
             ->add('amount', NumberType::class, [
@@ -46,13 +48,14 @@ class ClientPaymentType extends AbstractType
             ->add('mode', ChoiceType::class, [
                 'choices' => [
                     'Credit Card' => 'credit_card',
-                    'Wire Transfert' => 'wire_transfert',
+                    'Wire Transfer' => 'wire_transfer',
                     'Check' => 'check',
                     'Credit' => 'credit',
                     'Refund' => 'refund',
                 ],
                 'label' => 'Payment mode',
                 'placeholder' => 'Choose a mode',
+                'required' => false,
 
             ])
             ->add('status', ChoiceType::class, [

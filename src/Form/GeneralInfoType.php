@@ -15,7 +15,7 @@ class GeneralInfoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('reference', IntegerType::class, [
+            ->add('reference', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Reference #',
                 ],

@@ -14,7 +14,7 @@ class SupplierPayment
 {
     public const STATUS = ['due', 'paid'];
     public const TYPES = ['deposit', 'final_payment', 'fulll_payment'];
-    public const MODES = ['credit_card', 'wire_transfert', 'check', 'credit', 'refund'];
+    public const MODES = ['credit_card', 'wire_transfer', 'check', 'credit', 'refund'];
     public const CURRENCY = [
         'EUR', 'GBP', 'BGN', 'HRK', 'DKK', 'HUF', 'PLN', 'SEK', 'CZK', 'RON', 'ALL',
         'BYN', 'BAM', 'ISK', 'CHF', 'MKD', 'MDL', 'NOK', 'RSD', 'UAH', 'GIP',
@@ -70,7 +70,6 @@ class SupplierPayment
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Assert\Positive
      */
     private ?float $dueCommission;
 

@@ -15,7 +15,7 @@ class ClientPayment
 {
 
     public const TYPES = ['deposit', 'final_payment', 'fulll_payment'];
-    public const MODES = ['credit_card', 'wire_transfert', 'check', 'credit', 'refund'];
+    public const MODES = ['credit_card', 'wire_transfer', 'check', 'credit', 'refund'];
     public const STATUS = ['due', 'paid',];
 
     /**

@@ -33,6 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% set total = 0 %}
                         {% for upcoming_trip in upcomingTrips %}
                         <tr>
                             <td>{{ upcoming_trip.leadCustomer.name }}</td>
@@ -41,13 +42,17 @@
                             <td>{{ upcoming_trip.returnDate ? upcoming_trip.returnDate|date('m-d-Y') : '' }}</td>
                             <td>{{ upcoming_trip.total|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                         </tr>
+                        {% set total = total + upcoming_trip.total %}
                         {% else %}
                         <tr>
-                            <td colspan="6">no records found</td>
+                            <td colspan="6">No records found</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
+            <div class="totalTrips">
+                <h3>Total: {{ total|format_currency('USD', {rounding_mode: 'floor'}) }}</h3>
             </div>
         </div>
         <div class="alignTripTables">
@@ -65,7 +70,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% set total = 0 %}
                             {% for current_trip in currentTrips %}
+                            {% set total = total + current_trip.total %}
                             <tr>
                                 <td>{{ current_trip.leadCustomer.name }}</td>
                                 <td>{{ current_trip.name }}</td>
@@ -75,11 +82,14 @@
                             </tr>
                             {% else %}
                             <tr>
-                                <td colspan="6">no records found</td>
+                                <td colspan="6">No records found</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                </div>
+                <div class="totalTrips">
+                    <h3>Total: {{ total|format_currency('USD', {rounding_mode: 'floor'}) }}</h3>
                 </div>
             </div>
             <div class="returnedTrip">
@@ -104,9 +114,8 @@
                             {% endfor %}
                             {% else %}
                             <tr>
-                                <td colspan="6">no records found</td>
+                                <td colspan="6">No records found</td>
                             </tr>
-
                             {% endfor %}
                         </tbody>
                     </table>
