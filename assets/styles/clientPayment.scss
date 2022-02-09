@@ -98,4 +98,18 @@
             height: 6.25rem;
         }
     }
+    .button {
+        display: block;
+        margin: 1rem auto;
+        text-align: center;
+        width: 9.625rem;
+        height: 2.25rem;
+        text-align: center;
+        background-color: $green;
+        color: $light;
+    }
+
+    .button:hover {
+        color: $light;
+    }
 }

@@ -1,6 +1,6 @@
 {% extends 'accordion/layout.html.twig' %}
 
-{% block title %}New ClientPayment{% endblock %}
+{% block title %}New Client Payment{% endblock %}
 
 {% block clientPayments %}
 <div class="payments">
@@ -56,5 +56,5 @@
     </table>
 </div>
 {{ include('accordion/client_payment/_form.html.twig') }}
-<a href="{{ path('client_new', {booking_id: booking.id}) }}">Add client</a>
+<a class = "btn button slide" href="{{ path('client_new', {booking_id: booking.id}) }}">Add client</a>
 {% endblock clientPayments %}

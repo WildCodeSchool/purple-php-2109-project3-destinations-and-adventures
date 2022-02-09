@@ -56,7 +56,7 @@ class ClientController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("client/{id}/delete", name="delete", methods={"POST", "GET"}, requirements={"id"="\d+"})
      */
     public function delete(
@@ -82,19 +82,24 @@ class ClientController extends AbstractController
     /**
      * @Route("client/{id}/edit", name="edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Client $client, EntityManagerInterface $entityManager): Response
-    {
+    public function edit(
+        Request $request,
+        Client $client,
+        EntityManagerInterface $entityManager,
+        Booking $booking
+    ): Response {
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('client_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('client/edit.html.twig', [
             'form' => $form,
+            'booking' => $booking,
         ]);
     }
 }

@@ -1,5 +1,5 @@
 {{ form_start(form) }}
 {% do form.setRendered %}
 {{ form_row(form.name, {'label': 'Client name', 'attr': {'placeholder': 'Enter a name'}}) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
+<button class="btn button slide">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
