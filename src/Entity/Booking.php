@@ -27,10 +27,9 @@ class Booking
     private int $id;
 
     /**
-     * @ORM\Column(name="reference", type="integer", nullable=true, unique=true)
-     * @Assert\Positive
+     * @ORM\Column(name="reference", type="string", length=255, nullable=true, unique=true)
      */
-    private ?int $reference;
+    private ?string $reference;
 
     /**
      * @Assert\NotBlank
@@ -138,12 +137,12 @@ class Booking
         return $this->id;
     }
 
-    public function getReference(): ?int
+    public function getReference(): ?string
     {
         return $this->reference;
     }
 
-    public function setReference(?int $reference): self
+    public function setReference(?string $reference): self
     {
         $this->reference = $reference;
 
