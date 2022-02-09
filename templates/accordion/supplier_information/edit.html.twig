@@ -4,8 +4,7 @@
 
 {% block supplierInfo %}
     {{ include('accordion/supplier_information/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('supplier_information_new', {'booking_id': supplier_information.booking.id}) }}">back to list</a>
+    {{ include('accordion/supplier_information/_delete_form.html.twig') }}
 {% endblock supplierInfo %}
 {% block javascripts %}
 {{ encore_entry_script_tags('app') }}

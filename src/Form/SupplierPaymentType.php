@@ -45,7 +45,7 @@ class SupplierPaymentType extends AbstractType
             ->add('mode', ChoiceType::class, [
                 'choices' => [
                     'Credit Card' => 'credit_card',
-                    'Wire Transfert' => 'wire_transfert',
+                    'Wire Transfer' => 'wire_transfer',
                     'Check' => 'check',
                     'Credit' => 'credit',
                     'Refund' => 'refund',

@@ -28,7 +28,7 @@
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="8">no records found</td>
+                    <td colspan="8">No records found</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -37,7 +37,7 @@
 
     {{ include('accordion/supplier_information/_form.html.twig') }}
 
-    <a href="{{ path('supplier_new', {booking_id: booking.id}) }}">Add client</a>
+    <a href="{{ path('supplier_new', {booking_id: booking.id}) }}">Add supplier</a>
 {% endblock supplierInfo %}
 {% block javascripts %}
 {{ encore_entry_script_tags('app') }}
