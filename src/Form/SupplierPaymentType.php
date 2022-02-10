@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Supplier;
 use App\Entity\SupplierPayment;
+use App\Repository\SupplierRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -20,6 +21,10 @@ class SupplierPaymentType extends AbstractType
         $builder
             ->add('supplier', EntityType::class, [
                 'class' => Supplier::class,
+                'query_builder' => function (SupplierRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.id', 'DESC');
+                },
                 'choice_label' => 'name',
                 'label' => 'Supplier',
                 'placeholder' => 'Choose a supplier',
@@ -40,10 +45,6 @@ class SupplierPaymentType extends AbstractType
                     'ALL' => 'ALL',
                     'BYN' => 'BYN',
                     'BAM' => 'BAM',
-                    'ISK' => 'ISK',
-                    'MKD' => 'MKD',
-                    'MDL' => 'MDL',
-                    'NOK' => 'NOK',
                 ],
                 'label' => false,
                 'placeholder' => 'currency',
