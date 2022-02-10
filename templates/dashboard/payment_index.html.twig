@@ -175,18 +175,20 @@
                         {% set estimate_profit = estimate_profit - supplier_payment.paidAmount %}
 
                         {% set estimate_profit = estimate_profit - commission %}
-                        {% set estimate_profit = estimate_profit * 20 / 100 %}
+                        {% set estimate_profit = estimate_profit %}
                         {% set profit = profit - commission %}
-                        {% set profit = profit * 20 / 100 %}
+                        {% set profit = profit %}
                         {% set total = total + profit %}
                         {% endfor %}
+                        {% set commission = profit * 20 / 100 %}
+                        {% set est_commission = estimate_profit * 20 / 100 %}
                         <tr>
                             <td>{{ dai_commission.name }}</td>
                             <td>{{ dai_commission.returnDate ? dai_commission.returnDate|date('m-d-Y') : '' }}</td>
                             <td>{{ estimate_profit|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             <td>{{ profit|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
-                            <td>{{ estimate_profit|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
-                            <td>{{ profit|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
+                            <td>{{ est_commission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
+                            <td>{{ commission|format_currency('USD', {rounding_mode: 'floor'}) }}</td>
                             <td>20</td>
                         </tr>
                         {% else %}
