@@ -1,6 +1,6 @@
 {% extends 'accordion/layout.html.twig' %}
 
-{% block title %}New SupplierPayment{% endblock %}
+{% block title %}New Supplier Payment{% endblock %}
 
 {% block supplierPayments %}
 <div class="payments">
@@ -69,6 +69,7 @@
     </table>
 </div>
 {{ include('accordion/supplier_payment/_form.html.twig') }}
+<a class = "btn button slide" href="{{ path('supplier_new', {booking_id: booking.id}) }}">Add supplier</a>
 {% endblock supplierPayments %}
 {% block javascripts %}
 {{ encore_entry_script_tags('app') }}

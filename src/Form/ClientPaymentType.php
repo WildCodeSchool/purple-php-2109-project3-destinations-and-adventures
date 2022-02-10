@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Client;
 use App\Entity\ClientPayment;
+use App\Repository\ClientRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,6 +20,10 @@ class ClientPaymentType extends AbstractType
         $builder
             ->add('client', EntityType::class, [
                 'class' => Client::class,
+                'query_builder' => function (ClientRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.id', 'DESC');
+                },
                 'choice_label' => 'name',
                 'label' => 'Name',
                 'placeholder' => 'Choose a client',

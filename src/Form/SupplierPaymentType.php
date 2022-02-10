@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Supplier;
 use App\Entity\SupplierPayment;
+use App\Repository\SupplierRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -20,6 +21,10 @@ class SupplierPaymentType extends AbstractType
         $builder
             ->add('supplier', EntityType::class, [
                 'class' => Supplier::class,
+                'query_builder' => function (SupplierRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.id', 'DESC');
+                },
                 'choice_label' => 'name',
                 'label' => 'Supplier',
                 'placeholder' => 'Choose a supplier',
@@ -29,12 +34,20 @@ class SupplierPaymentType extends AbstractType
             ])
             ->add('currency', ChoiceType::class, [
                 'choices' => [
-                    'EUR' => 'EUR', 'CHF' => 'CHF', 'GBP' => 'GBP',
-                    'BGN' => 'BGN', 'HRK' => 'HRK', 'DKK' => 'DKK',
-                    'HUF' => 'HUF', 'PLN' => 'PLN', 'SEK' => 'SEK',
-                    'CZK' => 'CZK', 'RON' => 'RON', 'ALL' => 'ALL',
-                    'BYN' => 'BYN', 'BAM' => 'BAM', 'ISK' => 'ISK',
-                    'MKD' => 'MKD', 'MDL' => 'MDL', 'NOK' => 'NOK',
+                    'EUR' => 'EUR',
+                    'CHF' => 'CHF',
+                    'GBP' => 'GBP',
+                    'BGN' => 'BGN',
+                    'HRK' => 'HRK',
+                    'DKK' => 'DKK',
+                    'HUF' => 'HUF',
+                    'PLN' => 'PLN',
+                    'SEK' => 'SEK',
+                    'CZK' => 'CZK',
+                    'RON' => 'RON',
+                    'ALL' => 'ALL',
+                    'BYN' => 'BYN',
+                    'BAM' => 'BAM',
                 ],
                 'label' => 'Currency',
                 'placeholder' => 'Choose a currency',
