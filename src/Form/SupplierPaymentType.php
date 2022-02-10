@@ -34,20 +34,11 @@ class SupplierPaymentType extends AbstractType
             ])
             ->add('currency', ChoiceType::class, [
                 'choices' => [
-                    'EUR' => 'EUR',
-                    'CHF' => 'CHF',
-                    'GBP' => 'GBP',
-                    'BGN' => 'BGN',
-                    'HRK' => 'HRK',
-                    'DKK' => 'DKK',
-                    'HUF' => 'HUF',
-                    'PLN' => 'PLN',
-                    'SEK' => 'SEK',
-                    'CZK' => 'CZK',
-                    'RON' => 'RON',
-                    'ALL' => 'ALL',
-                    'BYN' => 'BYN',
-                    'BAM' => 'BAM',
+                    'EUR' => 'EUR', 'CHF' => 'CHF', 'GBP' => 'GBP',
+                    'BGN' => 'BGN', 'HRK' => 'HRK', 'DKK' => 'DKK',
+                    'HUF' => 'HUF', 'PLN' => 'PLN', 'SEK' => 'SEK',
+                    'CZK' => 'CZK', 'RON' => 'RON', 'ALL' => 'ALL',
+                    'BYN' => 'BYN', 'BAM' => 'BAM',
                 ],
                 'label' => 'Currency',
                 'placeholder' => 'Choose a currency',
@@ -59,8 +50,7 @@ class SupplierPaymentType extends AbstractType
                 'label' => 'Amount due to supplier',
             ])
             ->add('dueDate', DateType::class, [
-                'label' => 'Due date',
-                'widget' => 'single_text',
+                'label' => 'Due date', 'widget' => 'single_text',
             ])
             ->add('exchangeRate', NumberType::class, [
                 'label' => 'Exchange rate',
