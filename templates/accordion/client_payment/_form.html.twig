@@ -1,4 +1,5 @@
-{{ form_start(form) }}
+{{ form_start(form, {'attr' : {'class' : 'client_payment_form'}}) }}
     {{ form_widget(form) }}
     <button class="button slide btn">{{ button_label|default('SAVE') }}</button>
+    <a class="button slide btn" href="{{ path('client_new', {booking_id: booking.id}) }}">Add client</a>
 {{ form_end(form) }}
