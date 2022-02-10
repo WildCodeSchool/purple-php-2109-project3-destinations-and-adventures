@@ -4,12 +4,13 @@
     .payments {
         background-color: $secondBackground;
         padding-bottom: 0.75rem;
+        overflow-x: scroll;
 
         table {
             margin: 0 auto;
             text-align: center;
             width: 90%;
-            max-width: 40rem;
+            min-width: 550px;
             font-style: $Helvetica;
             border-collapse: separate;
             border-spacing: 0 0.25rem;
