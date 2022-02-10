@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'accordion/layout.html.twig' %}
 
 {% block title %}Edit Client{% endblock %}
 
-{% block main %}
-    <h1>Edit Client</h1>
+{% block clientPayments %}
+<h1>Edit Client</h1>
 
-    {{ include('client/_form.html.twig', {'button_label': 'Update'}) }}
+{{ include('client/_form.html.twig', {'button_label': 'Update'}) }}
 
-{% endblock %}
+{% endblock clientPayments %}

@@ -1,6 +1,6 @@
 {% extends 'accordion/layout.html.twig' %}
 
-{% block title %}New Booking{% endblock %}
+{% block title %}Edit Financial Information{% endblock %}
 
 {% block financialInfoPath %}
         <div class="accordionTitle">
@@ -8,7 +8,7 @@
             </div>
     {% endblock financialInfoPath %}
 {% block financialInfo %}
-    {{ include("accordion/financial_info/_form.html.twig", {button_label: "SAVE"}) }}
+    {{ include("accordion/financial_info/_form.html.twig", {button_label: "Save"}) }}
 
 {% endblock financialInfo %}
 

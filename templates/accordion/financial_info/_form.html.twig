@@ -2,5 +2,5 @@
 {{ form_label(form.total) }}
 {{ form_widget(form.total, {'attr': {'data-travelers': booking.travelersCount, 'data-date': booking.departure|date('Y-m-d')}}) }}
 {{ form_rest(form) }}
-<button class="btn button slide">{{ button_label|default('SAVE') }}</button>
+<button class="btn button slide">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
