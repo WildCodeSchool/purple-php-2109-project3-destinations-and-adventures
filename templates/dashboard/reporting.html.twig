@@ -11,7 +11,7 @@
     </div>
     <form action="" method="post">
         <label>In</label>
-        <select name="year" id="year">
+        <select class="form-select" name="year" id="year">
             <option value="{{ 'now'|date('Y') }}">Choose a year</option>
 
             {% for year in years|sort %}

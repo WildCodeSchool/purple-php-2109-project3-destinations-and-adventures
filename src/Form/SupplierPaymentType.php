@@ -28,33 +28,28 @@ class SupplierPaymentType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'Supplier',
                 'placeholder' => 'Choose a supplier',
+                'attr' => [
+                    'class' => 'form-select',
+                ]
             ])
             ->add('currency', ChoiceType::class, [
                 'choices' => [
-                    'EUR' => 'EUR',
-                    'CHF' => 'CHF',
-                    'GBP' => 'GBP',
-                    'BGN' => 'BGN',
-                    'HRK' => 'HRK',
-                    'DKK' => 'DKK',
-                    'HUF' => 'HUF',
-                    'PLN' => 'PLN',
-                    'SEK' => 'SEK',
-                    'CZK' => 'CZK',
-                    'RON' => 'RON',
-                    'ALL' => 'ALL',
-                    'BYN' => 'BYN',
-                    'BAM' => 'BAM',
+                    'EUR' => 'EUR', 'CHF' => 'CHF', 'GBP' => 'GBP',
+                    'BGN' => 'BGN', 'HRK' => 'HRK', 'DKK' => 'DKK',
+                    'HUF' => 'HUF', 'PLN' => 'PLN', 'SEK' => 'SEK',
+                    'CZK' => 'CZK', 'RON' => 'RON', 'ALL' => 'ALL',
+                    'BYN' => 'BYN', 'BAM' => 'BAM',
                 ],
-                'label' => false,
-                'placeholder' => 'currency',
+                'label' => 'Currency', 'placeholder' => 'Choose a currency',
+                'attr' => [
+                    'class' => 'form-select',
+                ]
             ])
             ->add('dueAmount', NumberType::class, [
                 'label' => 'Amount due to supplier',
             ])
             ->add('dueDate', DateType::class, [
-                'label' => 'Due date',
-                'widget' => 'single_text',
+                'label' => 'Due date', 'widget' => 'single_text',
             ])
             ->add('exchangeRate', NumberType::class, [
                 'label' => 'Exchange rate',
@@ -64,13 +59,14 @@ class SupplierPaymentType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
-                    'Deposit' => 'deposit',
-                    'Final payment' => 'final_payment',
+                    'Deposit' => 'deposit', 'Final payment' => 'final_payment',
                     'Full payment' => 'fulll_payment',
                 ],
                 'label' => 'Type of payment',
-                'placeholder' => 'Choose a type',
-                'required' => false,
+                'placeholder' => 'Choose payment type', 'required' => false,
+                'attr' => [
+                    'class' => 'form-select',
+                ]
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
@@ -83,15 +79,16 @@ class SupplierPaymentType extends AbstractType
             ])
             ->add('mode', ChoiceType::class, [
                 'choices' => [
-                    'Credit Card' => 'credit_card',
-                    'Wire Transfer' => 'wire_transfer',
-                    'Check' => 'check',
-                    'Credit' => 'credit',
+                    'Credit Card' => 'credit_card', 'Wire Transfer' => 'wire_transfer',
+                    'Check' => 'check', 'Credit' => 'credit',
                     'Refund' => 'refund',
                 ],
                 'label' => 'Payment mode',
-                'placeholder' => 'Choose a mode',
+                'placeholder' => 'Choose a mode of payment',
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-select',
+                ]
             ])
             ->add('dueCommission', NumberType::class, [
                 'label' => 'Commission due by supplier',
@@ -104,11 +101,13 @@ class SupplierPaymentType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
-                    'Due' => 'due',
-                    'Paid' => 'paid',
+                    'Due' => 'due', 'Paid' => 'paid',
                 ],
                 'label' => 'Status of payment',
                 'placeholder' => 'Choose a status',
+                'attr' => [
+                    'class' => 'form-select',
+                ]
             ])
             ->add('note', TextareaType::class, [
                 'label' => 'Note',

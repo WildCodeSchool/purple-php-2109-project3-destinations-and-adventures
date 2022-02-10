@@ -27,6 +27,9 @@ class ClientPaymentType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'Name',
                 'placeholder' => 'Choose a client',
+                'attr' => [
+                    'class' => 'form-select',
+                ]
 
             ])
             ->add('type', ChoiceType::class, [
@@ -38,6 +41,9 @@ class ClientPaymentType extends AbstractType
                 'label' => 'Type of payment',
                 'placeholder' => 'Choose a type',
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-select',
+                ]
 
             ])
             ->add('date', DateType::class, [
@@ -61,6 +67,9 @@ class ClientPaymentType extends AbstractType
                 'label' => 'Payment mode',
                 'placeholder' => 'Choose a mode',
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-select',
+                ]
 
             ])
             ->add('status', ChoiceType::class, [
@@ -70,6 +79,9 @@ class ClientPaymentType extends AbstractType
                 ],
                 'label' => 'Payment status',
                 'placeholder' => 'Choose a status',
+                'attr' => [
+                    'class' => 'form-select',
+                ]
 
             ])
 
