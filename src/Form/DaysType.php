@@ -20,6 +20,9 @@ class DaysType extends AbstractType
                     'All' => 'all',
                 ],
                 'label' => 'Within',
+                'attr' => [
+                    'class' => 'form-select',
+                ]
             ])
         ;
     }

@@ -3,8 +3,6 @@
 {% block title %}New Supplier{% endblock %}
 
 {% block supplierPayments %}
-
-<h1 class="title-edit">Edit Supplier</h1>
-{{ include("supplier/_form.html.twig", {button_label: "UPDATE"}) }}
-
+    <h3 class="title">Edit Supplier</h3>
+    {{ include('supplier/_form.html.twig', {'button_label': 'Update'}) }}
 {% endblock %}

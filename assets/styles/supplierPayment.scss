@@ -77,6 +77,18 @@
         }
     }
 
+    .supplier_form {
+
+        .btn {
+            display: block;
+            margin: 1em auto;
+            width: 9.625em;
+            height: 2.25em;
+            background-color: $green;
+            color: $light;
+        }
+    }
+
     form {
         margin: 0 auto;
         width: 85%;
