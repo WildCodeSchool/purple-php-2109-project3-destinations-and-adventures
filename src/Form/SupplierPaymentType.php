@@ -40,8 +40,7 @@ class SupplierPaymentType extends AbstractType
                     'CZK' => 'CZK', 'RON' => 'RON', 'ALL' => 'ALL',
                     'BYN' => 'BYN', 'BAM' => 'BAM',
                 ],
-                'label' => 'Currency',
-                'placeholder' => 'Choose a currency',
+                'label' => 'Currency', 'placeholder' => 'Choose a currency',
                 'attr' => [
                     'class' => 'form-select',
                 ]
@@ -60,13 +59,11 @@ class SupplierPaymentType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
-                    'Deposit' => 'deposit',
-                    'Final payment' => 'final_payment',
+                    'Deposit' => 'deposit', 'Final payment' => 'final_payment',
                     'Full payment' => 'fulll_payment',
                 ],
                 'label' => 'Type of payment',
-                'placeholder' => 'Choose payment type',
-                'required' => false,
+                'placeholder' => 'Choose payment type', 'required' => false,
                 'attr' => [
                     'class' => 'form-select',
                 ]
