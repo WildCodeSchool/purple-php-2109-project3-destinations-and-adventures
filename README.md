@@ -1,115 +1,64 @@
-# Project 3 - Starter Kit - Symfony 5.*
+# How to install and deploy this app
 
-## Presentation
-
-This starter kit is here to easily start a repository for Wild Code School students.
-
-It's symfony website-skeleton project with some additional library (webpack, fixtures) and tools to validate code standards.
-
-* GrumPHP, as pre-commit hook, will run 2 tools when `git commit` is run :
-  
-    * PHP_CodeSniffer to check PSR12 
-    * PHPStan focuses on finding errors in your code (without actually running it)
-    * PHPmd will check if you follow PHP best practices
-     
-  If tests fail, the commit is canceled and a warning message is displayed to developper.
-
-* Github Action as Continuous Integration will be run when a branch with active pull request is updated on github. It will run :
-
-    * Tasks to check if vendor, .idea, env.local are not versionned,
-    * PHP_CodeSniffer, PHPStan and PHPmd with same configuration as GrumPHP.
+Here is a link of a video going through each steps (in french): https://www.youtube.com/watch?v=AAap9qRHgIk
  
-## Getting Started for Students
+ #### Prerequisites
 
-### Prerequisites
+- Check the PHP version installed on the SSH server. For our tutorial, we have used the 7.1 version. Be sure to replace "7.1" with the actual version if different.
+ 
+#### Getting ready
 
-1. Check composer is installed
-2. Check yarn & node are installed
+1. Connect to your server via SSH
 
-### Install
-
-1. Clone this project
-2. Run `composer install`
-3. Run `yarn install`
-4. Run `yarn encore dev` to build assets
-
-### Working
-
-1. Run `symfony server:start` to launch your local php web server
-2. Run `yarn run dev --watch` to launch your local server for assets
-
-### Testing
-
-1. Run `php ./vendor/bin/phpcs` to launch PHP code sniffer
-2. Run `php ./vendor/bin/phpstan analyse src --level max` to launch PHPStan
-3. Run `php ./vendor/bin/phpmd src text phpmd.xml` to launch PHP Mess Detector
-3. Run `./node_modules/.bin/eslint assets/js` to launch ESLint JS linter
-3. Run `../node_modules/.bin/sass-lint -c sass-linter.yml -v` to launch Sass-lint SASS/CSS linter
-
-### Windows Users
-
-If you develop on Windows, you should edit you git configuration to change your end of line rules with this command :
-
-`git config --global core.autocrlf true`
-
-## Deployment
-
-Some files are used to manage automatic deployments (using tools as Caprover, Docker and Github Action). Please do not modify them.
-
-* [captain-definition](https://github.com/WildCodeSchool/sf4-pjt3-starter-kit/blob/master/captain-definition) Caprover entry point
-* [Dockerfile](https://github.com/WildCodeSchool/sf4-pjt3-starter-kit/blob/master/Dockerfile) Web app configuration for Docker container
-* [docker-compose.yml](https://github.com/WildCodeSchool/sf4-pjt3-starter-kit/blob/master/docker-compose.yml) ...not use it's used 😅
-* [docker-entry.sh](https://github.com/WildCodeSchool/sf4-pjt3-starter-kit/blob/master/docker-entry.sh) shell instruction to execute when docker image is built
-* [nginx.conf](https://github.com/WildCodeSchool/sf4-pjt3-starter-kit/blob/master/nginx.conf) Nginx server configuration
-* [php.ini](https://github.com/WildCodeSchool/sf4-pjt3-starter-kit/blob/master/php.ini) Php configuration
+2. Go inside the folder you want to deploy your project in
 
 
-## Built With
+#### Composer
 
-* [Symfony](https://github.com/symfony/symfony)
-* [GrumPHP](https://github.com/phpro/grumphp)
-* [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
-* [PHPStan](https://github.com/phpstan/phpstan)
-* [PHPMD](http://phpmd.org)
-* [ESLint](https://eslint.org/)
-* [Sass-Lint](https://github.com/sasstools/sass-lint)
+1. Install [Composer](https://getcomposer.org/) in your folder
+2. `curl -sS https://getcomposer.org/installer | php-7.1 -d allow_url_fopen=On`
 
+  
 
+#### Import the project
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
+1. Run `git clone https://github.com/WildCodeSchool/purple-php-2109-project3-destinations-and-adventures.git` on the SSH command line 
 
 
-## Authors
+#### Installing dependencies
 
-Wild Code School trainers team
+Use Composer to install all the required dependencies (first check the PHP version installed in the server, here we've used PHP 7.1) :
 
-## License
+    php-7.1  -d allow_url_fopen=on -d memory_limit=-1 composer.phar install
 
-MIT License
+#### Deploying Encore Assets
 
-Copyright (c) 2019 aurelien@wildcodeschool.fr
+Run this command to get the .css and .js assets :
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+    ./node_modules/.bin/encore production
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+#### Populating the database
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Enter the .env file at the root of the project and edit :
+ -   "APP_ENV=dev" to "APP_ENV=prod"
+ -   The database parameters to the ones you get from your host (DATABASE_URL=...)
 
-## Acknowledgments
+Now you can set up your database by execute each of these commands:
+- `php-7.1 bin/console doctrine:database:drop --force`
+- `php-7.1 bin/console doctrine:database:create`
+- `php-7.1 bin/console doctrine:schema:update --force`
 
+#### Clear the cache
+
+    php-7.1 bin/console cache:clear
+
+Here you go! Your website is now online and ready to go.
+
+# First steps on the app
+
+To access the app for the first time, you will need to create a first account.
+To do so, go to the **/register** path.
+
+There you will be asked to set up the first account.
+
+Once your account is created, you can log into the app and start using it.
