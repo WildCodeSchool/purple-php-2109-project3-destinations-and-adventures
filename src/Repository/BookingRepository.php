@@ -27,10 +27,10 @@ class BookingRepository extends ServiceEntityRepository
     public function findDaiCommission(int $days)
     {
         return $this->createQueryBuilder('b')
-            ->where('b.returnDate <= :chooseDays')
-            ->andWhere('b.returnDate >= :today')
+            ->where('b.returnDate >= :chooseDays')
+            ->andWhere('b.returnDate <= :today')
             ->setParameter('today', new DateTime('today'))
-            ->setParameter('chooseDays', new DateTime('today + ' . $days . 'days'))
+            ->setParameter('chooseDays', new DateTime('today - ' . $days . 'days'))
             ->orderBy('b.departure', 'ASC')
             ->getQuery()
             ->getResult();
@@ -42,7 +42,7 @@ class BookingRepository extends ServiceEntityRepository
     public function findAllDaiCommissionFromToday()
     {
         return $this->createQueryBuilder('b')
-            ->where('b.returnDate >= :today')
+            ->where('b.returnDate <= :today')
             ->setParameter('today', new DateTime('today'))
             ->orderBy('b.departure', 'ASC')
             ->getQuery()
@@ -98,9 +98,9 @@ class BookingRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('b')
             ->where('b.returnDate <= :today')
-            ->andWhere('b.returnDate <= :fifteenDays')
+            ->andWhere('b.returnDate >= :fifteenDays')
             ->setParameter('today', new DateTime('today'))
-            ->setParameter('fifteenDays', new DateTime('today + ' . $days . 'days'))
+            ->setParameter('fifteenDays', new DateTime('today - ' . $days . 'days'))
             ->orderBy('b.departure', 'ASC')
             ->getQuery()
             ->getResult();
